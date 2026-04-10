@@ -303,6 +303,10 @@ tbody td{padding:9px 12px;font-size:13px;color:var(--text);vertical-align:middle
           </div>
           <div class="cycle-info-box" id="ret-info"></div>
           <div class="form-group">
+            <div class="form-group">
+               <label>Quantity Returning</label>
+                <input type="number" id="ret-qty" min="1" placeholder="How many sets returning?"/>
+            </div>
             <label>Return Date</label>
             <input type="date" id="ret-date"/>
           </div>
@@ -618,8 +622,14 @@ function onReturnCycleSelect() {
   if (!id) { box.style.display = 'none'; return; }
   const c = allCycles.find(x => x.cycle_id === id);
   if (!c) return;
+  const alreadyReturned = c.quantity_returned || 0;
+  const remaining = c.quantity_received - alreadyReturned;
   box.style.display = 'block';
-  box.innerHTML = `<b>${c.vendor}</b> · ${c.set_type} · <b>${c.quantity_received}</b> sets at TSS ready to return`;
+  box.innerHTML = `<b>${c.vendor}</b> · ${c.set_type} · 
+    Received <b>${c.quantity_received}</b> · 
+    Already returned <b>${alreadyReturned}</b> · 
+    <span style="color:var(--red)">Remaining at TSS: ${remaining}</span>`;
+  document.getElementById('ret-qty').value = remaining;
 }
 
 async function doReceive() {
@@ -649,19 +659,22 @@ async function doReceive() {
 
 async function doReturn() {
   const cycle_id = document.getElementById('ret-cycle').value;
+  const quantity_returned = parseInt(document.getElementById('ret-qty').value) || 0;
   const return_date = document.getElementById('ret-date').value;
   const notes = document.getElementById('ret-notes').value;
   if (!cycle_id) { showToast('⚠ Select a cycle'); return; }
+  if (quantity_returned < 1) { showToast('⚠ Enter quantity to return'); return; }
 
   const data = await apiFetch(`/api/cycles/${cycle_id}/return`, {
     method: 'PATCH',
-    body: JSON.stringify({ return_date, notes })
+    body: JSON.stringify({ return_date, notes, quantity_returned })
   });
   if (!data) return;
   if (data.error) { showToast('⚠ ' + data.error); return; }
 
-  showToast(`✓ ${cycle_id} marked as returned to supplier`);
+  showToast(`✓ ${quantity_returned} sets returned for ${cycle_id}`);
   document.getElementById('ret-notes').value = '';
+  document.getElementById('ret-qty').value = '';
   document.getElementById('ret-info').style.display = 'none';
   setToday('ret-date');
   loadReceiveDropdowns();
@@ -718,7 +731,12 @@ async function loadCycles() {
 async function deleteCycle(id) {
   if (!confirm(`Delete cycle ${id}? This cannot be undone.`)) return;
   const data = await apiFetch(`/api/cycles/${id}`, { method: 'DELETE' });
-  if (data && !data.error) { showToast(`✓ ${id} deleted`); loadCycles(); loadDashboard(); }
+  if (data && !data.error) {
+    showToast(`✓ ${id} deleted`);
+    allCycles = allCycles.filter(c => c.cycle_id !== id);
+    await loadCycles();
+    await loadDashboard();
+  }
 }
 
 // ── AUDIT LOG ──
