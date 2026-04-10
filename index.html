@@ -438,10 +438,10 @@ let stockChart;
 window.onload = () => {
   setToday('d-date'); setToday('r-date'); setToday('ret-date');
   if (token && currentUser) bootApp();
-  else showLogin();
-  document.getElementById('login-password').addEventListener('keydown', e => {
-    if (e.key === 'Enter') doLogin();
-  });
+  else {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+}
 };
 
 function setToday(id) {
