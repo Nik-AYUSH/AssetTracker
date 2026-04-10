@@ -426,7 +426,7 @@ tbody td{padding:9px 12px;font-size:13px;color:var(--text);vertical-align:middle
 // ─────────────────────────────────────────
 // CONFIG — change this to your Railway URL
 // ─────────────────────────────────────────
-const API = 'assettrackerdb-bckend-production.up.railway.app';
+const API = 'https://assettrackerdb-bckend-production.up.railway.app';
 
 let token = localStorage.getItem('pt_token');
 let currentUser = JSON.parse(localStorage.getItem('pt_user') || 'null');
@@ -437,6 +437,9 @@ let stockChart;
 // ── INIT ──
 window.onload = () => {
   setToday('d-date'); setToday('r-date'); setToday('ret-date');
+  document.querySelectorAll('.modal-bg').forEach(bg => {
+  bg.addEventListener('click', e => { if (e.target === bg) bg.classList.remove('open'); });
+});
   if (token && currentUser) bootApp();
   else {
   document.getElementById('login-screen').style.display = 'flex';
@@ -868,9 +871,7 @@ async function deleteUser(id) {
 // ── MODAL HELPERS ──
 function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-bg').forEach(bg => {
-  bg.addEventListener('click', e => { if (e.target === bg) bg.classList.remove('open'); });
-});
+
 
 // ── TOAST ──
 let toastTimer;
