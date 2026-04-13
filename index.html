@@ -200,10 +200,10 @@ tbody td{padding:9px 12px;font-size:13px;color:var(--text);vertical-align:middle
     <!-- DASHBOARD -->
     <div class="page active" id="page-dashboard">
       <div class="stats">
-        <div class="stat-card s1"><span class="s-label">Total FLC Sets</span><span class="s-val" id="st-flc">—</span></div>
-        <div class="stat-card s2"><span class="s-label">Total W/C Sets</span><span class="s-val" id="st-wc">—</span></div>
-        <div class="stat-card s3"><span class="s-label">In Transit</span><span class="s-val" id="st-transit">—</span></div>
-        <div class="stat-card s4"><span class="s-label">Pending Cycles</span><span class="s-val" id="st-pending">—</span></div>
+         <div class="stat-card s1"><span class="s-label">Dispatched from Supplier</span><span class="s-val" id="st-dispatched-supplier">—</span></div>
+         <div class="stat-card s2"><span class="s-label">Received at TSS</span><span class="s-val" id="st-received-tss">—</span></div>
+         <div class="stat-card s3"><span class="s-label">Dispatched from TSS</span><span class="s-val" id="st-dispatched-tss">—</span></div>
+         <div class="stat-card s4"><span class="s-label">Received at Supplier</span><span class="s-val" id="st-received-supplier">—</span></div>
       </div>
       <div class="chart-row">
         <div class="card">
@@ -271,54 +271,55 @@ tbody td{padding:9px 12px;font-size:13px;color:var(--text);vertical-align:middle
     </div>
 
     <!-- RECEIVE / RETURN -->
-    <div class="page" id="page-receive">
-      <div class="form-grid">
-        <div class="card">
-          <div class="card-title">Receive at TSS <span style="font-size:11px;font-weight:400;color:var(--muted)">Mark sets arrived</span></div>
-          <div class="form-group">
-            <label>Cycle ID</label>
-            <select id="r-cycle" onchange="onReceiveCycleSelect()"><option value="">— select pending cycle —</option></select>
-          </div>
-          <div class="cycle-info-box" id="r-info"></div>
-          <div class="form-group">
-            <label>Quantity Received</label>
-            <input type="number" id="r-qty" min="1"/>
-          </div>
-          <div class="form-group">
-            <label>Received Date</label>
-            <input type="date" id="r-date"/>
-          </div>
-          <div class="form-group">
-            <label>Notes (optional)</label>
-            <input type="text" id="r-notes" placeholder="Any notes..."/>
-          </div>
-          <button class="btn btn-success btn-full" onclick="doReceive()">Mark Received ✓</button>
-        </div>
+    <!-- RECEIVE / RETURN -->
+<div class="page" id="page-receive">
 
-        <div class="card">
-          <div class="card-title">Return to Supplier <span style="font-size:11px;font-weight:400;color:var(--muted)">Empty sets back</span></div>
-          <div class="form-group">
-            <label>Cycle ID</label>
-            <select id="ret-cycle" onchange="onReturnCycleSelect()"><option value="">— select in-progress cycle —</option></select>
-          </div>
-          <div class="cycle-info-box" id="ret-info"></div>
-          <div class="form-group">
-            <div class="form-group">
-               <label>Quantity Returning</label>
-                <input type="number" id="ret-qty" min="1" placeholder="How many sets returning?"/>
-            </div>
-            <label>Return Date</label>
-            <input type="date" id="ret-date"/>
-          </div>
-          <div class="form-group">
-            <label>Notes (optional)</label>
-            <input type="text" id="ret-notes" placeholder="Any notes..."/>
-          </div>
-          <button class="btn btn-primary btn-full" onclick="doReturn()">Mark Returned →</button>
-        </div>
+  <!-- Row 1: Supplier → TSS -->
+  <div class="form-grid">
+    <div class="card">
+      <div class="card-title">1. Receive at TSS <span style="font-size:11px;font-weight:400;color:var(--muted)">Supplier → TSS</span></div>
+      <div class="form-group">
+        <label>Cycle ID</label>
+        <select id="r-cycle" onchange="onReceiveCycleSelect()"><option value="">— select cycle —</option></select>
       </div>
+      <div class="cycle-info-box" id="r-info"></div>
+      <div class="form-group"><label>Quantity Received</label><input type="number" id="r-qty" min="1"/></div>
+      <div class="form-group"><label>Date</label><input type="date" id="r-date"/></div>
+      <div class="form-group"><label>Notes</label><input type="text" id="r-notes" placeholder="Any notes..."/></div>
+      <button class="btn btn-success btn-full" onclick="doReceive()">Mark Received at TSS ✓</button>
     </div>
 
+    <div class="card">
+      <div class="card-title">2. Dispatch from TSS <span style="font-size:11px;font-weight:400;color:var(--muted)">TSS → Supplier</span></div>
+      <div class="form-group">
+        <label>Cycle ID</label>
+        <select id="ret-cycle" onchange="onReturnCycleSelect()"><option value="">— select cycle —</option></select>
+      </div>
+      <div class="cycle-info-box" id="ret-info"></div>
+      <div class="form-group"><label>Quantity Dispatching</label><input type="number" id="ret-qty" min="1"/></div>
+      <div class="form-group"><label>Date</label><input type="date" id="ret-date"/></div>
+      <div class="form-group"><label>Notes</label><input type="text" id="ret-notes" placeholder="Any notes..."/></div>
+      <button class="btn btn-primary btn-full" onclick="doReturn()">Mark Dispatched from TSS →</button>
+    </div>
+  </div>
+
+  <!-- Row 2: Supplier confirms receipt -->
+  <div class="card">
+    <div class="card-title">3. Received at Supplier <span style="font-size:11px;font-weight:400;color:var(--muted)">Supplier confirms sets back</span></div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Cycle ID</label>
+        <select id="rs-cycle" onchange="onSupplierReceiveSelect()"><option value="">— select cycle —</option></select>
+      </div>
+      <div class="form-group"><label>Quantity Received back</label><input type="number" id="rs-qty" min="1"/></div>
+      <div class="form-group"><label>Date</label><input type="date" id="rs-date"/></div>
+      <div class="form-group"><label>Notes</label><input type="text" id="rs-notes" placeholder="Any notes..."/></div>
+    </div>
+    <div class="cycle-info-box" id="rs-info"></div>
+    <button class="btn btn-success btn-full" onclick="doSupplierReceive()">Confirm Received at Supplier ✓</button>
+  </div>
+
+</div>
     <!-- CYCLE LOG -->
     <div class="page" id="page-cycles">
       <div class="card">
@@ -342,8 +343,9 @@ tbody td{padding:9px 12px;font-size:13px;color:var(--text);vertical-align:middle
           <table>
             <thead>
               <tr>
-                <th>Cycle ID</th><th>Vendor</th><th>Type</th><th>Dispatch Date</th>
-                <th>Sent</th><th>Received</th><th>Balance</th><th>Status</th><th>Actions</th>
+                <th>Cycle ID</th><th>Vendor</th><th>Type</th><th>Date</th>
+                <th>① Dispatched</th><th>② Rcvd TSS</th><th>③ Dispatched TSS</th><th>④ Rcvd Supplier</th>
+                <th>Status</th><th>Actions</th>
               </tr>
             </thead>
             <tbody id="cycle-tbody"></tbody>
@@ -592,16 +594,62 @@ async function loadReceiveDropdowns() {
   if (!data) return;
   allCycles = data;
 
-  const pending = data.filter(c => c.status === 'pending');
+  const pending    = data.filter(c => c.status === 'pending');
   const inProgress = data.filter(c => c.status === 'in_progress');
 
-  const rSel = document.getElementById('r-cycle');
-  rSel.innerHTML = '<option value="">— select pending cycle —</option>' +
-    pending.map(c => `<option value="${c.cycle_id}">${c.cycle_id} · ${c.vendor} · ${c.set_type} · bal: ${c.quantity_sent - c.quantity_received}</option>`).join('');
+  document.getElementById('r-cycle').innerHTML =
+    '<option value="">— select cycle —</option>' +
+    pending.map(c => `<option value="${c.cycle_id}">${c.cycle_id} · ${c.vendor} · ${c.set_type}</option>`).join('');
 
-  const retSel = document.getElementById('ret-cycle');
-  retSel.innerHTML = '<option value="">— select in-progress cycle —</option>' +
+  document.getElementById('ret-cycle').innerHTML =
+    '<option value="">— select cycle —</option>' +
     inProgress.map(c => `<option value="${c.cycle_id}">${c.cycle_id} · ${c.vendor} · ${c.set_type}</option>`).join('');
+
+  document.getElementById('rs-cycle').innerHTML =
+    '<option value="">— select cycle —</option>' +
+    inProgress.filter(c => c.quantity_dispatched_tss > 0).map(c =>
+      `<option value="${c.cycle_id}">${c.cycle_id} · ${c.vendor} · ${c.set_type}</option>`
+    ).join('');
+}
+
+function onSupplierReceiveSelect() {
+  const id = document.getElementById('rs-cycle').value;
+  const box = document.getElementById('rs-info');
+  if (!id) { box.style.display = 'none'; return; }
+  const c = allCycles.find(x => x.cycle_id === id);
+  if (!c) return;
+  const remaining = c.quantity_dispatched_tss - (c.quantity_received_supplier || 0);
+  box.style.display = 'block';
+  box.innerHTML = `<b>${c.vendor}</b> · ${c.set_type} · 
+    Dispatched from TSS <b>${c.quantity_dispatched_tss}</b> · 
+    Already received back <b>${c.quantity_received_supplier || 0}</b> · 
+    <span style="color:var(--red)">Still in transit: ${remaining}</span>`;
+  document.getElementById('rs-qty').value = remaining;
+}
+
+async function doSupplierReceive() {
+  const cycle_id = document.getElementById('rs-cycle').value;
+  const qty = parseInt(document.getElementById('rs-qty').value) || 0;
+  const date = document.getElementById('rs-date').value;
+  const notes = document.getElementById('rs-notes').value;
+  if (!cycle_id) { showToast('⚠ Select a cycle'); return; }
+  if (qty < 1) { showToast('⚠ Enter quantity'); return; }
+
+  const data = await apiFetch(`/api/cycles/${cycle_id}/receive-supplier`, {
+    method: 'PATCH',
+    body: JSON.stringify({ quantity_received_supplier: qty, received_supplier_date: date, notes })
+  });
+  if (!data) return;
+  if (data.error) { showToast('⚠ ' + data.error); return; }
+
+  showToast(`✓ ${qty} sets confirmed received at supplier for ${cycle_id}`);
+  document.getElementById('rs-qty').value = '';
+  document.getElementById('rs-notes').value = '';
+  document.getElementById('rs-info').style.display = 'none';
+  setToday('rs-date');
+  loadReceiveDropdowns();
+  loadDashboard();
+  loadCycles();
 }
 
 function onReceiveCycleSelect() {
@@ -659,22 +707,22 @@ async function doReceive() {
 
 async function doReturn() {
   const cycle_id = document.getElementById('ret-cycle').value;
-  const quantity_returned = parseInt(document.getElementById('ret-qty').value) || 0;
+  const qty = parseInt(document.getElementById('ret-qty').value) || 0;
   const return_date = document.getElementById('ret-date').value;
   const notes = document.getElementById('ret-notes').value;
   if (!cycle_id) { showToast('⚠ Select a cycle'); return; }
-  if (quantity_returned < 1) { showToast('⚠ Enter quantity to return'); return; }
+  if (qty < 1) { showToast('⚠ Enter quantity'); return; }
 
-  const data = await apiFetch(`/api/cycles/${cycle_id}/return`, {
+  const data = await apiFetch(`/api/cycles/${cycle_id}/dispatch-return`, {
     method: 'PATCH',
-    body: JSON.stringify({ return_date, notes, quantity_returned })
+    body: JSON.stringify({ quantity_dispatched_tss: qty, dispatch_return_date: return_date, notes })
   });
   if (!data) return;
   if (data.error) { showToast('⚠ ' + data.error); return; }
 
-  showToast(`✓ ${quantity_returned} sets returned for ${cycle_id}`);
-  document.getElementById('ret-notes').value = '';
+  showToast(`✓ ${qty} sets dispatched from TSS for ${cycle_id}`);
   document.getElementById('ret-qty').value = '';
+  document.getElementById('ret-notes').value = '';
   document.getElementById('ret-info').style.display = 'none';
   setToday('ret-date');
   loadReceiveDropdowns();
@@ -718,7 +766,8 @@ async function loadCycles() {
       <td style="color:var(--muted);font-size:12px">${c.dispatch_date ? c.dispatch_date.split('T')[0] : '—'}</td>
       <td>${c.quantity_sent}</td>
       <td>${c.quantity_received}</td>
-      <td>${bal > 0 ? `<span class="bal-pos">${bal}</span>` : `<span class="bal-zero">0</span>`}</td>
+      <td>${c.quantity_dispatched_tss || 0}</td>
+      <td>${c.quantity_received_supplier || 0}</td>
       <td><span class="badge ${badgeMap[c.status]}">${statusLabel[c.status]}</span></td>
       <td style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="btn btn-outline btn-sm" onclick="viewAudit('${c.cycle_id}')">Log</button>
@@ -766,10 +815,10 @@ async function loadDashboard() {
   if (!data) return;
   const t = data.totals;
 
-  document.getElementById('st-flc').textContent     = t.total_flc || 0;
-  document.getElementById('st-wc').textContent      = t.total_wc || 0;
-  document.getElementById('st-transit').textContent = t.in_transit || 0;
-  document.getElementById('st-pending').textContent = t.pending_cycles || 0;
+  document.getElementById('st-dispatched-supplier').textContent = t.dispatched_from_supplier || 0;
+  document.getElementById('st-received-tss').textContent        = t.received_at_tss || 0;
+  document.getElementById('st-dispatched-tss').textContent      = t.dispatched_from_tss || 0;
+  document.getElementById('st-received-supplier').textContent   = t.received_at_supplier || 0;
   document.getElementById('open-val').textContent   = t.open_cycles || 0;
   document.getElementById('closed-val').textContent = t.closed_cycles || 0;
 
