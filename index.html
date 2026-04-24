@@ -232,7 +232,11 @@ tbody td{padding:8px 10px;font-size:12px;color:var(--text);vertical-align:middle
         <div class="table-wrap">
           <table>
             <thead><tr>
-              <th>Date</th><th>Vendor</th><th>Type</th><th>Qty</th><th>Vehicle</th><th>Logged By</th><th>Remarks</th><th>Action</th>
+              <th>Date</th><th>Vendor</th>
+              <th>Opening FLC</th><th>Opening W/C</th>
+              <th>Closing FLC</th><th>Closing W/C</th>
+              <th>Dispatched FLC</th><th>Dispatched W/C</th>
+              <th>Logged By</th><th>Remarks</th><th>Action</th>
             </tr></thead>
             <tbody id="dispatch-tbody"></tbody>
           </table>
@@ -245,92 +249,91 @@ tbody td{padding:8px 10px;font-size:12px;color:var(--text);vertical-align:middle
     </div>
 
     <!-- ══ SUPPLIER → TSS ══ -->
-    <div class="page" id="page-supplier-tss">
-      <div class="card">
-        <div class="card-title">
-          <span><span class="step-badge step-2">2</span>Supplier → TSS</span>
-          <span class="card-subtitle">Log stock received at TSS from Supplier</span>
-        </div>
-        <div class="form-grid">
-          <div class="fg"><label>Date</label>
-            <input type="date" id="st-date"/></div>
-          <div class="fg"><label>Vendor</label>
-            <select id="st-vendor">
-              <option value="Mahasai">Mahasai Aluminium</option>
-              <option value="Sanvijay">Sanvijay</option>
-            </select></div>
-          <div class="fg"><label>Opening Stock</label>
-            <input type="number" id="st-opening" value="0" min="0"/></div>
-          <div class="fg"><label>Closing Stock</label>
-            <input type="number" id="st-closing" value="0" min="0"/></div>
-          <div class="fg"><label>Qty Dispatched to TSS</label>
-            <input type="number" id="st-dispatched" value="0" min="0"/></div>
-          <div class="fg"><label>Remarks</label>
-            <input type="text" id="st-remarks" placeholder="Optional..."/></div>
-        </div>
-        <button class="btn btn-success btn-full" onclick="doSupplierToTss()">Save Entry →</button>
-      </div>
+    <div class="fg"><label>Date</label>
+  <input type="date" id="st-date"/></div>
+<div class="fg"><label>Vendor</label>
+  <select id="st-vendor">
+    <option value="Mahasai">Mahasai Aluminium</option>
+    <option value="Sanvijay">Sanvijay</option>
+  </select></div>
 
-      <div class="card">
-        <div class="card-title">Supplier → TSS Log</div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr>
-              <th>Date</th><th>Vendor</th><th>Opening Stock</th><th>Closing Stock</th><th>Dispatched</th><th>Logged By</th><th>Remarks</th><th>Action</th>
-            </tr></thead>
-            <tbody id="supplier-tss-tbody"></tbody>
-          </table>
-          <div id="supplier-tss-empty" class="empty" style="display:none">
-            <div class="empty-icon">🏭</div>
-            <div style="font-size:13px">No entries yet.</div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!-- Opening Stock -->
+<div style="grid-column:1/-1">
+  <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Opening Stock</div>
+  <div class="form-grid">
+    <div class="fg"><label>FLC Sets</label>
+      <input type="number" id="st-opening-flc" value="0" min="0"/></div>
+    <div class="fg"><label>W/C Sets</label>
+      <input type="number" id="st-opening-wc" value="0" min="0"/></div>
+  </div>
+</div>
+
+<!-- Closing Stock -->
+<div style="grid-column:1/-1">
+  <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Closing Stock</div>
+  <div class="form-grid">
+    <div class="fg"><label>FLC Sets</label>
+      <input type="number" id="st-closing-flc" value="0" min="0"/></div>
+    <div class="fg"><label>W/C Sets</label>
+      <input type="number" id="st-closing-wc" value="0" min="0"/></div>
+  </div>
+</div>
+
+<!-- Dispatched -->
+<div style="grid-column:1/-1">
+  <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Qty Dispatched to TSS</div>
+  <div class="form-grid">
+    <div class="fg"><label>FLC Sets</label>
+      <input type="number" id="st-dispatched-flc" value="0" min="0"/></div>
+    <div class="fg"><label>W/C Sets</label>
+      <input type="number" id="st-dispatched-wc" value="0" min="0"/></div>
+  </div>
+</div>
+
+<div class="fg" style="grid-column:1/-1"><label>Remarks</label>
+  <input type="text" id="st-remarks" placeholder="Optional..."/></div>
 
     <!-- ══ TSS → SUPPLIER ══ -->
-    <div class="page" id="page-tss-supplier">
-      <div class="card">
-        <div class="card-title">
-          <span><span class="step-badge step-3">3</span>TSS → Supplier</span>
-          <span class="card-subtitle">Log sets dispatched from TSS back to Supplier</span>
-        </div>
-        <div class="form-grid">
-          <div class="fg"><label>Date</label>
-            <input type="date" id="ts-date"/></div>
-          <div class="fg"><label>Vendor</label>
-            <select id="ts-vendor">
-              <option value="Mahasai">Mahasai Aluminium</option>
-              <option value="Sanvijay">Sanvijay</option>
-            </select></div>
-          <div class="fg"><label>Opening Stock</label>
-            <input type="number" id="ts-opening" value="0" min="0"/></div>
-          <div class="fg"><label>Closing Stock</label>
-            <input type="number" id="ts-closing" value="0" min="0"/></div>
-          <div class="fg"><label>Qty Dispatched to Supplier</label>
-            <input type="number" id="ts-dispatched" value="0" min="0"/></div>
-          <div class="fg"><label>Remarks</label>
-            <input type="text" id="ts-remarks" placeholder="Optional..."/></div>
-        </div>
-        <button class="btn btn-amber btn-full" onclick="doTssToSupplier()">Save Entry →</button>
-      </div>
+    <div class="fg"><label>Date</label>
+  <input type="date" id="ts-date"/></div>
+<div class="fg"><label>Vendor</label>
+  <select id="ts-vendor">
+    <option value="Mahasai">Mahasai Aluminium</option>
+    <option value="Sanvijay">Sanvijay</option>
+  </select></div>
 
-      <div class="card">
-        <div class="card-title">TSS → Supplier Log</div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr>
-              <th>Date</th><th>Vendor</th><th>Opening Stock</th><th>Closing Stock</th><th>Dispatched</th><th>Logged By</th><th>Remarks</th><th>Action</th>
-            </tr></thead>
-            <tbody id="tss-supplier-tbody"></tbody>
-          </table>
-          <div id="tss-supplier-empty" class="empty" style="display:none">
-            <div class="empty-icon">🚚</div>
-            <div style="font-size:13px">No entries yet.</div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div style="grid-column:1/-1">
+  <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Opening Stock</div>
+  <div class="form-grid">
+    <div class="fg"><label>FLC Sets</label>
+      <input type="number" id="ts-opening-flc" value="0" min="0"/></div>
+    <div class="fg"><label>W/C Sets</label>
+      <input type="number" id="ts-opening-wc" value="0" min="0"/></div>
+  </div>
+</div>
+
+<div style="grid-column:1/-1">
+  <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Closing Stock</div>
+  <div class="form-grid">
+    <div class="fg"><label>FLC Sets</label>
+      <input type="number" id="ts-closing-flc" value="0" min="0"/></div>
+    <div class="fg"><label>W/C Sets</label>
+      <input type="number" id="ts-closing-wc" value="0" min="0"/></div>
+  </div>
+</div>
+
+<div style="grid-column:1/-1">
+  <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Qty Dispatched to Supplier</div>
+  <div class="form-grid">
+    <div class="fg"><label>FLC Sets</label>
+      <input type="number" id="ts-dispatched-flc" value="0" min="0"/></div>
+    <div class="fg"><label>W/C Sets</label>
+      <input type="number" id="ts-dispatched-wc" value="0" min="0"/></div>
+  </div>
+</div>
+
+<div class="fg" style="grid-column:1/-1"><label>Remarks</label>
+  <input type="text" id="ts-remarks" placeholder="Optional..."/></div>
 
     <!-- ══ USERS ══ -->
     <div class="page" id="page-users">
@@ -541,23 +544,29 @@ async function loadDispatchLog() {
 
 // ── LOG 2: SUPPLIER → TSS ──
 async function doSupplierToTss() {
-  const date         = document.getElementById('st-date').value;
-  const vendor       = document.getElementById('st-vendor').value;
-  const opening_stock = parseInt(document.getElementById('st-opening').value) || 0;
-  const closing_stock = parseInt(document.getElementById('st-closing').value) || 0;
-  const qty_dispatched = parseInt(document.getElementById('st-dispatched').value) || 0;
-  const remarks      = document.getElementById('st-remarks').value;
-  if (!date)   { showToast('⚠ Date is required'); return; }
-  const data = await apiFetch('/api/logs/supplier-to-tss', {
-    method:'POST', body: JSON.stringify({ date, vendor, opening_stock, closing_stock, qty_dispatched, remarks })
-  });
+  const date   = document.getElementById('st-date').value;
+  const vendor = document.getElementById('st-vendor').value;
+  if (!date) { showToast('⚠ Date is required'); return; }
+  const body = {
+    date, vendor,
+    opening_flc:   parseInt(document.getElementById('st-opening-flc').value)   || 0,
+    opening_wc:    parseInt(document.getElementById('st-opening-wc').value)    || 0,
+    closing_flc:   parseInt(document.getElementById('st-closing-flc').value)   || 0,
+    closing_wc:    parseInt(document.getElementById('st-closing-wc').value)    || 0,
+    dispatched_flc:parseInt(document.getElementById('st-dispatched-flc').value)|| 0,
+    dispatched_wc: parseInt(document.getElementById('st-dispatched-wc').value) || 0,
+    remarks: document.getElementById('st-remarks').value,
+  };
+  const data = await apiFetch('/api/logs/supplier-to-tss', { method:'POST', body: JSON.stringify(body) });
   if (!data) return;
   if (data.error) { showToast('⚠ ' + data.error); return; }
-  showToast('✓ Supplier → TSS entry saved');
-  ['st-opening','st-closing','st-dispatched'].forEach(id => document.getElementById(id).value = 0);
+  showToast(`✓ Supplier → TSS entry saved for ${vendor}`);
+  ['st-opening-flc','st-opening-wc','st-closing-flc','st-closing-wc','st-dispatched-flc','st-dispatched-wc']
+    .forEach(id => document.getElementById(id).value = 0);
   document.getElementById('st-remarks').value = '';
   setToday('st-date');
-  loadDashboard(); loadSupplierToTssLog();
+  loadDashboard();
+  loadSupplierToTssLog();
 }
 
 async function loadSupplierToTssLog() {
@@ -569,36 +578,45 @@ async function loadSupplierToTssLog() {
   empty.style.display='none';
   const canDel = currentUser?.role === 'admin';
   tbody.innerHTML = data.map(r => `<tr>
-    <td class="mono">${r.date ? r.date.split('T')[0] : '—'}</td>
-    <td>${r.vendor}</td>
-    <td>${r.opening_stock}</td>
-    <td>${r.closing_stock}</td>
-    <td style="font-weight:600;color:var(--green)">${r.qty_dispatched}</td>
-    <td>${r.logged_by_name||'—'}</td>
-    <td style="color:var(--muted)">${r.remarks||'—'}</td>
-    <td>${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('supplier-to-tss',${r.id})">Del</button>` : '—'}</td>
-  </tr>`).join('');
+  <td style="color:var(--muted);font-size:11px">${r.date ? r.date.split('T')[0] : '—'}</td>
+  <td>${r.vendor}</td>
+  <td>${r.opening_flc}</td>
+  <td>${r.opening_wc}</td>
+  <td>${r.closing_flc}</td>
+  <td>${r.closing_wc}</td>
+  <td style="font-weight:600;color:var(--blue)">${r.dispatched_flc}</td>
+  <td style="font-weight:600;color:var(--green)">${r.dispatched_wc}</td>
+  <td>${r.logged_by_name||'—'}</td>
+  <td style="color:var(--muted)">${r.remarks||'—'}</td>
+  <td>${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('supplier-to-tss',${r.id})">Del</button>` : '—'}</td>
+</tr>`).join('');
 }
 
 // ── LOG 3: TSS → SUPPLIER ──
 async function doTssToSupplier() {
-  const date         = document.getElementById('ts-date').value;
-  const vendor       = document.getElementById('ts-vendor').value;
-  const opening_stock = parseInt(document.getElementById('ts-opening').value) || 0;
-  const closing_stock = parseInt(document.getElementById('ts-closing').value) || 0;
-  const qty_dispatched = parseInt(document.getElementById('ts-dispatched').value) || 0;
-  const remarks      = document.getElementById('ts-remarks').value;
-  if (!date)   { showToast('⚠ Date is required'); return; }
-  const data = await apiFetch('/api/logs/tss-to-supplier', {
-    method:'POST', body: JSON.stringify({ date, vendor, opening_stock, closing_stock, qty_dispatched, remarks })
-  });
+  const date   = document.getElementById('ts-date').value;
+  const vendor = document.getElementById('ts-vendor').value;
+  if (!date) { showToast('⚠ Date is required'); return; }
+  const body = {
+    date, vendor,
+    opening_flc:   parseInt(document.getElementById('ts-opening-flc').value)   || 0,
+    opening_wc:    parseInt(document.getElementById('ts-opening-wc').value)    || 0,
+    closing_flc:   parseInt(document.getElementById('ts-closing-flc').value)   || 0,
+    closing_wc:    parseInt(document.getElementById('ts-closing-wc').value)    || 0,
+    dispatched_flc:parseInt(document.getElementById('ts-dispatched-flc').value)|| 0,
+    dispatched_wc: parseInt(document.getElementById('ts-dispatched-wc').value) || 0,
+    remarks: document.getElementById('ts-remarks').value,
+  };
+  const data = await apiFetch('/api/logs/tss-to-supplier', { method:'POST', body: JSON.stringify(body) });
   if (!data) return;
   if (data.error) { showToast('⚠ ' + data.error); return; }
-  showToast('✓ TSS → Supplier entry saved');
-  ['ts-opening','ts-closing','ts-dispatched'].forEach(id => document.getElementById(id).value = 0);
+  showToast(`✓ TSS → Supplier entry saved for ${vendor}`);
+  ['ts-opening-flc','ts-opening-wc','ts-closing-flc','ts-closing-wc','ts-dispatched-flc','ts-dispatched-wc']
+    .forEach(id => document.getElementById(id).value = 0);
   document.getElementById('ts-remarks').value = '';
   setToday('ts-date');
-  loadDashboard(); loadTssToSupplierLog();
+  loadDashboard();
+  loadTssToSupplierLog();
 }
 
 async function loadTssToSupplierLog() {
