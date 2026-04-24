@@ -649,7 +649,8 @@ async function loadDashboard() {
     apiFetch('/api/logs/tss-to-supplier'),
   ]);
 
-  const sum = (arr, key) => (arr||[]).reduce((a,r) => a + (parseInt(r[key])||0), 0);
+  const toArr = d => (Array.isArray(d) ? d : []);
+  const sum = (arr, key) => toArr(arr).reduce((a,r) => a + (parseInt(r[key])||0), 0);
 
   const totalDispatched  = sum(d1, 'quantity');
   const totalSupToTss    = sum(d2, 'qty_dispatched');
@@ -663,9 +664,9 @@ async function loadDashboard() {
 
   // Recent activity — last 5 entries across all logs combined
   const recent = [
-    ...(d1||[]).map(r => ({ ...r, _type: 'YMKS → Supplier', _qty: r.quantity })),
-    ...(d2||[]).map(r => ({ ...r, _type: 'Supplier → TSS',  _qty: r.qty_dispatched })),
-    ...(d3||[]).map(r => ({ ...r, _type: 'TSS → Supplier',  _qty: r.qty_dispatched })),
+    ...toArr(d1).map(r => ({ ...r, _type: 'YMKS → Supplier', _qty: r.quantity })),
+    ...toArr(d2).map(r => ({ ...r, _type: 'Supplier → TSS',  _qty: r.qty_dispatched })),
+    ...toArr(d3).map(r => ({ ...r, _type: 'TSS → Supplier',  _qty: r.qty_dispatched })),
   ].sort((a,b) => new Date(b.created_at) - new Date(a.created_at)).slice(0,6);
 
   const colors = {'YMKS → Supplier':'var(--blue)','Supplier → TSS':'var(--green)','TSS → Supplier':'var(--amber)'};
