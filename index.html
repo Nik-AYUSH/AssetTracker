@@ -444,20 +444,13 @@ function bootApp() {
   document.getElementById('header-role').textContent =
     {admin:'Admin', supplier:'Supplier', tss_staff:'TSS Staff'}[currentUser.role];
 
-  // Role-based tab visibility
-  if (currentUser.role === 'admin') {
-    document.getElementById('tab-users').classList.remove('hidden');
-  }
-  if (currentUser.role === 'tss_staff') {
-    document.getElementById('tab-dispatch').classList.add('hidden');
-  }
+  if (currentUser.role === 'admin') document.getElementById('tab-users').classList.remove('hidden');
+  if (currentUser.role === 'tss_staff') document.getElementById('tab-dispatch').classList.add('hidden');
 
-  // Lock vendor for supplier
   if (currentUser.role === 'supplier' && currentUser.supplier_name) {
-    ['d-vendor','st-vendor','ts-vendor'].forEach(id => {
-      const sel = document.getElementById(id);
-      if (sel) { sel.value = currentUser.supplier_name; sel.disabled = true; }
-    });
+    const sel = document.getElementById('d-vendor');
+    sel.value = currentUser.supplier_name;
+    sel.disabled = true;
     onVendorChange();
   }
 
@@ -481,13 +474,13 @@ async function apiFetch(path, opts = {}) {
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
+  document.getElementById('page-' + name).classList.add('active');
   document.querySelector(`[data-page="${name}"]`).classList.add('active');
-  if (name === 'dashboard') loadDashboard();
-  if (name === 'dispatch') loadDispatchLog();
+  if (name === 'dashboard')    loadDashboard();
+  if (name === 'dispatch')     loadDispatchLog();
   if (name === 'supplier-tss') loadSupplierToTssLog();
   if (name === 'tss-supplier') loadTssToSupplierLog();
-  if (name === 'users') loadUsers();
+  
 }
 
 // ── VENDOR / TYPE ──
@@ -764,6 +757,126 @@ function showToast(msg) {
   t.textContent = msg; t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function onVendorChange() {
+  const v = document.getElementById('d-vendor').value;
+  const wcBtn = document.getElementById('tb-wc');
+  if (v === 'Sanvijay') { wcBtn.disabled = true; setType('FLC'); }
+  else wcBtn.disabled = false;
+}
+
+function setType(t) {
+  if (t === 'WC' && document.getElementById('tb-wc').disabled) return;
+  selectedType = t;
+  document.getElementById('tb-flc').classList.toggle('active', t === 'FLC');
+  document.getElementById('tb-wc').classList.toggle('active', t === 'WC');
+}
+
+async function doDispatch() {
+  const vendor = document.getElementById('d-vendor').value;
+  const qty    = parseInt(document.getElementById('d-qty').value) || 0;
+  const vehicle = document.getElementById('d-vehicle').value;
+  const date   = document.getElementById('d-date').value;
+  const remarks = document.getElementById('d-remarks').value;
+  const set_type = selectedType === 'FLC' ? 'FLC Set' : 'W/C Set';
+  if (qty < 1) { showToast('⚠ Quantity must be at least 1'); return; }
+  const data = await apiFetch('/api/logs/ymks-to-supplier', {
+    method: 'POST',
+    body: JSON.stringify({ date, vendor, set_type, quantity: qty, vehicle, remarks })
+  });
+  if (!data) return;
+  if (data.error) { showToast('⚠ ' + data.error); return; }
+  showToast(`✓ Dispatched ${qty} × ${set_type} to ${vendor}`);
+  document.getElementById('d-qty').value = 1;
+  document.getElementById('d-remarks').value = '';
+  setToday('d-date');
+  loadDashboard();
+  loadDispatchLog();
+}
+
+async function doSupplierToTss() {
+  const date     = document.getElementById('st-date').value;
+  const vendor   = document.getElementById('st-vendor').value;
+  const opening  = parseInt(document.getElementById('st-opening').value) || 0;
+  const closing  = parseInt(document.getElementById('st-closing').value) || 0;
+  const dispatched = parseInt(document.getElementById('st-dispatched').value) || 0;
+  const remarks  = document.getElementById('st-remarks').value;
+  if (!date) { showToast('⚠ Date is required'); return; }
+  const data = await apiFetch('/api/logs/supplier-to-tss', {
+    method: 'POST',
+    body: JSON.stringify({ date, vendor, opening_stock: opening, closing_stock: closing, qty_dispatched: dispatched, remarks })
+  });
+  if (!data) return;
+  if (data.error) { showToast('⚠ ' + data.error); return; }
+  showToast(`✓ Supplier → TSS entry saved for ${vendor}`);
+  ['st-opening','st-closing','st-dispatched'].forEach(id => document.getElementById(id).value = 0);
+  document.getElementById('st-remarks').value = '';
+  setToday('st-date');
+  loadDashboard();
+  loadSupplierToTssLog();
+}
+
+async function doTssToSupplier() {
+  const date     = document.getElementById('ts-date').value;
+  const vendor   = document.getElementById('ts-vendor').value;
+  const opening  = parseInt(document.getElementById('ts-opening').value) || 0;
+  const closing  = parseInt(document.getElementById('ts-closing').value) || 0;
+  const dispatched = parseInt(document.getElementById('ts-dispatched').value) || 0;
+  const remarks  = document.getElementById('ts-remarks').value;
+  if (!date) { showToast('⚠ Date is required'); return; }
+  const data = await apiFetch('/api/logs/tss-to-supplier', {
+    method: 'POST',
+    body: JSON.stringify({ date, vendor, opening_stock: opening, closing_stock: closing, qty_dispatched: dispatched, remarks })
+  });
+  if (!data) return;
+  if (data.error) { showToast('⚠ ' + data.error); return; }
+  showToast(`✓ TSS → Supplier entry saved for ${vendor}`);
+  ['ts-opening','ts-closing','ts-dispatched'].forEach(id => document.getElementById(id).value = 0);
+  document.getElementById('ts-remarks').value = '';
+  setToday('ts-date');
+  loadDashboard();
+  loadTssToSupplierLog();
+}
+
+async function loadDispatchLog() {
+  const data = await apiFetch('/api/logs/ymks-to-supplier');
+  if (!data) return;
+  const tbody = document.getElementById('dispatch-tbody');
+  const empty = document.getElementById('dispatch-empty');
+  if (!data.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  const canDel = currentUser?.role === 'admin';
+  tbody.innerHTML = data.map(r => `<tr>
+    <td style="color:var(--muted);font-size:11px">${r.date ? r.date.split('T')[0] : '—'}</td>
+    <td>${r.vendor}</td>
+    <td>${r.set_type}</td>
+    <td style="font-weight:600">${r.quantity}</td>
+    <td>${r.vehicle || '—'}</td>
+    <td>${r.logged_by_name || '—'}</td>
+    <td style="color:var(--muted)">${r.remarks || '—'}</td>
+    <td>${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('ymks-to-supplier',${r.id})">Del</button>` : '—'}</td>
+  </tr>`).join('');
+}
+
+async function loadSupplierToTssLog() {
+  const data = await apiFetch('/api/logs/supplier-to-tss');
+  if (!data) return;
+  const tbody = document.getElementById('supplier-tss-tbody');
+  const empty = document.getElementById('supplier-tss-empty');
+  if (!data.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  const canDel = currentUser?.role === 'admin';
+  tbody.innerHTML = data.map(r => `<tr>
+    <td style="color:var(--muted);font-size:11px">${r.date ? r.date.split('T')[0] : '—'}</td>
+    <td>${r.vendor}</td>
+    <td>${r.opening_stock}</td>
+    <td>${r.closing_stock}</td>
+    <td style="font-weight:600;color:var(--green)">${r.qty_dispatched}</td>
+    <td>${r.logged_by_name || '—'}</td>
+    <td style="color:var(--muted)">${r.remarks || '—'}</td>
+    <td>${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('supplier-to-tss',${r.id})">Del</button>` : '—'}</td>
+  </tr>`).join('');
 }
 </script>
 </body>
