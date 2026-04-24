@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Returnable Packaging Tracker</title>
+<title>YMKS Packaging Tracker</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap');
@@ -11,175 +11,178 @@
 :root{
   --navy:#1a2e4a;--navy2:#22395c;--blue:#2563a8;--blue2:#3b82c4;
   --green:#1a7a4a;--cyan:#0e7490;--amber:#b45309;--red:#dc2626;
+  --purple:#6d28d9;
   --bg:#eef2f7;--card:#fff;--border:#d1dae8;
   --text:#1e2d3d;--muted:#64748b;--light:#f1f5fb;
   --radius:10px;--shadow:0 2px 12px rgba(26,46,74,0.08);
 }
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px}
 
-/* ── LOGIN ── */
+/* LOGIN */
 #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#1a2e4a,#22395c)}
 .login-card{background:#fff;border-radius:16px;padding:40px 36px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.25)}
 .login-logo{text-align:center;margin-bottom:28px}
 .login-logo h2{font-size:18px;font-weight:600;color:var(--navy);margin-top:10px}
 .login-logo p{font-size:12px;color:var(--muted);margin-top:4px}
-.login-card .form-group{margin-bottom:16px}
+.login-card .fg{margin-bottom:16px}
 .login-card label{font-size:12px;font-weight:500;color:var(--muted);display:block;margin-bottom:5px}
 .login-card input{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none}
 .login-card input:focus{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(59,130,196,0.15)}
-.btn-login{width:100%;padding:11px;border-radius:8px;background:var(--navy);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;transition:background .15s}
+.btn-login{width:100%;padding:11px;border-radius:8px;background:var(--navy);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px}
 .btn-login:hover{background:var(--blue)}
 .login-error{color:var(--red);font-size:12px;margin-top:8px;text-align:center;min-height:18px}
 
-/* ── APP SHELL ── */
+/* APP */
 #app{display:none;min-height:100vh;flex-direction:column}
 header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-header h1{font-size:16px;font-weight:600;letter-spacing:0.01em}
-.header-right{display:flex;align-items:center;gap:16px}
+header h1{font-size:16px;font-weight:600}
+.header-right{display:flex;align-items:center;gap:12px}
 .user-badge{font-size:12px;opacity:0.85}
 .role-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,0.15)}
-.btn-logout{font-size:12px;padding:5px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.3);background:transparent;color:#fff;cursor:pointer;transition:background .15s}
+.btn-logout{font-size:12px;padding:5px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.3);background:transparent;color:#fff;cursor:pointer}
 .btn-logout:hover{background:rgba(255,255,255,0.1)}
 
-/* ── NAV TABS ── */
-nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:0;overflow-x:auto}
-.nav-tab{padding:14px 18px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
+/* NAV */
+nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;display:flex;overflow-x:auto}
+.nav-tab{padding:14px 16px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
 .nav-tab:hover{color:var(--navy)}
 .nav-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
 .nav-tab.hidden{display:none}
 
-/* ── MAIN CONTENT ── */
-main{flex:1;padding:20px 24px;max-width:1200px;width:100%;margin:0 auto}
+main{flex:1;padding:20px 24px;max-width:1280px;width:100%;margin:0 auto}
 .page{display:none}.page.active{display:block}
 
-/* ── CARDS ── */
+/* CARDS */
 .card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);padding:16px 18px;margin-bottom:16px}
 .card-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.card-subtitle{font-size:11px;font-weight:400;color:var(--muted)}
 
-/* ── STATS ── */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.stat-card{border-radius:var(--radius);padding:14px 18px;color:#fff;display:flex;flex-direction:column;gap:4px}
+/* STEP INDICATOR */
+.step-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:700;color:#fff;margin-right:6px;flex-shrink:0}
+.step-1{background:#1a3a5c}.step-2{background:#155e38}.step-3{background:#0e5a70}
+.step-6{background:#92400e}.step-8{background:#6d28d9}.step-9{background:#b91c1c}
+.step-tss{background:#0e7490}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat-card{border-radius:var(--radius);padding:12px 16px;color:#fff;display:flex;flex-direction:column;gap:3px}
 .stat-card.s1{background:linear-gradient(135deg,#1a3a5c,#1e4a72)}
 .stat-card.s2{background:linear-gradient(135deg,#155e38,#1a7a4a)}
 .stat-card.s3{background:linear-gradient(135deg,#0e5a70,#0e7490)}
-.stat-card.s4{background:linear-gradient(135deg,#92400e,#b45309)}
-.stat-card .s-label{font-size:12px;opacity:0.82;font-weight:500}
-.stat-card .s-val{font-family:'DM Mono',monospace;font-size:28px;font-weight:500;line-height:1}
+.stat-card.s6{background:linear-gradient(135deg,#92400e,#b45309)}
+.stat-card.s8{background:linear-gradient(135deg,#5b21b6,#6d28d9)}
+.stat-card.s9{background:linear-gradient(135deg,#991b1b,#b91c1c)}
+.stat-card .s-label{font-size:11px;opacity:0.82;font-weight:500}
+.stat-card .s-val{font-family:'DM Mono',monospace;font-size:26px;font-weight:500;line-height:1}
 
-/* ── CHARTS ── */
-.chart-row{display:grid;grid-template-columns:1fr 300px;gap:16px;margin-bottom:16px}
-canvas{max-height:200px}
+/* TSS STATS */
+.tss-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.tss-stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;text-align:center}
+.tss-stat .ts-label{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:4px}
+.tss-stat .ts-val{font-family:'DM Mono',monospace;font-size:22px;font-weight:600;color:var(--navy)}
 
-/* ── FORMS ── */
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-.form-group{display:flex;flex-direction:column;gap:5px}
-.form-group label{font-size:12px;font-weight:500;color:var(--muted)}
-.form-group input,.form-group select,.form-group textarea{border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;width:100%}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue2);box-shadow:0 0 0 2px rgba(59,130,196,0.12)}
-.form-group textarea{resize:vertical;min-height:72px}
+/* FORMS */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.fg{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.fg label{font-size:12px;font-weight:500;color:var(--muted)}
+.fg input,.fg select,.fg textarea{border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;width:100%}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue2);box-shadow:0 0 0 2px rgba(59,130,196,0.12)}
 .toggle-group{display:flex;gap:8px}
-.toggle-btn{flex:1;padding:8px 0;border-radius:7px;border:1px solid var(--border);background:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;color:var(--muted);transition:all .15s}
+.toggle-btn{flex:1;padding:8px 0;border-radius:7px;border:1px solid var(--border);background:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;color:var(--muted)}
 .toggle-btn.active{background:var(--blue);border-color:var(--blue);color:#fff}
 .toggle-btn:disabled{opacity:0.35;cursor:not-allowed}
 
-/* ── BUTTONS ── */
+/* BUTTONS */
 .btn{padding:9px 20px;border-radius:7px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
 .btn-primary{background:var(--blue);color:#fff}.btn-primary:hover{background:var(--blue2)}
 .btn-success{background:var(--green);color:#fff}.btn-success:hover{background:#1f9659}
+.btn-amber{background:var(--amber);color:#fff}.btn-amber:hover{background:#c26a0a}
+.btn-purple{background:var(--purple);color:#fff}.btn-purple:hover{background:#7c3aed}
 .btn-danger{background:var(--red);color:#fff}.btn-danger:hover{background:#b91c1c}
 .btn-outline{background:transparent;color:var(--navy);border:1px solid var(--border)}.btn-outline:hover{background:var(--light)}
 .btn-sm{padding:5px 12px;font-size:12px}
 .btn-full{width:100%;margin-top:6px}
 
-/* ── TABLE ── */
+/* INFO BOX */
+.info-box{background:var(--light);border:1px solid var(--border);border-radius:7px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--muted);display:none}
+.info-box b{color:var(--text)}
+
+/* TABLE */
 .table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:700px}
+table{width:100%;border-collapse:collapse;min-width:900px}
 thead tr{background:var(--navy)}
-thead th{color:#fff;font-size:12px;font-weight:500;padding:10px 12px;text-align:left;white-space:nowrap}
-tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+thead th{color:#fff;font-size:11px;font-weight:500;padding:9px 10px;text-align:left;white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border)}
 tbody tr:hover{background:var(--light)}
-tbody td{padding:9px 12px;font-size:13px;color:var(--text);vertical-align:middle}
+tbody td{padding:8px 10px;font-size:12px;color:var(--text);vertical-align:middle}
 .mono{font-family:'DM Mono',monospace;font-weight:500}
 
-/* ── BADGES ── */
-.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;white-space:nowrap}
+/* BADGES */
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:99px}
 .badge-pending{background:#fef3c7;color:#92400e}
 .badge-progress{background:#dbeafe;color:#1d4ed8}
 .badge-completed{background:#dcfce7;color:#15803d}
 .badge-admin{background:#ede9fe;color:#6d28d9}
 .badge-supplier{background:#dbeafe;color:#1d4ed8}
 .badge-tss{background:#d1fae5;color:#065f46}
-.bal-pos{color:var(--red);font-weight:600}
-.bal-zero{color:var(--green);font-weight:600}
 
-/* ── AUDIT LOG ── */
+/* AUDIT */
 .audit-entry{padding:10px 14px;border-left:3px solid var(--border);margin-bottom:8px;background:var(--light);border-radius:0 7px 7px 0}
 .audit-entry .ae-action{font-weight:600;font-size:13px;color:var(--navy)}
 .audit-entry .ae-meta{font-size:11px;color:var(--muted);margin-top:3px}
 .audit-entry .ae-detail{font-size:12px;color:var(--text);margin-top:4px}
-.audit-entry.DISPATCHED{border-color:var(--blue)}
-.audit-entry.RECEIVED{border-color:var(--green)}
-.audit-entry.RETURNED{border-color:var(--amber)}
 
-/* ── CYCLE INFO BOX ── */
-.cycle-info-box{background:var(--light);border:1px solid var(--border);border-radius:7px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--muted);display:none}
-.cycle-info-box b{color:var(--text)}
-
-/* ── MODAL ── */
+/* MODAL */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;z-index:200}
 .modal-bg.open{display:flex}
-.modal{background:#fff;border-radius:14px;padding:28px;width:100%;max-width:460px;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
+.modal{background:#fff;border-radius:14px;padding:28px;width:100%;max-width:500px;box-shadow:0 20px 60px rgba(0,0,0,0.2);max-height:90vh;overflow-y:auto}
 .modal h3{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:20px}
 .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
 
-/* ── EMPTY STATE ── */
+/* EMPTY */
 .empty{text-align:center;padding:48px 20px;color:var(--muted)}
 .empty-icon{font-size:40px;margin-bottom:12px;opacity:0.35}
-.empty-text{font-size:13px}
 
-/* ── TOAST ── */
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--navy);color:#fff;padding:10px 22px;border-radius:99px;font-size:13px;font-weight:500;opacity:0;transition:all .3s;pointer-events:none;z-index:999;white-space:nowrap}
+/* TOAST */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--navy);color:#fff;padding:10px 22px;border-radius:99px;font-size:13px;font-weight:500;opacity:0;transition:all .3s;pointer-events:none;z-index:999}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* ── LOADING ── */
 .loading{text-align:center;padding:32px;color:var(--muted);font-size:13px}
 
-/* ── RESPONSIVE ── */
+/* SECTION DIVIDER */
+.section-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+
 @media(max-width:768px){
   .stats{grid-template-columns:repeat(2,1fr)}
-  .chart-row,.form-grid{grid-template-columns:1fr}
-  main{padding:14px}
+  .tss-stats{grid-template-columns:repeat(2,1fr)}
+  .form-grid,.form-grid-3{grid-template-columns:1fr}
+  main{padding:12px}
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
       <div style="font-size:36px">📦</div>
-      <h2>Packaging Tracker</h2>
+      <h2>YMKS Packaging Tracker</h2>
       <p>TSS Bhosari · Mahasai · Sanvijay</p>
     </div>
-    <div class="form-group">
-      <label>Username</label>
-      <input type="text" id="login-username" placeholder="Enter username" autocomplete="username"/>
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" id="login-password" placeholder="Enter password" autocomplete="current-password"/>
-    </div>
+    <div class="fg"><label>Username</label>
+      <input type="text" id="login-username" placeholder="Enter username" autocomplete="username"/></div>
+    <div class="fg"><label>Password</label>
+      <input type="password" id="login-password" placeholder="Enter password" autocomplete="current-password"/></div>
     <button class="btn-login" onclick="doLogin()">Sign In</button>
     <div class="login-error" id="login-error"></div>
   </div>
 </div>
 
 <!-- APP -->
-<div id="app" style="display:none;flex-direction:column">
-
+<div id="app">
   <header>
-    <h1>📦 Returnable Packaging Tracker</h1>
+    <h1>📦 YMKS Packaging Tracker</h1>
     <div class="header-right">
       <span class="user-badge" id="header-user"></span>
       <span class="role-pill" id="header-role"></span>
@@ -189,143 +192,242 @@ tbody td{padding:9px 12px;font-size:13px;color:var(--text);vertical-align:middle
 
   <nav>
     <div class="nav-tab active" data-page="dashboard" onclick="showPage('dashboard')">Dashboard</div>
-    <div class="nav-tab" data-page="dispatch" onclick="showPage('dispatch')" id="tab-dispatch">Dispatch</div>
-    <div class="nav-tab" data-page="receive" onclick="showPage('receive')" id="tab-receive">Receive / Return</div>
+    <div class="nav-tab" data-page="dispatch" onclick="showPage('dispatch')" id="tab-dispatch">Step 1 — Dispatch</div>
+    <div class="nav-tab" data-page="movements" onclick="showPage('movements')" id="tab-movements">Movements</div>
+    <div class="nav-tab" data-page="tss" onclick="showPage('tss')" id="tab-tss">TSS Stock</div>
     <div class="nav-tab" data-page="cycles" onclick="showPage('cycles')">Cycle Log</div>
     <div class="nav-tab hidden" data-page="users" onclick="showPage('users')" id="tab-users">Users</div>
   </nav>
 
   <main>
 
-    <!-- DASHBOARD -->
+    <!-- ══ DASHBOARD ══ -->
     <div class="page active" id="page-dashboard">
+
+      <div class="section-label">Cycle Flow — All Quantities</div>
       <div class="stats">
-         <div class="stat-card s1"><span class="s-label">Dispatched from Supplier</span><span class="s-val" id="st-dispatched-supplier">—</span></div>
-         <div class="stat-card s2"><span class="s-label">Received at TSS</span><span class="s-val" id="st-received-tss">—</span></div>
-         <div class="stat-card s3"><span class="s-label">Dispatched from TSS</span><span class="s-val" id="st-dispatched-tss">—</span></div>
-         <div class="stat-card s4"><span class="s-label">Received at Supplier</span><span class="s-val" id="st-received-supplier">—</span></div>
+        <div class="stat-card s1"><span class="s-label">① YMKS → Supplier</span><span class="s-val" id="st-s1">—</span></div>
+        <div class="stat-card s2"><span class="s-label">② Supplier → TSS</span><span class="s-val" id="st-s2">—</span></div>
+        <div class="stat-card s3"><span class="s-label">③ Received at TSS</span><span class="s-val" id="st-s3">—</span></div>
+        <div class="stat-card s6"><span class="s-label">⑥ TSS → Supplier</span><span class="s-val" id="st-s6">—</span></div>
       </div>
-      <div class="chart-row">
+      <div class="stats">
+        <div class="stat-card s8"><span class="s-label">⑧ Received at Supplier</span><span class="s-val" id="st-s8">—</span></div>
+        <div class="stat-card s9"><span class="s-label">⑨ Returned to YMKS</span><span class="s-val" id="st-s9">—</span></div>
+        <div class="stat-card s1" style="background:linear-gradient(135deg,#064e3b,#065f46)"><span class="s-label">Open Cycles</span><span class="s-val" id="st-open">—</span></div>
+        <div class="stat-card s9" style="background:linear-gradient(135deg,#14532d,#166534)"><span class="s-label">Completed Cycles</span><span class="s-val" id="st-closed">—</span></div>
+      </div>
+
+      <div class="section-label">TSS Internal Stock (Latest)</div>
+      <div class="tss-stats">
+        <div class="tss-stat"><div class="ts-label">Opening Stock</div><div class="ts-val" id="tss-opening">—</div></div>
+        <div class="tss-stat"><div class="ts-label">Emptied at TSS</div><div class="ts-val" id="tss-emptied">—</div></div>
+        <div class="tss-stat"><div class="ts-label">Ready for Dispatch</div><div class="ts-val" id="tss-ready">—</div></div>
+        <div class="tss-stat"><div class="ts-label">Dispatched</div><div class="ts-val" id="tss-dispatched">—</div></div>
+        <div class="tss-stat"><div class="ts-label">Closing Stock</div><div class="ts-val" id="tss-closing">—</div></div>
+      </div>
+
+      <div class="form-grid">
         <div class="card">
           <div class="card-title">Stock Overview</div>
-          <canvas id="stockChart"></canvas>
+          <canvas id="stockChart" style="max-height:200px"></canvas>
         </div>
         <div class="card">
           <div class="card-title">Cycle Status</div>
           <div style="display:flex;flex-direction:column;gap:20px;padding-top:8px">
             <div style="display:flex;align-items:center;gap:14px">
               <canvas id="g1" width="72" height="72" style="flex-shrink:0"></canvas>
-              <div><div style="font-size:12px;color:var(--muted);font-weight:500">Open Cycles</div><div style="font-size:26px;font-weight:600;font-family:'DM Mono',monospace" id="open-val">0</div></div>
+              <div><div style="font-size:12px;color:var(--muted);font-weight:500">Open Cycles</div>
+              <div style="font-size:26px;font-weight:600;font-family:'DM Mono',monospace" id="open-val">0</div></div>
             </div>
             <div style="display:flex;align-items:center;gap:14px">
               <canvas id="g2" width="72" height="72" style="flex-shrink:0"></canvas>
-              <div><div style="font-size:12px;color:var(--muted);font-weight:500">Closed Cycles</div><div style="font-size:26px;font-weight:600;font-family:'DM Mono',monospace" id="closed-val">0</div></div>
+              <div><div style="font-size:12px;color:var(--muted);font-weight:500">Completed Cycles</div>
+              <div style="font-size:26px;font-weight:600;font-family:'DM Mono',monospace" id="closed-val">0</div></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- DISPATCH -->
+    <!-- ══ STEP 1 — DISPATCH ══ -->
     <div class="page" id="page-dispatch">
       <div class="card">
-        <div class="card-title">New Dispatch <span style="font-size:11px;font-weight:400;color:var(--muted)">Supplier → TSS Bhosari</span></div>
+        <div class="card-title">
+          <span><span class="step-badge step-1">1</span>YMKS → Supplier</span>
+          <span class="card-subtitle">YMKS dispatches sets to Supplier</span>
+        </div>
         <div class="form-grid">
-          <div class="form-group">
-            <label>Vendor</label>
+          <div class="fg"><label>Vendor</label>
             <select id="d-vendor" onchange="onVendorChange()">
               <option value="Mahasai">Mahasai Aluminium (Hyderabad)</option>
               <option value="Sanvijay">Sanvijay (Nagpur)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Asset Type</label>
+            </select></div>
+          <div class="fg"><label>Asset Type</label>
             <div class="toggle-group">
               <button class="toggle-btn active" id="tb-flc" onclick="setType('FLC')">FLC Set</button>
               <button class="toggle-btn" id="tb-wc" onclick="setType('WC')">W/C Set</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Quantity (sets)</label>
-            <input type="number" id="d-qty" value="1" min="1"/>
-          </div>
-          <div class="form-group">
-            <label>Vehicle</label>
+            </div></div>
+          <div class="fg"><label>Quantity</label>
+            <input type="number" id="d-qty" value="1" min="1"/></div>
+          <div class="fg"><label>Vehicle</label>
             <select id="d-vehicle">
-              <option>32 ft Truck</option>
-              <option>20 ft Truck</option>
-              <option>Mini Truck</option>
-            </select>
+              <option>32 ft Truck</option><option>20 ft Truck</option><option>Mini Truck</option>
+            </select></div>
+          <div class="fg"><label>Dispatch Date</label>
+            <input type="date" id="d-date"/></div>
+          <div class="fg"><label>Notes</label>
+            <input type="text" id="d-notes" placeholder="Optional..."/></div>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="doDispatch()">Dispatch to Supplier →</button>
+      </div>
+    </div>
+
+    <!-- ══ MOVEMENTS (Steps 2, 3, 6, 8, 9) ══ -->
+    <div class="page" id="page-movements">
+
+      <!-- Step 2 + Step 3 -->
+      <div class="form-grid">
+
+        <div class="card">
+          <div class="card-title">
+            <span><span class="step-badge step-2">2</span>Supplier → TSS</span>
+            <span class="card-subtitle">Supplier dispatches to TSS</span>
           </div>
-          <div class="form-group">
-            <label>Dispatch Date</label>
-            <input type="date" id="d-date"/>
+          <div class="fg"><label>Cycle</label>
+            <select id="s2-cycle" onchange="onStepSelect('s2')"><option value="">— select —</option></select></div>
+          <div class="info-box" id="s2-info"></div>
+          <div class="fg"><label>Quantity Dispatched</label><input type="number" id="s2-qty" min="1"/></div>
+          <div class="fg"><label>Date</label><input type="date" id="s2-date"/></div>
+          <div class="fg"><label>Notes</label><input type="text" id="s2-notes" placeholder="Optional..."/></div>
+          <button class="btn btn-success btn-full" onclick="doStep(2)">Confirm Supplier → TSS →</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span><span class="step-badge step-3">3</span>TSS Receives</span>
+            <span class="card-subtitle">TSS logs received sets (loaded/empty)</span>
           </div>
-          <div class="form-group">
-            <label>Notes (optional)</label>
-            <input type="text" id="d-notes" placeholder="Any notes..."/>
+          <div class="fg"><label>Cycle</label>
+            <select id="s3-cycle" onchange="onStepSelect('s3')"><option value="">— select —</option></select></div>
+          <div class="info-box" id="s3-info"></div>
+          <div class="form-grid-3">
+            <div class="fg"><label>Arrived Loaded</label><input type="number" id="s3-loaded" value="0" min="0" oninput="calcS3Total()"/></div>
+            <div class="fg"><label>Arrived Empty</label><input type="number" id="s3-empty" value="0" min="0" oninput="calcS3Total()"/></div>
+            <div class="fg"><label>Total (auto)</label><input type="number" id="s3-total" readonly style="background:var(--light)"/></div>
+          </div>
+          <div class="fg"><label>Sets Emptied at TSS (from loaded)</label>
+            <input type="number" id="s3-emptied" value="0" min="0"/></div>
+          <div class="fg"><label>Date</label><input type="date" id="s3-date"/></div>
+          <button class="btn btn-primary btn-full" onclick="doStep(3)">Confirm TSS Received ✓</button>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="card">
+        <div class="card-title">
+          <span><span class="step-badge step-6">6</span>TSS → Supplier</span>
+          <span class="card-subtitle">TSS dispatches empty sets back to Supplier</span>
+        </div>
+        <div class="form-grid">
+          <div>
+            <div class="fg"><label>Cycle</label>
+              <select id="s6-cycle" onchange="onStepSelect('s6')"><option value="">— select —</option></select></div>
+            <div class="info-box" id="s6-info"></div>
+          </div>
+          <div>
+            <div class="fg"><label>Quantity Dispatching</label><input type="number" id="s6-qty" min="1"/></div>
+            <div class="fg"><label>Date</label><input type="date" id="s6-date"/></div>
+            <div class="fg"><label>Notes</label><input type="text" id="s6-notes" placeholder="Optional..."/></div>
           </div>
         </div>
-        <button class="btn btn-primary btn-full" onclick="doDispatch()">Dispatch →</button>
+        <button class="btn btn-amber btn-full" onclick="doStep(6)">Confirm TSS → Supplier →</button>
+      </div>
+
+      <!-- Step 8 + Step 9 -->
+      <div class="form-grid">
+
+        <div class="card">
+          <div class="card-title">
+            <span><span class="step-badge step-8">8</span>Supplier Receives Back</span>
+            <span class="card-subtitle">Supplier confirms sets received from TSS</span>
+          </div>
+          <div class="fg"><label>Cycle</label>
+            <select id="s8-cycle" onchange="onStepSelect('s8')"><option value="">— select —</option></select></div>
+          <div class="info-box" id="s8-info"></div>
+          <div class="fg"><label>Quantity Received</label><input type="number" id="s8-qty" min="1"/></div>
+          <div class="fg"><label>Date</label><input type="date" id="s8-date"/></div>
+          <div class="fg"><label>Notes</label><input type="text" id="s8-notes" placeholder="Optional..."/></div>
+          <button class="btn btn-purple btn-full" onclick="doStep(8)">Confirm Supplier Received ✓</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span><span class="step-badge step-9">9</span>Supplier → YMKS</span>
+            <span class="card-subtitle">Supplier returns sets to YMKS</span>
+          </div>
+          <div class="fg"><label>Cycle</label>
+            <select id="s9-cycle" onchange="onStepSelect('s9')"><option value="">— select —</option></select></div>
+          <div class="info-box" id="s9-info"></div>
+          <div class="fg"><label>Quantity Returning</label><input type="number" id="s9-qty" min="1"/></div>
+          <div class="fg"><label>Date</label><input type="date" id="s9-date"/></div>
+          <div class="fg"><label>Notes</label><input type="text" id="s9-notes" placeholder="Optional..."/></div>
+          <button class="btn btn-danger btn-full" onclick="doStep(9)">Confirm Returned to YMKS →</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══ TSS STOCK ══ -->
+    <div class="page" id="page-tss">
+      <div class="card">
+        <div class="card-title">
+          <span><span class="step-badge step-tss">T</span>Log Daily TSS Stock</span>
+          <span class="card-subtitle">One entry per day across all cycles</span>
+        </div>
+        <div class="form-grid">
+          <div class="fg"><label>Date</label><input type="date" id="tss-date"/></div>
+          <div class="fg"><label>Opening Stock (empty sets available)</label>
+            <input type="number" id="tss-opening-in" value="0" min="0" oninput="calcTssClosing()"/></div>
+          <div class="fg"><label>Sets Emptied Today (from loaded arrivals)</label>
+            <input type="number" id="tss-emptied-in" value="0" min="0" oninput="calcTssClosing()"/></div>
+          <div class="fg"><label>Ready for Dispatch</label>
+            <input type="number" id="tss-ready-in" value="0" min="0"/></div>
+          <div class="fg"><label>Dispatched Today</label>
+            <input type="number" id="tss-dispatched-in" value="0" min="0" oninput="calcTssClosing()"/></div>
+          <div class="fg"><label>Closing Stock (auto-calculated)</label>
+            <input type="number" id="tss-closing-in" readonly style="background:var(--light);font-weight:600"/></div>
+        </div>
+        <div class="fg"><label>Notes</label>
+          <input type="text" id="tss-notes-in" placeholder="Optional..."/></div>
+        <button class="btn btn-primary btn-full" onclick="saveTssStock()">Save TSS Stock Entry</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">TSS Stock History</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Date</th><th>Opening Stock</th><th>Emptied</th>
+              <th>Ready</th><th>Dispatched</th><th>Closing Stock</th>
+              <th>Logged By</th><th>Notes</th><th>Action</th>
+            </tr></thead>
+            <tbody id="tss-tbody"></tbody>
+          </table>
+          <div id="tss-empty" class="empty" style="display:none">
+            <div class="empty-icon">📊</div>
+            <div style="font-size:13px;color:var(--muted)">No TSS stock entries yet.</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- RECEIVE / RETURN -->
-    <!-- RECEIVE / RETURN -->
-<div class="page" id="page-receive">
-
-  <!-- Row 1: Supplier → TSS -->
-  <div class="form-grid">
-    <div class="card">
-      <div class="card-title">1. Receive at TSS <span style="font-size:11px;font-weight:400;color:var(--muted)">Supplier → TSS</span></div>
-      <div class="form-group">
-        <label>Cycle ID</label>
-        <select id="r-cycle" onchange="onReceiveCycleSelect()"><option value="">— select cycle —</option></select>
-      </div>
-      <div class="cycle-info-box" id="r-info"></div>
-      <div class="form-group"><label>Quantity Received</label><input type="number" id="r-qty" min="1"/></div>
-      <div class="form-group"><label>Date</label><input type="date" id="r-date"/></div>
-      <div class="form-group"><label>Notes</label><input type="text" id="r-notes" placeholder="Any notes..."/></div>
-      <button class="btn btn-success btn-full" onclick="doReceive()">Mark Received at TSS ✓</button>
-    </div>
-
-    <div class="card">
-      <div class="card-title">2. Dispatch from TSS <span style="font-size:11px;font-weight:400;color:var(--muted)">TSS → Supplier</span></div>
-      <div class="form-group">
-        <label>Cycle ID</label>
-        <select id="ret-cycle" onchange="onReturnCycleSelect()"><option value="">— select cycle —</option></select>
-      </div>
-      <div class="cycle-info-box" id="ret-info"></div>
-      <div class="form-group"><label>Quantity Dispatching</label><input type="number" id="ret-qty" min="1"/></div>
-      <div class="form-group"><label>Date</label><input type="date" id="ret-date"/></div>
-      <div class="form-group"><label>Notes</label><input type="text" id="ret-notes" placeholder="Any notes..."/></div>
-      <button class="btn btn-primary btn-full" onclick="doReturn()">Mark Dispatched from TSS →</button>
-    </div>
-  </div>
-
-  <!-- Row 2: Supplier confirms receipt -->
-  <div class="card">
-    <div class="card-title">3. Received at Supplier <span style="font-size:11px;font-weight:400;color:var(--muted)">Supplier confirms sets back</span></div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label>Cycle ID</label>
-        <select id="rs-cycle" onchange="onSupplierReceiveSelect()"><option value="">— select cycle —</option></select>
-      </div>
-      <div class="form-group"><label>Quantity Received back</label><input type="number" id="rs-qty" min="1"/></div>
-      <div class="form-group"><label>Date</label><input type="date" id="rs-date"/></div>
-      <div class="form-group"><label>Notes</label><input type="text" id="rs-notes" placeholder="Any notes..."/></div>
-    </div>
-    <div class="cycle-info-box" id="rs-info"></div>
-    <button class="btn btn-success btn-full" onclick="doSupplierReceive()">Confirm Received at Supplier ✓</button>
-  </div>
-
-</div>
-    <!-- CYCLE LOG -->
+    <!-- ══ CYCLE LOG ══ -->
     <div class="page" id="page-cycles">
       <div class="card">
         <div class="card-title">
           Cycle Log
-          <div style="display:flex;gap:8px;align-items:center">
+          <div style="display:flex;gap:8px">
             <select id="filter-status" onchange="loadCycles()" style="font-size:12px;padding:4px 8px;border:1px solid var(--border);border-radius:6px;outline:none">
               <option value="">All status</option>
               <option value="pending">Pending</option>
@@ -341,29 +443,28 @@ tbody td{padding:9px 12px;font-size:13px;color:var(--text);vertical-align:middle
         </div>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Cycle ID</th><th>Vendor</th><th>Type</th><th>Date</th>
-                <th>① Dispatched</th><th>② Rcvd TSS</th><th>③ Dispatched TSS</th><th>④ Rcvd Supplier</th>
-                <th>Status</th><th>Actions</th>
-              </tr>
-            </thead>
+            <thead><tr>
+              <th>ID</th><th>Vendor</th><th>Type</th><th>Date</th>
+              <th>①YMKS→Sup</th><th>②Sup→TSS</th><th>③Rcvd TSS</th>
+              <th>Loaded</th><th>Empty</th><th>Emptied</th>
+              <th>⑥TSS→Sup</th><th>⑧Sup Rcvd</th><th>⑨→YMKS</th>
+              <th>Status</th><th>Actions</th>
+            </tr></thead>
             <tbody id="cycle-tbody"></tbody>
           </table>
           <div id="cycles-empty" class="empty" style="display:none">
             <div class="empty-icon">📦</div>
-            <div class="empty-text">No cycles yet. Use Dispatch to add the first entry.</div>
+            <div style="font-size:13px;color:var(--muted)">No cycles yet.</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- USERS (admin only) -->
+    <!-- ══ USERS ══ -->
     <div class="page" id="page-users">
       <div class="card">
-        <div class="card-title">
-          User Management
-          <button class="btn btn-primary btn-sm" onclick="openUserModal()">+ Add User</button>
+        <div class="card-title">User Management
+          <button class="btn btn-primary btn-sm" onclick="openModal('user-modal')">+ Add User</button>
         </div>
         <div class="table-wrap">
           <table>
@@ -379,46 +480,33 @@ tbody td{padding:9px 12px;font-size:13px;color:var(--text);vertical-align:middle
 
 <!-- AUDIT MODAL -->
 <div class="modal-bg" id="audit-modal">
-  <div class="modal" style="max-width:520px">
+  <div class="modal">
     <h3>Audit Log — <span id="audit-cycle-id"></span></h3>
-    <div id="audit-content" style="max-height:360px;overflow-y:auto"></div>
+    <div id="audit-content" style="max-height:400px;overflow-y:auto"></div>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeModal('audit-modal')">Close</button>
     </div>
   </div>
 </div>
 
-<!-- ADD USER MODAL -->
+<!-- USER MODAL -->
 <div class="modal-bg" id="user-modal">
   <div class="modal">
     <h3>Add New User</h3>
-    <div class="form-group" style="margin-bottom:12px">
-      <label>Full Name</label>
-      <input type="text" id="u-name" placeholder="e.g. Ayush Nikale"/>
-    </div>
-    <div class="form-group" style="margin-bottom:12px">
-      <label>Username</label>
-      <input type="text" id="u-username" placeholder="e.g. ayush.nikale"/>
-    </div>
-    <div class="form-group" style="margin-bottom:12px">
-      <label>Password</label>
-      <input type="password" id="u-password" placeholder="Min 6 characters"/>
-    </div>
-    <div class="form-group" style="margin-bottom:12px">
-      <label>Role</label>
+    <div class="fg"><label>Full Name</label><input type="text" id="u-name" placeholder="e.g. Ayush Nikale"/></div>
+    <div class="fg"><label>Username</label><input type="text" id="u-username" placeholder="e.g. ayush.nikale"/></div>
+    <div class="fg"><label>Password</label><input type="password" id="u-password" placeholder="Min 6 characters"/></div>
+    <div class="fg"><label>Role</label>
       <select id="u-role" onchange="onRoleChange()">
         <option value="tss_staff">TSS Staff</option>
         <option value="supplier">Supplier</option>
         <option value="admin">Admin</option>
-      </select>
-    </div>
-    <div class="form-group" id="u-supplier-group" style="margin-bottom:12px;display:none">
-      <label>Supplier Company</label>
+      </select></div>
+    <div class="fg" id="u-supplier-group" style="display:none"><label>Supplier Company</label>
       <select id="u-supplier">
         <option value="Mahasai">Mahasai Aluminium</option>
         <option value="Sanvijay">Sanvijay</option>
-      </select>
-    </div>
+      </select></div>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeModal('user-modal')">Cancel</button>
       <button class="btn btn-primary" onclick="createUser()">Create User</button>
@@ -429,9 +517,7 @@ tbody td{padding:9px 12px;font-size:13px;color:var(--text);vertical-align:middle
 <div id="toast"></div>
 
 <script>
-// ─────────────────────────────────────────
-// CONFIG — change this to your Railway URL
-// ─────────────────────────────────────────
+  
 const API = 'https://assettrackerdb-bckend-production.up.railway.app';
 
 let token = localStorage.getItem('pt_token');
@@ -442,19 +528,24 @@ let stockChart;
 
 // ── INIT ──
 window.onload = () => {
-  setToday('d-date'); setToday('r-date'); setToday('ret-date');
-  document.querySelectorAll('.modal-bg').forEach(bg => {
-  bg.addEventListener('click', e => { if (e.target === bg) bg.classList.remove('open'); });
-});
+  ['d-date','s2-date','s3-date','s6-date','s8-date','s9-date','tss-date'].forEach(setToday);
+  calcTssClosing();
+  document.querySelectorAll('.modal-bg').forEach(bg =>
+    bg.addEventListener('click', e => { if (e.target === bg) bg.classList.remove('open'); })
+  );
   if (token && currentUser) bootApp();
   else {
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('app').style.display = 'none';
-}
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+  }
+  document.getElementById('login-password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
 };
 
 function setToday(id) {
-  document.getElementById(id).value = new Date().toISOString().split('T')[0];
+  const el = document.getElementById(id);
+  if (el) el.value = new Date().toISOString().split('T')[0];
 }
 
 // ── AUTH ──
@@ -463,7 +554,7 @@ async function doLogin() {
   const password = document.getElementById('login-password').value;
   const errEl = document.getElementById('login-error');
   errEl.textContent = '';
-  if (!username || !password) { errEl.textContent = 'Please enter username and password'; return; }
+  if (!username || !password) { errEl.textContent = 'Enter username and password'; return; }
   try {
     const res = await fetch(`${API}/api/auth/login`, {
       method: 'POST', headers: {'Content-Type':'application/json'},
@@ -471,14 +562,11 @@ async function doLogin() {
     });
     const data = await res.json();
     if (!res.ok) { errEl.textContent = data.error || 'Login failed'; return; }
-    token = data.token;
-    currentUser = data.user;
+    token = data.token; currentUser = data.user;
     localStorage.setItem('pt_token', token);
     localStorage.setItem('pt_user', JSON.stringify(currentUser));
     bootApp();
-  } catch (e) {
-    errEl.textContent = 'Cannot connect to server. Check API URL.';
-  }
+  } catch(e) { errEl.textContent = 'Cannot connect to server'; }
 }
 
 function doLogout() {
@@ -492,25 +580,21 @@ function doLogout() {
 
 function bootApp() {
   document.getElementById('login-screen').style.display = 'none';
-  const app = document.getElementById('app');
-  app.style.display = 'flex';
-
+  document.getElementById('app').style.display = 'flex';
   document.getElementById('header-user').textContent = currentUser.name;
-  const roleLabels = {admin:'Admin', supplier:'Supplier', tss_staff:'TSS Staff'};
-  document.getElementById('header-role').textContent = roleLabels[currentUser.role] || currentUser.role;
+  document.getElementById('header-role').textContent =
+    {admin:'Admin', supplier:'Supplier', tss_staff:'TSS Staff'}[currentUser.role];
 
-  // Role-based tab visibility
-  if (currentUser.role === 'admin') {
-    document.getElementById('tab-users').classList.remove('hidden');
-  }
+  // Role-based tabs
+  if (currentUser.role === 'admin') document.getElementById('tab-users').classList.remove('hidden');
   if (currentUser.role === 'tss_staff') {
     document.getElementById('tab-dispatch').classList.add('hidden');
   }
   if (currentUser.role === 'supplier') {
-    document.getElementById('tab-receive').classList.add('hidden');
+    document.getElementById('tab-tss').classList.add('hidden');
   }
 
-  // Pre-fill vendor for supplier users
+  // Lock vendor for supplier
   if (currentUser.role === 'supplier' && currentUser.supplier_name) {
     const sel = document.getElementById('d-vendor');
     sel.value = currentUser.supplier_name;
@@ -520,18 +604,15 @@ function bootApp() {
 
   loadDashboard();
   loadCycles();
+  loadMovementDropdowns();
+  loadTssHistory();
   if (currentUser.role === 'admin') loadUsers();
 }
 
-// ── API HELPER ──
-async function apiFetch(path, options = {}) {
+async function apiFetch(path, opts = {}) {
   const res = await fetch(`${API}${path}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-      ...(options.headers || {})
-    }
+    ...opts,
+    headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${token}`, ...(opts.headers||{}) }
   });
   if (res.status === 401) { doLogout(); return null; }
   return res.json();
@@ -541,342 +622,387 @@ async function apiFetch(path, options = {}) {
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('page-'+name).classList.add('active');
   document.querySelector(`[data-page="${name}"]`).classList.add('active');
-  if (name === 'receive') loadReceiveDropdowns();
+  if (name === 'movements') loadMovementDropdowns();
   if (name === 'cycles') loadCycles();
   if (name === 'dashboard') loadDashboard();
+  if (name === 'tss') loadTssHistory();
 }
 
-// ── DISPATCH ──
+// ── DISPATCH (Step 1) ──
 function onVendorChange() {
   const v = document.getElementById('d-vendor').value;
   const wcBtn = document.getElementById('tb-wc');
   if (v === 'Sanvijay') { wcBtn.disabled = true; setType('FLC'); }
-  else { wcBtn.disabled = false; }
+  else wcBtn.disabled = false;
 }
-
 function setType(t) {
   if (t === 'WC' && document.getElementById('tb-wc').disabled) return;
   selectedType = t;
-  document.getElementById('tb-flc').classList.toggle('active', t === 'FLC');
-  document.getElementById('tb-wc').classList.toggle('active', t === 'WC');
+  document.getElementById('tb-flc').classList.toggle('active', t==='FLC');
+  document.getElementById('tb-wc').classList.toggle('active', t==='WC');
 }
 
 async function doDispatch() {
   const vendor = document.getElementById('d-vendor').value;
-  const qty = parseInt(document.getElementById('d-qty').value) || 0;
+  const qty    = parseInt(document.getElementById('d-qty').value) || 0;
   const vehicle = document.getElementById('d-vehicle').value;
   const dispatch_date = document.getElementById('d-date').value;
-  const notes = document.getElementById('d-notes').value;
+  const notes  = document.getElementById('d-notes').value;
   const set_type = selectedType === 'FLC' ? 'FLC Set' : 'W/C Set';
-
   if (qty < 1) { showToast('⚠ Quantity must be at least 1'); return; }
-
   const data = await apiFetch('/api/cycles/dispatch', {
-    method: 'POST',
-    body: JSON.stringify({ vendor, set_type, quantity_sent: qty, vehicle, dispatch_date, notes })
+    method:'POST', body: JSON.stringify({ vendor, set_type, qty_ymks_dispatched: qty, vehicle, dispatch_date, notes })
   });
   if (!data) return;
   if (data.error) { showToast('⚠ ' + data.error); return; }
-
-  showToast(`✓ ${data.cycle_id} dispatched — ${qty} × ${set_type} from ${vendor}`);
+  showToast(`✓ ${data.cycle_id} — ${qty} × ${set_type} dispatched to ${vendor}`);
   document.getElementById('d-qty').value = 1;
   document.getElementById('d-notes').value = '';
   setToday('d-date');
-  loadDashboard();
-  loadCycles();
+  loadDashboard(); loadCycles(); loadMovementDropdowns();
 }
 
-// ── RECEIVE / RETURN DROPDOWNS ──
-async function loadReceiveDropdowns() {
+// ── MOVEMENT DROPDOWNS ──
+async function loadMovementDropdowns() {
   const data = await apiFetch('/api/cycles');
   if (!data) return;
   allCycles = data;
 
-  const pending    = data.filter(c => c.status === 'pending');
-  const inProgress = data.filter(c => c.status === 'in_progress');
+  const opt = (c, label) =>
+    `<option value="${c.cycle_id}">${c.cycle_id} · ${c.vendor} · ${c.set_type} · ${label}</option>`;
 
-  document.getElementById('r-cycle').innerHTML =
-    '<option value="">— select cycle —</option>' +
-    pending.map(c => `<option value="${c.cycle_id}">${c.cycle_id} · ${c.vendor} · ${c.set_type}</option>`).join('');
+  const s = id => document.getElementById(id);
 
-  document.getElementById('ret-cycle').innerHTML =
-    '<option value="">— select cycle —</option>' +
-    inProgress.map(c => `<option value="${c.cycle_id}">${c.cycle_id} · ${c.vendor} · ${c.set_type}</option>`).join('');
+  // S2: YMKS dispatched but not fully sent to TSS
+  s('s2-cycle').innerHTML = '<option value="">— select —</option>' +
+    data.filter(c => c.qty_ymks_dispatched > (c.qty_supplier_to_tss||0))
+        .map(c => opt(c, `remaining: ${c.qty_ymks_dispatched - (c.qty_supplier_to_tss||0)}`)).join('');
 
-  document.getElementById('rs-cycle').innerHTML =
-    '<option value="">— select cycle —</option>' +
-    inProgress.filter(c => c.quantity_dispatched_tss > 0).map(c =>
-      `<option value="${c.cycle_id}">${c.cycle_id} · ${c.vendor} · ${c.set_type}</option>`
-    ).join('');
+  // S3: sent to TSS but not fully received
+  s('s3-cycle').innerHTML = '<option value="">— select —</option>' +
+    data.filter(c => (c.qty_supplier_to_tss||0) > (c.qty_received_at_tss||0))
+        .map(c => opt(c, `in transit: ${c.qty_supplier_to_tss - (c.qty_received_at_tss||0)}`)).join('');
+
+  // S6: received at TSS but not fully dispatched back
+  s('s6-cycle').innerHTML = '<option value="">— select —</option>' +
+    data.filter(c => (c.qty_received_at_tss||0) > (c.qty_dispatched_from_tss||0))
+        .map(c => opt(c, `at TSS: ${c.qty_received_at_tss - (c.qty_dispatched_from_tss||0)}`)).join('');
+
+  // S8: TSS dispatched but supplier not fully received
+  s('s8-cycle').innerHTML = '<option value="">— select —</option>' +
+    data.filter(c => (c.qty_dispatched_from_tss||0) > (c.qty_received_at_supplier||0))
+        .map(c => opt(c, `in transit: ${c.qty_dispatched_from_tss - (c.qty_received_at_supplier||0)}`)).join('');
+
+  // S9: supplier received but not returned to YMKS
+  s('s9-cycle').innerHTML = '<option value="">— select —</option>' +
+    data.filter(c => (c.qty_received_at_supplier||0) > (c.qty_returned_to_ymks||0))
+        .map(c => opt(c, `to return: ${c.qty_received_at_supplier - (c.qty_returned_to_ymks||0)}`)).join('');
 }
 
-function onSupplierReceiveSelect() {
-  const id = document.getElementById('rs-cycle').value;
-  const box = document.getElementById('rs-info');
+function onStepSelect(step) {
+  const id  = document.getElementById(`${step}-cycle`).value;
+  const box = document.getElementById(`${step}-info`);
   if (!id) { box.style.display = 'none'; return; }
   const c = allCycles.find(x => x.cycle_id === id);
   if (!c) return;
-  const remaining = c.quantity_dispatched_tss - (c.quantity_received_supplier || 0);
+
+  const infoMap = {
+    s2: `YMKS dispatched <b>${c.qty_ymks_dispatched}</b> · Already at TSS: <b>${c.qty_supplier_to_tss||0}</b> · <span style="color:var(--red)">Remaining: ${c.qty_ymks_dispatched-(c.qty_supplier_to_tss||0)}</span>`,
+    s3: `In transit: <b>${c.qty_supplier_to_tss}</b> · Already received: <b>${c.qty_received_at_tss||0}</b> · <span style="color:var(--red)">Pending: ${c.qty_supplier_to_tss-(c.qty_received_at_tss||0)}</span>`,
+    s6: `At TSS: <b>${c.qty_received_at_tss}</b> · Already dispatched back: <b>${c.qty_dispatched_from_tss||0}</b> · <span style="color:var(--red)">Still at TSS: ${c.qty_received_at_tss-(c.qty_dispatched_from_tss||0)}</span>`,
+    s8: `TSS dispatched: <b>${c.qty_dispatched_from_tss}</b> · Already received: <b>${c.qty_received_at_supplier||0}</b> · <span style="color:var(--red)">In transit: ${c.qty_dispatched_from_tss-(c.qty_received_at_supplier||0)}</span>`,
+    s9: `Supplier has: <b>${c.qty_received_at_supplier}</b> · Already returned: <b>${c.qty_returned_to_ymks||0}</b> · <span style="color:var(--red)">To return: ${c.qty_received_at_supplier-(c.qty_returned_to_ymks||0)}</span>`,
+  };
+
+  const autoQty = {
+    s2: c.qty_ymks_dispatched - (c.qty_supplier_to_tss||0),
+    s3: c.qty_supplier_to_tss - (c.qty_received_at_tss||0),
+    s6: c.qty_received_at_tss - (c.qty_dispatched_from_tss||0),
+    s8: c.qty_dispatched_from_tss - (c.qty_received_at_supplier||0),
+    s9: c.qty_received_at_supplier - (c.qty_returned_to_ymks||0),
+  };
+
   box.style.display = 'block';
-  box.innerHTML = `<b>${c.vendor}</b> · ${c.set_type} · 
-    Dispatched from TSS <b>${c.quantity_dispatched_tss}</b> · 
-    Already received back <b>${c.quantity_received_supplier || 0}</b> · 
-    <span style="color:var(--red)">Still in transit: ${remaining}</span>`;
-  document.getElementById('rs-qty').value = remaining;
+  box.innerHTML = infoMap[step];
+
+  if (step === 's3') {
+    document.getElementById('s3-loaded').value = 0;
+    document.getElementById('s3-empty').value = autoQty[step];
+    calcS3Total();
+  } else {
+    document.getElementById(`${step}-qty`).value = autoQty[step];
+  }
 }
 
-async function doSupplierReceive() {
-  const cycle_id = document.getElementById('rs-cycle').value;
-  const qty = parseInt(document.getElementById('rs-qty').value) || 0;
-  const date = document.getElementById('rs-date').value;
-  const notes = document.getElementById('rs-notes').value;
-  if (!cycle_id) { showToast('⚠ Select a cycle'); return; }
-  if (qty < 1) { showToast('⚠ Enter quantity'); return; }
+function calcS3Total() {
+  const loaded = parseInt(document.getElementById('s3-loaded').value)||0;
+  const empty  = parseInt(document.getElementById('s3-empty').value)||0;
+  document.getElementById('s3-total').value = loaded + empty;
+}
 
-  const data = await apiFetch(`/api/cycles/${cycle_id}/receive-supplier`, {
-    method: 'PATCH',
-    body: JSON.stringify({ quantity_received_supplier: qty, received_supplier_date: date, notes })
+const stepConfig = {
+  2: { route:'supplier-to-tss',  prefix:'s2', label:'Supplier → TSS' },
+  3: { route:'tss-receive',      prefix:'s3', label:'TSS Received' },
+  6: { route:'tss-to-supplier',  prefix:'s6', label:'TSS → Supplier' },
+  8: { route:'supplier-receive', prefix:'s8', label:'Supplier Received' },
+  9: { route:'supplier-to-ymks', prefix:'s9', label:'Supplier → YMKS' },
+};
+
+async function doStep(step) {
+  const { route, prefix, label } = stepConfig[step];
+  const cycle_id = document.getElementById(`${prefix}-cycle`).value;
+  if (!cycle_id) { showToast('⚠ Select a cycle'); return; }
+
+  let body = {};
+  if (step === 3) {
+    const loaded  = parseInt(document.getElementById('s3-loaded').value)||0;
+    const empty   = parseInt(document.getElementById('s3-empty').value)||0;
+    const emptied = parseInt(document.getElementById('s3-emptied').value)||0;
+    if (loaded + empty < 1) { showToast('⚠ Enter loaded + empty quantities'); return; }
+    body = {
+      qty_arrived_loaded: loaded, qty_arrived_empty: empty,
+      qty_emptied: emptied, date: document.getElementById('s3-date').value
+    };
+  } else {
+    const qty = parseInt(document.getElementById(`${prefix}-qty`).value)||0;
+    if (qty < 1) { showToast('⚠ Enter quantity'); return; }
+    body = {
+      qty, date: document.getElementById(`${prefix}-date`).value,
+      notes: document.getElementById(`${prefix}-notes`)?.value || ''
+    };
+  }
+
+  const data = await apiFetch(`/api/cycles/${cycle_id}/${route}`, {
+    method:'PATCH', body: JSON.stringify(body)
   });
   if (!data) return;
   if (data.error) { showToast('⚠ ' + data.error); return; }
 
-  showToast(`✓ ${qty} sets confirmed received at supplier for ${cycle_id}`);
-  document.getElementById('rs-qty').value = '';
-  document.getElementById('rs-notes').value = '';
-  document.getElementById('rs-info').style.display = 'none';
-  setToday('rs-date');
-  loadReceiveDropdowns();
-  loadDashboard();
-  loadCycles();
+  showToast(`✓ ${label} recorded for ${cycle_id}`);
+  // reset fields
+  if (step === 3) {
+    document.getElementById('s3-loaded').value = 0;
+    document.getElementById('s3-empty').value = 0;
+    document.getElementById('s3-total').value = 0;
+    document.getElementById('s3-emptied').value = 0;
+  } else {
+    document.getElementById(`${prefix}-qty`).value = '';
+    if (document.getElementById(`${prefix}-notes`)) document.getElementById(`${prefix}-notes`).value = '';
+  }
+  document.getElementById(`${prefix}-info`).style.display = 'none';
+  document.getElementById(`${prefix}-cycle`).value = '';
+  setToday(`${prefix}-date`);
+  loadDashboard(); loadCycles(); loadMovementDropdowns();
 }
 
-function onReceiveCycleSelect() {
-  const id = document.getElementById('r-cycle').value;
-  const box = document.getElementById('r-info');
-  if (!id) { box.style.display = 'none'; return; }
-  const c = allCycles.find(x => x.cycle_id === id);
-  if (!c) return;
-  const bal = c.quantity_sent - c.quantity_received;
-  box.style.display = 'block';
-  box.innerHTML = `<b>${c.vendor}</b> · ${c.set_type} · Sent <b>${c.quantity_sent}</b> · Received <b>${c.quantity_received}</b> · <span style="color:var(--red)">Balance: ${bal}</span>`;
-  document.getElementById('r-qty').value = bal;
+// ── TSS STOCK ──
+function calcTssClosing() {
+  const opening  = parseInt(document.getElementById('tss-opening-in').value)||0;
+  const emptied  = parseInt(document.getElementById('tss-emptied-in').value)||0;
+  const dispatched = parseInt(document.getElementById('tss-dispatched-in').value)||0;
+  document.getElementById('tss-closing-in').value = (opening + emptied) - dispatched;
 }
 
-function onReturnCycleSelect() {
-  const id = document.getElementById('ret-cycle').value;
-  const box = document.getElementById('ret-info');
-  if (!id) { box.style.display = 'none'; return; }
-  const c = allCycles.find(x => x.cycle_id === id);
-  if (!c) return;
-  const alreadyReturned = c.quantity_returned || 0;
-  const remaining = c.quantity_received - alreadyReturned;
-  box.style.display = 'block';
-  box.innerHTML = `<b>${c.vendor}</b> · ${c.set_type} · 
-    Received <b>${c.quantity_received}</b> · 
-    Already returned <b>${alreadyReturned}</b> · 
-    <span style="color:var(--red)">Remaining at TSS: ${remaining}</span>`;
-  document.getElementById('ret-qty').value = remaining;
-}
-
-async function doReceive() {
-  const cycle_id = document.getElementById('r-cycle').value;
-  const qty = parseInt(document.getElementById('r-qty').value) || 0;
-  const received_date = document.getElementById('r-date').value;
-  const notes = document.getElementById('r-notes').value;
-  if (!cycle_id) { showToast('⚠ Select a cycle'); return; }
-  if (qty < 1) { showToast('⚠ Enter quantity received'); return; }
-
-  const data = await apiFetch(`/api/cycles/${cycle_id}/receive`, {
-    method: 'PATCH',
-    body: JSON.stringify({ quantity_received: qty, received_date, notes })
-  });
+async function saveTssStock() {
+  const body = {
+    date:                   document.getElementById('tss-date').value,
+    opening_stock:          document.getElementById('tss-opening-in').value,
+    qty_emptied:            document.getElementById('tss-emptied-in').value,
+    qty_ready_for_dispatch: document.getElementById('tss-ready-in').value,
+    qty_dispatched:         document.getElementById('tss-dispatched-in').value,
+    notes:                  document.getElementById('tss-notes-in').value,
+  };
+  if (!body.date) { showToast('⚠ Date is required'); return; }
+  const data = await apiFetch('/api/tss', { method:'POST', body: JSON.stringify(body) });
   if (!data) return;
   if (data.error) { showToast('⚠ ' + data.error); return; }
-
-  showToast(`✓ ${qty} sets received at TSS for ${cycle_id}`);
-  document.getElementById('r-qty').value = '';
-  document.getElementById('r-notes').value = '';
-  document.getElementById('r-info').style.display = 'none';
-  setToday('r-date');
-  loadReceiveDropdowns();
+  showToast(`✓ TSS stock saved — closing stock: ${data.closing_stock}`);
+  ['tss-opening-in','tss-emptied-in','tss-ready-in','tss-dispatched-in','tss-notes-in']
+    .forEach(id => document.getElementById(id).value = id.includes('notes') ? '' : 0);
+  calcTssClosing();
+  setToday('tss-date');
+  loadTssHistory();
   loadDashboard();
-  loadCycles();
 }
 
-async function doReturn() {
-  const cycle_id = document.getElementById('ret-cycle').value;
-  const qty = parseInt(document.getElementById('ret-qty').value) || 0;
-  const return_date = document.getElementById('ret-date').value;
-  const notes = document.getElementById('ret-notes').value;
-  if (!cycle_id) { showToast('⚠ Select a cycle'); return; }
-  if (qty < 1) { showToast('⚠ Enter quantity'); return; }
-
-  const data = await apiFetch(`/api/cycles/${cycle_id}/dispatch-return`, {
-    method: 'PATCH',
-    body: JSON.stringify({ quantity_dispatched_tss: qty, dispatch_return_date: return_date, notes })
-  });
+async function loadTssHistory() {
+  const data = await apiFetch('/api/tss');
   if (!data) return;
-  if (data.error) { showToast('⚠ ' + data.error); return; }
+  const tbody = document.getElementById('tss-tbody');
+  const empty = document.getElementById('tss-empty');
+  if (data.length === 0) { tbody.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display = 'none';
+  const canDelete = currentUser?.role === 'admin';
+  tbody.innerHTML = data.map(t => `<tr>
+    <td class="mono">${t.date ? t.date.split('T')[0] : '—'}</td>
+    <td>${t.opening_stock}</td>
+    <td>${t.qty_emptied}</td>
+    <td>${t.qty_ready_for_dispatch}</td>
+    <td>${t.qty_dispatched}</td>
+    <td style="font-weight:600;color:var(--navy)">${t.closing_stock}</td>
+    <td>${t.logged_by_name || '—'}</td>
+    <td style="color:var(--muted);font-size:11px">${t.notes||'—'}</td>
+    <td>${canDelete ? `<button class="btn btn-danger btn-sm" onclick="deleteTssEntry(${t.id})">Del</button>` : '—'}</td>
+  </tr>`).join('');
+}
 
-  showToast(`✓ ${qty} sets dispatched from TSS for ${cycle_id}`);
-  document.getElementById('ret-qty').value = '';
-  document.getElementById('ret-notes').value = '';
-  document.getElementById('ret-info').style.display = 'none';
-  setToday('ret-date');
-  loadReceiveDropdowns();
-  loadDashboard();
-  loadCycles();
+async function deleteTssEntry(id) {
+  if (!confirm('Delete this entry?')) return;
+  const data = await apiFetch(`/api/tss/${id}`, { method:'DELETE' });
+  if (data && !data.error) { showToast('✓ Entry deleted'); loadTssHistory(); loadDashboard(); }
 }
 
 // ── CYCLE LOG ──
 async function loadCycles() {
   const tbody = document.getElementById('cycle-tbody');
   const empty = document.getElementById('cycles-empty');
-  tbody.innerHTML = '<tr><td colspan="9" class="loading">Loading...</td></tr>';
-
+  tbody.innerHTML = '<tr><td colspan="15" class="loading">Loading...</td></tr>';
   const data = await apiFetch('/api/cycles');
   if (!data) return;
   allCycles = data;
 
-  const statusFilter = document.getElementById('filter-status').value;
-  const vendorFilter = document.getElementById('filter-vendor').value;
-
+  const sf = document.getElementById('filter-status').value;
+  const vf = document.getElementById('filter-vendor').value;
   let filtered = data;
-  if (statusFilter) filtered = filtered.filter(c => c.status === statusFilter);
-  if (vendorFilter) filtered = filtered.filter(c => c.vendor === vendorFilter);
+  if (sf) filtered = filtered.filter(c => c.status === sf);
+  if (vf) filtered = filtered.filter(c => c.vendor === vf);
 
-  if (filtered.length === 0) {
-    tbody.innerHTML = '';
-    empty.style.display = 'block';
-    return;
-  }
+  if (filtered.length === 0) { tbody.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display = 'none';
 
-  const canDelete = currentUser.role === 'admin';
-  tbody.innerHTML = filtered.map(c => {
-    const bal = c.quantity_sent - c.quantity_received;
-    const badgeMap = { pending: 'badge-pending', in_progress: 'badge-progress', completed: 'badge-completed' };
-    const statusLabel = { pending: 'Pending', in_progress: 'In Progress', completed: 'Completed' };
-    return `<tr>
-      <td class="mono">${c.cycle_id}</td>
-      <td>${c.vendor}</td>
-      <td>${c.set_type}</td>
-      <td style="color:var(--muted);font-size:12px">${c.dispatch_date ? c.dispatch_date.split('T')[0] : '—'}</td>
-      <td>${c.quantity_sent}</td>
-      <td>${c.quantity_received}</td>
-      <td>${c.quantity_dispatched_tss || 0}</td>
-      <td>${c.quantity_received_supplier || 0}</td>
-      <td><span class="badge ${badgeMap[c.status]}">${statusLabel[c.status]}</span></td>
-      <td style="display:flex;gap:6px;flex-wrap:wrap">
-        <button class="btn btn-outline btn-sm" onclick="viewAudit('${c.cycle_id}')">Log</button>
-        ${canDelete ? `<button class="btn btn-danger btn-sm" onclick="deleteCycle('${c.cycle_id}')">Del</button>` : ''}
-      </td>
-    </tr>`;
-  }).join('');
+  const badgeMap = { pending:'badge-pending', in_progress:'badge-progress', completed:'badge-completed' };
+  const statusLabel = { pending:'Pending', in_progress:'In Progress', completed:'Completed' };
+  const canDelete = currentUser?.role === 'admin';
+
+  tbody.innerHTML = filtered.map(c => `<tr>
+    <td class="mono">${c.cycle_id}</td>
+    <td>${c.vendor}</td>
+    <td>${c.set_type}</td>
+    <td style="color:var(--muted);font-size:11px">${c.dispatch_date ? c.dispatch_date.split('T')[0] : '—'}</td>
+    <td>${c.qty_ymks_dispatched}</td>
+    <td>${c.qty_supplier_to_tss||0}</td>
+    <td>${c.qty_received_at_tss||0}</td>
+    <td style="color:var(--amber)">${c.qty_arrived_loaded||0}</td>
+    <td>${c.qty_arrived_empty||0}</td>
+    <td style="color:var(--green)">${c.qty_emptied_at_tss||0}</td>
+    <td>${c.qty_dispatched_from_tss||0}</td>
+    <td>${c.qty_received_at_supplier||0}</td>
+    <td>${c.qty_returned_to_ymks||0}</td>
+    <td><span class="badge ${badgeMap[c.status]}">${statusLabel[c.status]}</span></td>
+    <td style="display:flex;gap:5px">
+      <button class="btn btn-outline btn-sm" onclick="viewAudit('${c.cycle_id}')">Log</button>
+      ${canDelete ? `<button class="btn btn-danger btn-sm" onclick="deleteCycle('${c.cycle_id}')">Del</button>` : ''}
+    </td>
+  </tr>`).join('');
 }
 
 async function deleteCycle(id) {
   if (!confirm(`Delete cycle ${id}? This cannot be undone.`)) return;
-  const data = await apiFetch(`/api/cycles/${id}`, { method: 'DELETE' });
+  const data = await apiFetch(`/api/cycles/${id}`, { method:'DELETE' });
   if (data && !data.error) {
-    showToast(`✓ ${id} deleted`);
     allCycles = allCycles.filter(c => c.cycle_id !== id);
-    await loadCycles();
-    await loadDashboard();
+    showToast(`✓ ${id} deleted`);
+    await loadCycles(); await loadDashboard();
   }
 }
 
-// ── AUDIT LOG ──
+// ── AUDIT ──
 async function viewAudit(cycle_id) {
   document.getElementById('audit-cycle-id').textContent = cycle_id;
   document.getElementById('audit-content').innerHTML = '<div class="loading">Loading...</div>';
   openModal('audit-modal');
-
   const data = await apiFetch(`/api/cycles/${cycle_id}/audit`);
   if (!data || data.length === 0) {
-    document.getElementById('audit-content').innerHTML = '<div class="empty"><div class="empty-text">No audit entries yet.</div></div>';
+    document.getElementById('audit-content').innerHTML = '<div class="empty"><div style="font-size:13px;color:var(--muted)">No entries yet.</div></div>';
     return;
   }
-  const colorMap = { 'DISPATCHED': 'DISPATCHED', 'RECEIVED AT TSS': 'RECEIVED', 'RETURNED TO SUPPLIER': 'RETURNED' };
+  const colors = {
+    'YMKS → SUPPLIER':'#1a3a5c','SUPPLIER → TSS':'#155e38',
+    'RECEIVED AT TSS':'#0e5a70','TSS → SUPPLIER':'#92400e',
+    'SUPPLIER RECEIVED BACK':'#6d28d9','SUPPLIER → YMKS':'#b91c1c'
+  };
   document.getElementById('audit-content').innerHTML = data.map(e => `
-    <div class="audit-entry ${colorMap[e.action] || ''}">
+    <div class="audit-entry" style="border-color:${colors[e.action]||'var(--border)'}">
       <div class="ae-action">${e.action}</div>
-      <div class="ae-meta">By ${e.performed_by_name || 'Unknown'} · ${new Date(e.created_at).toLocaleString()}</div>
+      <div class="ae-meta">By ${e.performed_by_name||'Unknown'} · ${new Date(e.created_at).toLocaleString()}</div>
       ${e.details ? `<div class="ae-detail">${e.details}</div>` : ''}
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
 // ── DASHBOARD ──
 async function loadDashboard() {
   const data = await apiFetch('/api/cycles/stats');
   if (!data) return;
-  const t = data.totals;
+  const t = data.totals || {};
 
-  document.getElementById('st-dispatched-supplier').textContent = t.dispatched_from_supplier || 0;
-  document.getElementById('st-received-tss').textContent        = t.received_at_tss || 0;
-  document.getElementById('st-dispatched-tss').textContent      = t.dispatched_from_tss || 0;
-  document.getElementById('st-received-supplier').textContent   = t.received_at_supplier || 0;
-  document.getElementById('open-val').textContent   = t.open_cycles || 0;
+  document.getElementById('st-s1').textContent = t.s1_ymks_to_supplier || 0;
+  document.getElementById('st-s2').textContent = t.s2_supplier_to_tss  || 0;
+  document.getElementById('st-s3').textContent = t.s3_received_at_tss  || 0;
+  document.getElementById('st-s6').textContent = t.s6_dispatched_from_tss || 0;
+  document.getElementById('st-s8').textContent = t.s8_received_at_supplier || 0;
+  document.getElementById('st-s9').textContent = t.s9_returned_to_ymks || 0;
+  document.getElementById('st-open').textContent   = t.open_cycles   || 0;
+  document.getElementById('st-closed').textContent = t.closed_cycles || 0;
+  document.getElementById('open-val').textContent   = t.open_cycles   || 0;
   document.getElementById('closed-val').textContent = t.closed_cycles || 0;
 
-  renderStockChart(data.byLocation);
+  // TSS latest
+  const lt = data.latestTss;
+  document.getElementById('tss-opening').textContent   = lt ? lt.opening_stock : '—';
+  document.getElementById('tss-emptied').textContent   = lt ? lt.qty_emptied : '—';
+  document.getElementById('tss-ready').textContent     = lt ? lt.qty_ready_for_dispatch : '—';
+  document.getElementById('tss-dispatched').textContent = lt ? lt.qty_dispatched : '—';
+  document.getElementById('tss-closing').textContent   = lt ? lt.closing_stock : '—';
+
+  renderStockChart(t);
   renderGauges(parseInt(t.open_cycles)||0, parseInt(t.closed_cycles)||0);
 }
 
-function renderStockChart(byLocation) {
-  const locations = ['TSS Bhosari', 'Mahasai', 'Sanvijay', 'In Transit'];
-  const flcData = [0, 0, 0, 0];
-  const wcData  = [0, 0, 0, 0];
-
-  (byLocation || []).forEach(row => {
-    const idx = row.vendor === 'Mahasai' ? 1 : row.vendor === 'Sanvijay' ? 2 : 0;
-    const val = parseInt(row.received) || 0;
-    const bal = parseInt(row.balance) || 0;
-    if (row.set_type === 'FLC Set') { flcData[idx] += val; flcData[3] += bal; }
-    else { wcData[idx] += val; wcData[3] += bal; }
-    // TSS = sum of received
-    if (row.set_type === 'FLC Set') flcData[0] += val;
-    else wcData[0] += val;
-  });
+function renderStockChart(t) {
+  const labels = ['①YMKS→Sup','②Sup→TSS','③Rcvd TSS','⑥TSS→Sup','⑧Sup Rcvd','⑨→YMKS'];
+  const vals   = [
+    parseInt(t.s1_ymks_to_supplier)||0,
+    parseInt(t.s2_supplier_to_tss)||0,
+    parseInt(t.s3_received_at_tss)||0,
+    parseInt(t.s6_dispatched_from_tss)||0,
+    parseInt(t.s8_received_at_supplier)||0,
+    parseInt(t.s9_returned_to_ymks)||0,
+  ];
+  const colors = ['#1e4a72','#1a7a4a','#0e7490','#b45309','#6d28d9','#b91c1c'];
 
   if (stockChart) {
-    stockChart.data.datasets[0].data = flcData;
-    stockChart.data.datasets[1].data = wcData;
+    stockChart.data.datasets[0].data = vals;
     stockChart.update(); return;
   }
   const ctx = document.getElementById('stockChart').getContext('2d');
   stockChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: locations,
-      datasets: [
-        { label: 'FLC Sets', data: flcData, backgroundColor: '#2563a8', borderRadius: 4, barPercentage: 0.55 },
-        { label: 'W/C Sets', data: wcData,  backgroundColor: '#1a7a4a', borderRadius: 4, barPercentage: 0.55 },
-      ]
+      labels,
+      datasets: [{ label:'Quantity', data:vals, backgroundColor:colors, borderRadius:5, barPercentage:0.6 }]
     },
     options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: 'top', labels: { font: { family: 'DM Sans', size: 12 }, boxWidth: 12, padding: 12 } } },
-      scales: {
-        x: { grid: { display: false }, ticks: { font: { family: 'DM Sans', size: 11 } } },
-        y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'DM Sans', size: 11 } }, beginAtZero: true }
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false } },
+      scales:{
+        x:{ grid:{display:false}, ticks:{font:{family:'DM Sans',size:10}} },
+        y:{ grid:{color:'rgba(0,0,0,0.05)'}, ticks:{font:{family:'DM Sans',size:10}}, beginAtZero:true }
       }
     }
   });
 }
 
 function renderGauges(open, closed) {
-  const total = (open + closed) || 1;
+  const total = (open+closed)||1;
   function draw(id, val, color) {
     const ctx = document.getElementById(id).getContext('2d');
-    ctx.clearRect(0, 0, 144, 144);
-    ctx.beginPath(); ctx.arc(36, 36, 28, Math.PI, 2 * Math.PI);
-    ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 6; ctx.stroke();
-    ctx.beginPath(); ctx.arc(36, 36, 28, Math.PI, Math.PI + (val / total) * Math.PI);
-    ctx.strokeStyle = color; ctx.lineWidth = 6; ctx.lineCap = 'round'; ctx.stroke();
+    ctx.clearRect(0,0,144,144);
+    ctx.beginPath(); ctx.arc(36,36,28,Math.PI,2*Math.PI);
+    ctx.strokeStyle='#e2e8f0'; ctx.lineWidth=6; ctx.stroke();
+    ctx.beginPath(); ctx.arc(36,36,28,Math.PI,Math.PI+(val/total)*Math.PI);
+    ctx.strokeStyle=color; ctx.lineWidth=6; ctx.lineCap='round'; ctx.stroke();
   }
   draw('g1', open,   '#2563a8');
   draw('g2', closed, '#1a7a4a');
@@ -886,24 +1012,21 @@ function renderGauges(open, closed) {
 async function loadUsers() {
   const data = await apiFetch('/api/auth/users');
   if (!data) return;
-  const roleLabel = { admin: 'badge-admin', supplier: 'badge-supplier', tss_staff: 'badge-tss' };
-  const roleText  = { admin: 'Admin', supplier: 'Supplier', tss_staff: 'TSS Staff' };
-  document.getElementById('users-tbody').innerHTML = data.map(u => `
-    <tr>
-      <td>${u.name}</td>
-      <td class="mono">${u.username}</td>
-      <td><span class="badge ${roleLabel[u.role]}">${roleText[u.role]}</span></td>
-      <td>${u.supplier_name || '—'}</td>
-      <td style="font-size:12px;color:var(--muted)">${new Date(u.created_at).toLocaleDateString()}</td>
-      <td>${u.username !== 'admin' ? `<button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id})">Delete</button>` : '—'}</td>
-    </tr>
-  `).join('');
+  const rLabel = {admin:'badge-admin',supplier:'badge-supplier',tss_staff:'badge-tss'};
+  const rText  = {admin:'Admin',supplier:'Supplier',tss_staff:'TSS Staff'};
+  document.getElementById('users-tbody').innerHTML = data.map(u => `<tr>
+    <td>${u.name}</td>
+    <td class="mono">${u.username}</td>
+    <td><span class="badge ${rLabel[u.role]}">${rText[u.role]}</span></td>
+    <td>${u.supplier_name||'—'}</td>
+    <td style="font-size:11px;color:var(--muted)">${new Date(u.created_at).toLocaleDateString()}</td>
+    <td>${u.username!=='admin'?`<button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id})">Delete</button>`:'—'}</td>
+  </tr>`).join('');
 }
 
-function openUserModal() { openModal('user-modal'); }
 function onRoleChange() {
-  const role = document.getElementById('u-role').value;
-  document.getElementById('u-supplier-group').style.display = role === 'supplier' ? 'block' : 'none';
+  document.getElementById('u-supplier-group').style.display =
+    document.getElementById('u-role').value === 'supplier' ? 'block' : 'none';
 }
 
 async function createUser() {
@@ -912,40 +1035,35 @@ async function createUser() {
   const password = document.getElementById('u-password').value;
   const role     = document.getElementById('u-role').value;
   const supplier_name = document.getElementById('u-supplier').value;
-  if (!name || !username || !password) { showToast('⚠ All fields required'); return; }
-  if (password.length < 6) { showToast('⚠ Password min 6 characters'); return; }
-
+  if (!name||!username||!password) { showToast('⚠ All fields required'); return; }
+  if (password.length < 6) { showToast('⚠ Password min 6 chars'); return; }
   const data = await apiFetch('/api/auth/users', {
-    method: 'POST',
-    body: JSON.stringify({ name, username, password, role, supplier_name: role === 'supplier' ? supplier_name : null })
+    method:'POST',
+    body: JSON.stringify({ name, username, password, role, supplier_name: role==='supplier'?supplier_name:null })
   });
   if (!data) return;
-  if (data.error) { showToast('⚠ ' + data.error); return; }
-
+  if (data.error) { showToast('⚠ '+data.error); return; }
   showToast(`✓ User ${username} created`);
   closeModal('user-modal');
-  ['u-name','u-username','u-password'].forEach(id => document.getElementById(id).value = '');
+  ['u-name','u-username','u-password'].forEach(id => document.getElementById(id).value='');
   loadUsers();
 }
 
 async function deleteUser(id) {
   if (!confirm('Delete this user?')) return;
-  await apiFetch(`/api/auth/users/${id}`, { method: 'DELETE' });
-  showToast('✓ User deleted');
-  loadUsers();
+  await apiFetch(`/api/auth/users/${id}`, {method:'DELETE'});
+  showToast('✓ User deleted'); loadUsers();
 }
 
-// ── MODAL HELPERS ──
+// ── MODALS ──
 function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
 
 // ── TOAST ──
 let toastTimer;
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
 }
