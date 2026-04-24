@@ -57,29 +57,18 @@ main{flex:1;padding:20px 24px;max-width:1280px;width:100%;margin:0 auto}
 .card-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .card-subtitle{font-size:11px;font-weight:400;color:var(--muted)}
 
-/* STEP INDICATOR */
+/* STEP BADGE */
 .step-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:700;color:#fff;margin-right:6px;flex-shrink:0}
 .step-1{background:#1a3a5c}.step-2{background:#155e38}.step-3{background:#0e5a70}
-.step-6{background:#92400e}.step-8{background:#6d28d9}.step-9{background:#b91c1c}
-.step-tss{background:#0e7490}
 
 /* STATS */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .stat-card{border-radius:var(--radius);padding:12px 16px;color:#fff;display:flex;flex-direction:column;gap:3px}
 .stat-card.s1{background:linear-gradient(135deg,#1a3a5c,#1e4a72)}
 .stat-card.s2{background:linear-gradient(135deg,#155e38,#1a7a4a)}
 .stat-card.s3{background:linear-gradient(135deg,#0e5a70,#0e7490)}
-.stat-card.s6{background:linear-gradient(135deg,#92400e,#b45309)}
-.stat-card.s8{background:linear-gradient(135deg,#5b21b6,#6d28d9)}
-.stat-card.s9{background:linear-gradient(135deg,#991b1b,#b91c1c)}
 .stat-card .s-label{font-size:11px;opacity:0.82;font-weight:500}
 .stat-card .s-val{font-family:'DM Mono',monospace;font-size:26px;font-weight:500;line-height:1}
-
-/* TSS STATS */
-.tss-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
-.tss-stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;text-align:center}
-.tss-stat .ts-label{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:4px}
-.tss-stat .ts-val{font-family:'DM Mono',monospace;font-size:22px;font-weight:600;color:var(--navy)}
 
 /* FORMS */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
@@ -98,19 +87,14 @@ main{flex:1;padding:20px 24px;max-width:1280px;width:100%;margin:0 auto}
 .btn-primary{background:var(--blue);color:#fff}.btn-primary:hover{background:var(--blue2)}
 .btn-success{background:var(--green);color:#fff}.btn-success:hover{background:#1f9659}
 .btn-amber{background:var(--amber);color:#fff}.btn-amber:hover{background:#c26a0a}
-.btn-purple{background:var(--purple);color:#fff}.btn-purple:hover{background:#7c3aed}
 .btn-danger{background:var(--red);color:#fff}.btn-danger:hover{background:#b91c1c}
 .btn-outline{background:transparent;color:var(--navy);border:1px solid var(--border)}.btn-outline:hover{background:var(--light)}
 .btn-sm{padding:5px 12px;font-size:12px}
 .btn-full{width:100%;margin-top:6px}
 
-/* INFO BOX */
-.info-box{background:var(--light);border:1px solid var(--border);border-radius:7px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--muted);display:none}
-.info-box b{color:var(--text)}
-
 /* TABLE */
 .table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:900px}
+table{width:100%;border-collapse:collapse;min-width:600px}
 thead tr{background:var(--navy)}
 thead th{color:#fff;font-size:11px;font-weight:500;padding:9px 10px;text-align:left;white-space:nowrap}
 tbody tr{border-bottom:1px solid var(--border)}
@@ -120,18 +104,9 @@ tbody td{padding:8px 10px;font-size:12px;color:var(--text);vertical-align:middle
 
 /* BADGES */
 .badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:99px}
-.badge-pending{background:#fef3c7;color:#92400e}
-.badge-progress{background:#dbeafe;color:#1d4ed8}
-.badge-completed{background:#dcfce7;color:#15803d}
 .badge-admin{background:#ede9fe;color:#6d28d9}
 .badge-supplier{background:#dbeafe;color:#1d4ed8}
 .badge-tss{background:#d1fae5;color:#065f46}
-
-/* AUDIT */
-.audit-entry{padding:10px 14px;border-left:3px solid var(--border);margin-bottom:8px;background:var(--light);border-radius:0 7px 7px 0}
-.audit-entry .ae-action{font-weight:600;font-size:13px;color:var(--navy)}
-.audit-entry .ae-meta{font-size:11px;color:var(--muted);margin-top:3px}
-.audit-entry .ae-detail{font-size:12px;color:var(--text);margin-top:4px}
 
 /* MODAL */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;z-index:200}
@@ -139,6 +114,9 @@ tbody td{padding:8px 10px;font-size:12px;color:var(--text);vertical-align:middle
 .modal{background:#fff;border-radius:14px;padding:28px;width:100%;max-width:500px;box-shadow:0 20px 60px rgba(0,0,0,0.2);max-height:90vh;overflow-y:auto}
 .modal h3{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:20px}
 .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+
+/* SECTION LABEL */
+.section-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 
 /* EMPTY */
 .empty{text-align:center;padding:48px 20px;color:var(--muted)}
@@ -149,12 +127,8 @@ tbody td{padding:8px 10px;font-size:12px;color:var(--text);vertical-align:middle
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .loading{text-align:center;padding:32px;color:var(--muted);font-size:13px}
 
-/* SECTION DIVIDER */
-.section-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
-
 @media(max-width:768px){
   .stats{grid-template-columns:repeat(2,1fr)}
-  .tss-stats{grid-template-columns:repeat(2,1fr)}
   .form-grid,.form-grid-3{grid-template-columns:1fr}
   main{padding:12px}
 }
@@ -192,10 +166,9 @@ tbody td{padding:8px 10px;font-size:12px;color:var(--text);vertical-align:middle
 
   <nav>
     <div class="nav-tab active" data-page="dashboard" onclick="showPage('dashboard')">Dashboard</div>
-    <div class="nav-tab" data-page="dispatch" onclick="showPage('dispatch')" id="tab-dispatch">Step 1 — Dispatch</div>
-    <div class="nav-tab" data-page="movements" onclick="showPage('movements')" id="tab-movements">Movements</div>
-    <div class="nav-tab" data-page="tss" onclick="showPage('tss')" id="tab-tss">TSS Stock</div>
-    <div class="nav-tab" data-page="cycles" onclick="showPage('cycles')">Cycle Log</div>
+    <div class="nav-tab" data-page="dispatch" onclick="showPage('dispatch')" id="tab-dispatch">YMKS → Supplier</div>
+    <div class="nav-tab" data-page="supplier-tss" onclick="showPage('supplier-tss')">Supplier → TSS</div>
+    <div class="nav-tab" data-page="tss-supplier" onclick="showPage('tss-supplier')">TSS → Supplier</div>
     <div class="nav-tab hidden" data-page="users" onclick="showPage('users')" id="tab-users">Users</div>
   </nav>
 
@@ -203,59 +176,31 @@ tbody td{padding:8px 10px;font-size:12px;color:var(--text);vertical-align:middle
 
     <!-- ══ DASHBOARD ══ -->
     <div class="page active" id="page-dashboard">
-
-      <div class="section-label">Cycle Flow — All Quantities</div>
+      <div class="section-label">Summary — Total Quantities Logged</div>
       <div class="stats">
-        <div class="stat-card s1"><span class="s-label">① YMKS → Supplier</span><span class="s-val" id="st-s1">—</span></div>
-        <div class="stat-card s2"><span class="s-label">② Supplier → TSS</span><span class="s-val" id="st-s2">—</span></div>
-        <div class="stat-card s3"><span class="s-label">③ Received at TSS</span><span class="s-val" id="st-s3">—</span></div>
-        <div class="stat-card s6"><span class="s-label">⑥ TSS → Supplier</span><span class="s-val" id="st-s6">—</span></div>
-      </div>
-      <div class="stats">
-        <div class="stat-card s8"><span class="s-label">⑧ Received at Supplier</span><span class="s-val" id="st-s8">—</span></div>
-        <div class="stat-card s9"><span class="s-label">⑨ Returned to YMKS</span><span class="s-val" id="st-s9">—</span></div>
-        <div class="stat-card s1" style="background:linear-gradient(135deg,#064e3b,#065f46)"><span class="s-label">Open Cycles</span><span class="s-val" id="st-open">—</span></div>
-        <div class="stat-card s9" style="background:linear-gradient(135deg,#14532d,#166534)"><span class="s-label">Completed Cycles</span><span class="s-val" id="st-closed">—</span></div>
-      </div>
-
-      <div class="section-label">TSS Internal Stock (Latest)</div>
-      <div class="tss-stats">
-        <div class="tss-stat"><div class="ts-label">Opening Stock</div><div class="ts-val" id="tss-opening">—</div></div>
-        <div class="tss-stat"><div class="ts-label">Emptied at TSS</div><div class="ts-val" id="tss-emptied">—</div></div>
-        <div class="tss-stat"><div class="ts-label">Ready for Dispatch</div><div class="ts-val" id="tss-ready">—</div></div>
-        <div class="tss-stat"><div class="ts-label">Dispatched</div><div class="ts-val" id="tss-dispatched">—</div></div>
-        <div class="tss-stat"><div class="ts-label">Closing Stock</div><div class="ts-val" id="tss-closing">—</div></div>
+        <div class="stat-card s1"><span class="s-label">YMKS → Supplier</span><span class="s-val" id="st-s1">—</span></div>
+        <div class="stat-card s2"><span class="s-label">Supplier → TSS (Dispatched)</span><span class="s-val" id="st-s2">—</span></div>
+        <div class="stat-card s3"><span class="s-label">TSS → Supplier (Dispatched)</span><span class="s-val" id="st-s3">—</span></div>
       </div>
 
       <div class="form-grid">
         <div class="card">
-          <div class="card-title">Stock Overview</div>
-          <canvas id="stockChart" style="max-height:200px"></canvas>
+          <div class="card-title">Flow Overview</div>
+          <canvas id="stockChart" style="max-height:220px"></canvas>
         </div>
         <div class="card">
-          <div class="card-title">Cycle Status</div>
-          <div style="display:flex;flex-direction:column;gap:20px;padding-top:8px">
-            <div style="display:flex;align-items:center;gap:14px">
-              <canvas id="g1" width="72" height="72" style="flex-shrink:0"></canvas>
-              <div><div style="font-size:12px;color:var(--muted);font-weight:500">Open Cycles</div>
-              <div style="font-size:26px;font-weight:600;font-family:'DM Mono',monospace" id="open-val">0</div></div>
-            </div>
-            <div style="display:flex;align-items:center;gap:14px">
-              <canvas id="g2" width="72" height="72" style="flex-shrink:0"></canvas>
-              <div><div style="font-size:12px;color:var(--muted);font-weight:500">Completed Cycles</div>
-              <div style="font-size:26px;font-weight:600;font-family:'DM Mono',monospace" id="closed-val">0</div></div>
-            </div>
-          </div>
+          <div class="card-title">Recent Activity</div>
+          <div id="recent-activity" style="font-size:12px;color:var(--muted)">Loading...</div>
         </div>
       </div>
     </div>
 
-    <!-- ══ STEP 1 — DISPATCH ══ -->
+    <!-- ══ YMKS → SUPPLIER ══ -->
     <div class="page" id="page-dispatch">
       <div class="card">
         <div class="card-title">
           <span><span class="step-badge step-1">1</span>YMKS → Supplier</span>
-          <span class="card-subtitle">YMKS dispatches sets to Supplier</span>
+          <span class="card-subtitle">Log sets dispatched from YMKS to Supplier</span>
         </div>
         <div class="form-grid">
           <div class="fg"><label>Vendor</label>
@@ -276,185 +221,112 @@ tbody td{padding:8px 10px;font-size:12px;color:var(--text);vertical-align:middle
             </select></div>
           <div class="fg"><label>Dispatch Date</label>
             <input type="date" id="d-date"/></div>
-          <div class="fg"><label>Notes</label>
-            <input type="text" id="d-notes" placeholder="Optional..."/></div>
+          <div class="fg"><label>Remarks</label>
+            <input type="text" id="d-remarks" placeholder="Optional..."/></div>
         </div>
-        <button class="btn btn-primary btn-full" onclick="doDispatch()">Dispatch to Supplier →</button>
-      </div>
-    </div>
-
-    <!-- ══ MOVEMENTS (Steps 2, 3, 6, 8, 9) ══ -->
-    <div class="page" id="page-movements">
-
-      <!-- Step 2 + Step 3 -->
-      <div class="form-grid">
-
-        <div class="card">
-          <div class="card-title">
-            <span><span class="step-badge step-2">2</span>Supplier → TSS</span>
-            <span class="card-subtitle">Supplier dispatches to TSS</span>
-          </div>
-          <div class="fg"><label>Cycle</label>
-            <select id="s2-cycle" onchange="onStepSelect('s2')"><option value="">— select —</option></select></div>
-          <div class="info-box" id="s2-info"></div>
-          <div class="fg"><label>Quantity Dispatched</label><input type="number" id="s2-qty" min="1"/></div>
-          <div class="fg"><label>Date</label><input type="date" id="s2-date"/></div>
-          <div class="fg"><label>Notes</label><input type="text" id="s2-notes" placeholder="Optional..."/></div>
-          <button class="btn btn-success btn-full" onclick="doStep(2)">Confirm Supplier → TSS →</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">
-            <span><span class="step-badge step-3">3</span>TSS Receives</span>
-            <span class="card-subtitle">TSS logs received sets (loaded/empty)</span>
-          </div>
-          <div class="fg"><label>Cycle</label>
-            <select id="s3-cycle" onchange="onStepSelect('s3')"><option value="">— select —</option></select></div>
-          <div class="info-box" id="s3-info"></div>
-          <div class="form-grid-3">
-            <div class="fg"><label>Arrived Loaded</label><input type="number" id="s3-loaded" value="0" min="0" oninput="calcS3Total()"/></div>
-            <div class="fg"><label>Arrived Empty</label><input type="number" id="s3-empty" value="0" min="0" oninput="calcS3Total()"/></div>
-            <div class="fg"><label>Total (auto)</label><input type="number" id="s3-total" readonly style="background:var(--light)"/></div>
-          </div>
-          <div class="fg"><label>Sets Emptied at TSS (from loaded)</label>
-            <input type="number" id="s3-emptied" value="0" min="0"/></div>
-          <div class="fg"><label>Date</label><input type="date" id="s3-date"/></div>
-          <button class="btn btn-primary btn-full" onclick="doStep(3)">Confirm TSS Received ✓</button>
-        </div>
-      </div>
-
-      <!-- Step 6 -->
-      <div class="card">
-        <div class="card-title">
-          <span><span class="step-badge step-6">6</span>TSS → Supplier</span>
-          <span class="card-subtitle">TSS dispatches empty sets back to Supplier</span>
-        </div>
-        <div class="form-grid">
-          <div>
-            <div class="fg"><label>Cycle</label>
-              <select id="s6-cycle" onchange="onStepSelect('s6')"><option value="">— select —</option></select></div>
-            <div class="info-box" id="s6-info"></div>
-          </div>
-          <div>
-            <div class="fg"><label>Quantity Dispatching</label><input type="number" id="s6-qty" min="1"/></div>
-            <div class="fg"><label>Date</label><input type="date" id="s6-date"/></div>
-            <div class="fg"><label>Notes</label><input type="text" id="s6-notes" placeholder="Optional..."/></div>
-          </div>
-        </div>
-        <button class="btn btn-amber btn-full" onclick="doStep(6)">Confirm TSS → Supplier →</button>
-      </div>
-
-      <!-- Step 8 + Step 9 -->
-      <div class="form-grid">
-
-        <div class="card">
-          <div class="card-title">
-            <span><span class="step-badge step-8">8</span>Supplier Receives Back</span>
-            <span class="card-subtitle">Supplier confirms sets received from TSS</span>
-          </div>
-          <div class="fg"><label>Cycle</label>
-            <select id="s8-cycle" onchange="onStepSelect('s8')"><option value="">— select —</option></select></div>
-          <div class="info-box" id="s8-info"></div>
-          <div class="fg"><label>Quantity Received</label><input type="number" id="s8-qty" min="1"/></div>
-          <div class="fg"><label>Date</label><input type="date" id="s8-date"/></div>
-          <div class="fg"><label>Notes</label><input type="text" id="s8-notes" placeholder="Optional..."/></div>
-          <button class="btn btn-purple btn-full" onclick="doStep(8)">Confirm Supplier Received ✓</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">
-            <span><span class="step-badge step-9">9</span>Supplier → YMKS</span>
-            <span class="card-subtitle">Supplier returns sets to YMKS</span>
-          </div>
-          <div class="fg"><label>Cycle</label>
-            <select id="s9-cycle" onchange="onStepSelect('s9')"><option value="">— select —</option></select></div>
-          <div class="info-box" id="s9-info"></div>
-          <div class="fg"><label>Quantity Returning</label><input type="number" id="s9-qty" min="1"/></div>
-          <div class="fg"><label>Date</label><input type="date" id="s9-date"/></div>
-          <div class="fg"><label>Notes</label><input type="text" id="s9-notes" placeholder="Optional..."/></div>
-          <button class="btn btn-danger btn-full" onclick="doStep(9)">Confirm Returned to YMKS →</button>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ══ TSS STOCK ══ -->
-    <div class="page" id="page-tss">
-      <div class="card">
-        <div class="card-title">
-          <span><span class="step-badge step-tss">T</span>Log Daily TSS Stock</span>
-          <span class="card-subtitle">One entry per day across all cycles</span>
-        </div>
-        <div class="form-grid">
-          <div class="fg"><label>Date</label><input type="date" id="tss-date"/></div>
-          <div class="fg"><label>Opening Stock (empty sets available)</label>
-            <input type="number" id="tss-opening-in" value="0" min="0" oninput="calcTssClosing()"/></div>
-          <div class="fg"><label>Sets Emptied Today (from loaded arrivals)</label>
-            <input type="number" id="tss-emptied-in" value="0" min="0" oninput="calcTssClosing()"/></div>
-          <div class="fg"><label>Ready for Dispatch</label>
-            <input type="number" id="tss-ready-in" value="0" min="0"/></div>
-          <div class="fg"><label>Dispatched Today</label>
-            <input type="number" id="tss-dispatched-in" value="0" min="0" oninput="calcTssClosing()"/></div>
-          <div class="fg"><label>Closing Stock (auto-calculated)</label>
-            <input type="number" id="tss-closing-in" readonly style="background:var(--light);font-weight:600"/></div>
-        </div>
-        <div class="fg"><label>Notes</label>
-          <input type="text" id="tss-notes-in" placeholder="Optional..."/></div>
-        <button class="btn btn-primary btn-full" onclick="saveTssStock()">Save TSS Stock Entry</button>
+        <button class="btn btn-primary btn-full" onclick="doDispatch()">Log Dispatch →</button>
       </div>
 
       <div class="card">
-        <div class="card-title">TSS Stock History</div>
+        <div class="card-title">YMKS → Supplier Log</div>
         <div class="table-wrap">
           <table>
             <thead><tr>
-              <th>Date</th><th>Opening Stock</th><th>Emptied</th>
-              <th>Ready</th><th>Dispatched</th><th>Closing Stock</th>
-              <th>Logged By</th><th>Notes</th><th>Action</th>
+              <th>Date</th><th>Vendor</th><th>Type</th><th>Qty</th><th>Vehicle</th><th>Logged By</th><th>Remarks</th><th>Action</th>
             </tr></thead>
-            <tbody id="tss-tbody"></tbody>
+            <tbody id="dispatch-tbody"></tbody>
           </table>
-          <div id="tss-empty" class="empty" style="display:none">
-            <div class="empty-icon">📊</div>
-            <div style="font-size:13px;color:var(--muted)">No TSS stock entries yet.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ CYCLE LOG ══ -->
-    <div class="page" id="page-cycles">
-      <div class="card">
-        <div class="card-title">
-          Cycle Log
-          <div style="display:flex;gap:8px">
-            <select id="filter-status" onchange="loadCycles()" style="font-size:12px;padding:4px 8px;border:1px solid var(--border);border-radius:6px;outline:none">
-              <option value="">All status</option>
-              <option value="pending">Pending</option>
-              <option value="in_progress">In Progress</option>
-              <option value="completed">Completed</option>
-            </select>
-            <select id="filter-vendor" onchange="loadCycles()" style="font-size:12px;padding:4px 8px;border:1px solid var(--border);border-radius:6px;outline:none">
-              <option value="">All vendors</option>
-              <option value="Mahasai">Mahasai</option>
-              <option value="Sanvijay">Sanvijay</option>
-            </select>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr>
-              <th>ID</th><th>Vendor</th><th>Type</th><th>Date</th>
-              <th>①YMKS→Sup</th><th>②Sup→TSS</th><th>③Rcvd TSS</th>
-              <th>Loaded</th><th>Empty</th><th>Emptied</th>
-              <th>⑥TSS→Sup</th><th>⑧Sup Rcvd</th><th>⑨→YMKS</th>
-              <th>Status</th><th>Actions</th>
-            </tr></thead>
-            <tbody id="cycle-tbody"></tbody>
-          </table>
-          <div id="cycles-empty" class="empty" style="display:none">
+          <div id="dispatch-empty" class="empty" style="display:none">
             <div class="empty-icon">📦</div>
-            <div style="font-size:13px;color:var(--muted)">No cycles yet.</div>
+            <div style="font-size:13px">No entries yet.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SUPPLIER → TSS ══ -->
+    <div class="page" id="page-supplier-tss">
+      <div class="card">
+        <div class="card-title">
+          <span><span class="step-badge step-2">2</span>Supplier → TSS</span>
+          <span class="card-subtitle">Log stock received at TSS from Supplier</span>
+        </div>
+        <div class="form-grid">
+          <div class="fg"><label>Date</label>
+            <input type="date" id="st-date"/></div>
+          <div class="fg"><label>Vendor</label>
+            <select id="st-vendor">
+              <option value="Mahasai">Mahasai Aluminium</option>
+              <option value="Sanvijay">Sanvijay</option>
+            </select></div>
+          <div class="fg"><label>Opening Stock</label>
+            <input type="number" id="st-opening" value="0" min="0"/></div>
+          <div class="fg"><label>Closing Stock</label>
+            <input type="number" id="st-closing" value="0" min="0"/></div>
+          <div class="fg"><label>Qty Dispatched to TSS</label>
+            <input type="number" id="st-dispatched" value="0" min="0"/></div>
+          <div class="fg"><label>Remarks</label>
+            <input type="text" id="st-remarks" placeholder="Optional..."/></div>
+        </div>
+        <button class="btn btn-success btn-full" onclick="doSupplierToTss()">Save Entry →</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Supplier → TSS Log</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Date</th><th>Vendor</th><th>Opening Stock</th><th>Closing Stock</th><th>Dispatched</th><th>Logged By</th><th>Remarks</th><th>Action</th>
+            </tr></thead>
+            <tbody id="supplier-tss-tbody"></tbody>
+          </table>
+          <div id="supplier-tss-empty" class="empty" style="display:none">
+            <div class="empty-icon">🏭</div>
+            <div style="font-size:13px">No entries yet.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TSS → SUPPLIER ══ -->
+    <div class="page" id="page-tss-supplier">
+      <div class="card">
+        <div class="card-title">
+          <span><span class="step-badge step-3">3</span>TSS → Supplier</span>
+          <span class="card-subtitle">Log sets dispatched from TSS back to Supplier</span>
+        </div>
+        <div class="form-grid">
+          <div class="fg"><label>Date</label>
+            <input type="date" id="ts-date"/></div>
+          <div class="fg"><label>Vendor</label>
+            <select id="ts-vendor">
+              <option value="Mahasai">Mahasai Aluminium</option>
+              <option value="Sanvijay">Sanvijay</option>
+            </select></div>
+          <div class="fg"><label>Opening Stock</label>
+            <input type="number" id="ts-opening" value="0" min="0"/></div>
+          <div class="fg"><label>Closing Stock</label>
+            <input type="number" id="ts-closing" value="0" min="0"/></div>
+          <div class="fg"><label>Qty Dispatched to Supplier</label>
+            <input type="number" id="ts-dispatched" value="0" min="0"/></div>
+          <div class="fg"><label>Remarks</label>
+            <input type="text" id="ts-remarks" placeholder="Optional..."/></div>
+        </div>
+        <button class="btn btn-amber btn-full" onclick="doTssToSupplier()">Save Entry →</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">TSS → Supplier Log</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Date</th><th>Vendor</th><th>Opening Stock</th><th>Closing Stock</th><th>Dispatched</th><th>Logged By</th><th>Remarks</th><th>Action</th>
+            </tr></thead>
+            <tbody id="tss-supplier-tbody"></tbody>
+          </table>
+          <div id="tss-supplier-empty" class="empty" style="display:none">
+            <div class="empty-icon">🚚</div>
+            <div style="font-size:13px">No entries yet.</div>
           </div>
         </div>
       </div>
@@ -476,17 +348,6 @@ tbody td{padding:8px 10px;font-size:12px;color:var(--text);vertical-align:middle
     </div>
 
   </main>
-</div>
-
-<!-- AUDIT MODAL -->
-<div class="modal-bg" id="audit-modal">
-  <div class="modal">
-    <h3>Audit Log — <span id="audit-cycle-id"></span></h3>
-    <div id="audit-content" style="max-height:400px;overflow-y:auto"></div>
-    <div class="modal-actions">
-      <button class="btn btn-outline" onclick="closeModal('audit-modal')">Close</button>
-    </div>
-  </div>
 </div>
 
 <!-- USER MODAL -->
@@ -517,19 +378,17 @@ tbody td{padding:8px 10px;font-size:12px;color:var(--text);vertical-align:middle
 <div id="toast"></div>
 
 <script>
-  
+
 const API = 'https://assettrackerdb-bckend-production.up.railway.app';
 
 let token = localStorage.getItem('pt_token');
 let currentUser = JSON.parse(localStorage.getItem('pt_user') || 'null');
 let selectedType = 'FLC';
-let allCycles = [];
 let stockChart;
 
 // ── INIT ──
 window.onload = () => {
-  ['d-date','s2-date','s3-date','s6-date','s8-date','s9-date','tss-date'].forEach(setToday);
-  calcTssClosing();
+  ['d-date','st-date','ts-date'].forEach(setToday);
   document.querySelectorAll('.modal-bg').forEach(bg =>
     bg.addEventListener('click', e => { if (e.target === bg) bg.classList.remove('open'); })
   );
@@ -585,27 +444,27 @@ function bootApp() {
   document.getElementById('header-role').textContent =
     {admin:'Admin', supplier:'Supplier', tss_staff:'TSS Staff'}[currentUser.role];
 
-  // Role-based tabs
-  if (currentUser.role === 'admin') document.getElementById('tab-users').classList.remove('hidden');
+  // Role-based tab visibility
+  if (currentUser.role === 'admin') {
+    document.getElementById('tab-users').classList.remove('hidden');
+  }
   if (currentUser.role === 'tss_staff') {
     document.getElementById('tab-dispatch').classList.add('hidden');
-  }
-  if (currentUser.role === 'supplier') {
-    document.getElementById('tab-tss').classList.add('hidden');
   }
 
   // Lock vendor for supplier
   if (currentUser.role === 'supplier' && currentUser.supplier_name) {
-    const sel = document.getElementById('d-vendor');
-    sel.value = currentUser.supplier_name;
-    sel.disabled = true;
+    ['d-vendor','st-vendor','ts-vendor'].forEach(id => {
+      const sel = document.getElementById(id);
+      if (sel) { sel.value = currentUser.supplier_name; sel.disabled = true; }
+    });
     onVendorChange();
   }
 
   loadDashboard();
-  loadCycles();
-  loadMovementDropdowns();
-  loadTssHistory();
+  loadDispatchLog();
+  loadSupplierToTssLog();
+  loadTssToSupplierLog();
   if (currentUser.role === 'admin') loadUsers();
 }
 
@@ -624,13 +483,14 @@ function showPage(name) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.querySelector(`[data-page="${name}"]`).classList.add('active');
-  if (name === 'movements') loadMovementDropdowns();
-  if (name === 'cycles') loadCycles();
   if (name === 'dashboard') loadDashboard();
-  if (name === 'tss') loadTssHistory();
+  if (name === 'dispatch') loadDispatchLog();
+  if (name === 'supplier-tss') loadSupplierToTssLog();
+  if (name === 'tss-supplier') loadTssToSupplierLog();
+  if (name === 'users') loadUsers();
 }
 
-// ── DISPATCH (Step 1) ──
+// ── VENDOR / TYPE ──
 function onVendorChange() {
   const v = document.getElementById('d-vendor').value;
   const wcBtn = document.getElementById('tb-wc');
@@ -644,334 +504,185 @@ function setType(t) {
   document.getElementById('tb-wc').classList.toggle('active', t==='WC');
 }
 
+// ── LOG 1: YMKS → SUPPLIER ──
 async function doDispatch() {
-  const vendor = document.getElementById('d-vendor').value;
-  const qty    = parseInt(document.getElementById('d-qty').value) || 0;
-  const vehicle = document.getElementById('d-vehicle').value;
-  const dispatch_date = document.getElementById('d-date').value;
-  const notes  = document.getElementById('d-notes').value;
-  const set_type = selectedType === 'FLC' ? 'FLC Set' : 'W/C Set';
+  const vendor      = document.getElementById('d-vendor').value;
+  const qty         = parseInt(document.getElementById('d-qty').value) || 0;
+  const vehicle     = document.getElementById('d-vehicle').value;
+  const date        = document.getElementById('d-date').value;
+  const remarks     = document.getElementById('d-remarks').value;
+  const set_type    = selectedType === 'FLC' ? 'FLC Set' : 'W/C Set';
   if (qty < 1) { showToast('⚠ Quantity must be at least 1'); return; }
-  const data = await apiFetch('/api/cycles/dispatch', {
-    method:'POST', body: JSON.stringify({ vendor, set_type, qty_ymks_dispatched: qty, vehicle, dispatch_date, notes })
+  if (!date)   { showToast('⚠ Date is required'); return; }
+  const data = await apiFetch('/api/logs/ymks-to-supplier', {
+    method:'POST', body: JSON.stringify({ date, vendor, set_type, quantity: qty, vehicle, remarks })
   });
   if (!data) return;
   if (data.error) { showToast('⚠ ' + data.error); return; }
-  showToast(`✓ ${data.cycle_id} — ${qty} × ${set_type} dispatched to ${vendor}`);
+  showToast(`✓ ${qty} × ${set_type} dispatched to ${vendor}`);
   document.getElementById('d-qty').value = 1;
-  document.getElementById('d-notes').value = '';
+  document.getElementById('d-remarks').value = '';
   setToday('d-date');
-  loadDashboard(); loadCycles(); loadMovementDropdowns();
+  loadDashboard(); loadDispatchLog();
 }
 
-// ── MOVEMENT DROPDOWNS ──
-async function loadMovementDropdowns() {
-  const data = await apiFetch('/api/cycles');
+async function loadDispatchLog() {
+  const data = await apiFetch('/api/logs/ymks-to-supplier');
   if (!data) return;
-  allCycles = data;
-
-  const opt = (c, label) =>
-    `<option value="${c.cycle_id}">${c.cycle_id} · ${c.vendor} · ${c.set_type} · ${label}</option>`;
-
-  const s = id => document.getElementById(id);
-
-  // S2: YMKS dispatched but not fully sent to TSS
-  s('s2-cycle').innerHTML = '<option value="">— select —</option>' +
-    data.filter(c => c.qty_ymks_dispatched > (c.qty_supplier_to_tss||0))
-        .map(c => opt(c, `remaining: ${c.qty_ymks_dispatched - (c.qty_supplier_to_tss||0)}`)).join('');
-
-  // S3: sent to TSS but not fully received
-  s('s3-cycle').innerHTML = '<option value="">— select —</option>' +
-    data.filter(c => (c.qty_supplier_to_tss||0) > (c.qty_received_at_tss||0))
-        .map(c => opt(c, `in transit: ${c.qty_supplier_to_tss - (c.qty_received_at_tss||0)}`)).join('');
-
-  // S6: received at TSS but not fully dispatched back
-  s('s6-cycle').innerHTML = '<option value="">— select —</option>' +
-    data.filter(c => (c.qty_received_at_tss||0) > (c.qty_dispatched_from_tss||0))
-        .map(c => opt(c, `at TSS: ${c.qty_received_at_tss - (c.qty_dispatched_from_tss||0)}`)).join('');
-
-  // S8: TSS dispatched but supplier not fully received
-  s('s8-cycle').innerHTML = '<option value="">— select —</option>' +
-    data.filter(c => (c.qty_dispatched_from_tss||0) > (c.qty_received_at_supplier||0))
-        .map(c => opt(c, `in transit: ${c.qty_dispatched_from_tss - (c.qty_received_at_supplier||0)}`)).join('');
-
-  // S9: supplier received but not returned to YMKS
-  s('s9-cycle').innerHTML = '<option value="">— select —</option>' +
-    data.filter(c => (c.qty_received_at_supplier||0) > (c.qty_returned_to_ymks||0))
-        .map(c => opt(c, `to return: ${c.qty_received_at_supplier - (c.qty_returned_to_ymks||0)}`)).join('');
+  const tbody = document.getElementById('dispatch-tbody');
+  const empty = document.getElementById('dispatch-empty');
+  if (!data.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  const canDel = currentUser?.role === 'admin';
+  tbody.innerHTML = data.map(r => `<tr>
+    <td class="mono">${r.date ? r.date.split('T')[0] : '—'}</td>
+    <td>${r.vendor}</td>
+    <td>${r.set_type}</td>
+    <td style="font-weight:600">${r.quantity}</td>
+    <td>${r.vehicle||'—'}</td>
+    <td>${r.logged_by_name||'—'}</td>
+    <td style="color:var(--muted)">${r.remarks||'—'}</td>
+    <td>${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('ymks-to-supplier',${r.id})">Del</button>` : '—'}</td>
+  </tr>`).join('');
 }
 
-function onStepSelect(step) {
-  const id  = document.getElementById(`${step}-cycle`).value;
-  const box = document.getElementById(`${step}-info`);
-  if (!id) { box.style.display = 'none'; return; }
-  const c = allCycles.find(x => x.cycle_id === id);
-  if (!c) return;
-
-  const infoMap = {
-    s2: `YMKS dispatched <b>${c.qty_ymks_dispatched}</b> · Already at TSS: <b>${c.qty_supplier_to_tss||0}</b> · <span style="color:var(--red)">Remaining: ${c.qty_ymks_dispatched-(c.qty_supplier_to_tss||0)}</span>`,
-    s3: `In transit: <b>${c.qty_supplier_to_tss}</b> · Already received: <b>${c.qty_received_at_tss||0}</b> · <span style="color:var(--red)">Pending: ${c.qty_supplier_to_tss-(c.qty_received_at_tss||0)}</span>`,
-    s6: `At TSS: <b>${c.qty_received_at_tss}</b> · Already dispatched back: <b>${c.qty_dispatched_from_tss||0}</b> · <span style="color:var(--red)">Still at TSS: ${c.qty_received_at_tss-(c.qty_dispatched_from_tss||0)}</span>`,
-    s8: `TSS dispatched: <b>${c.qty_dispatched_from_tss}</b> · Already received: <b>${c.qty_received_at_supplier||0}</b> · <span style="color:var(--red)">In transit: ${c.qty_dispatched_from_tss-(c.qty_received_at_supplier||0)}</span>`,
-    s9: `Supplier has: <b>${c.qty_received_at_supplier}</b> · Already returned: <b>${c.qty_returned_to_ymks||0}</b> · <span style="color:var(--red)">To return: ${c.qty_received_at_supplier-(c.qty_returned_to_ymks||0)}</span>`,
-  };
-
-  const autoQty = {
-    s2: c.qty_ymks_dispatched - (c.qty_supplier_to_tss||0),
-    s3: c.qty_supplier_to_tss - (c.qty_received_at_tss||0),
-    s6: c.qty_received_at_tss - (c.qty_dispatched_from_tss||0),
-    s8: c.qty_dispatched_from_tss - (c.qty_received_at_supplier||0),
-    s9: c.qty_received_at_supplier - (c.qty_returned_to_ymks||0),
-  };
-
-  box.style.display = 'block';
-  box.innerHTML = infoMap[step];
-
-  if (step === 's3') {
-    document.getElementById('s3-loaded').value = 0;
-    document.getElementById('s3-empty').value = autoQty[step];
-    calcS3Total();
-  } else {
-    document.getElementById(`${step}-qty`).value = autoQty[step];
-  }
-}
-
-function calcS3Total() {
-  const loaded = parseInt(document.getElementById('s3-loaded').value)||0;
-  const empty  = parseInt(document.getElementById('s3-empty').value)||0;
-  document.getElementById('s3-total').value = loaded + empty;
-}
-
-const stepConfig = {
-  2: { route:'supplier-to-tss',  prefix:'s2', label:'Supplier → TSS' },
-  3: { route:'tss-receive',      prefix:'s3', label:'TSS Received' },
-  6: { route:'tss-to-supplier',  prefix:'s6', label:'TSS → Supplier' },
-  8: { route:'supplier-receive', prefix:'s8', label:'Supplier Received' },
-  9: { route:'supplier-to-ymks', prefix:'s9', label:'Supplier → YMKS' },
-};
-
-async function doStep(step) {
-  const { route, prefix, label } = stepConfig[step];
-  const cycle_id = document.getElementById(`${prefix}-cycle`).value;
-  if (!cycle_id) { showToast('⚠ Select a cycle'); return; }
-
-  let body = {};
-  if (step === 3) {
-    const loaded  = parseInt(document.getElementById('s3-loaded').value)||0;
-    const empty   = parseInt(document.getElementById('s3-empty').value)||0;
-    const emptied = parseInt(document.getElementById('s3-emptied').value)||0;
-    if (loaded + empty < 1) { showToast('⚠ Enter loaded + empty quantities'); return; }
-    body = {
-      qty_arrived_loaded: loaded, qty_arrived_empty: empty,
-      qty_emptied: emptied, date: document.getElementById('s3-date').value
-    };
-  } else {
-    const qty = parseInt(document.getElementById(`${prefix}-qty`).value)||0;
-    if (qty < 1) { showToast('⚠ Enter quantity'); return; }
-    body = {
-      qty, date: document.getElementById(`${prefix}-date`).value,
-      notes: document.getElementById(`${prefix}-notes`)?.value || ''
-    };
-  }
-
-  const data = await apiFetch(`/api/cycles/${cycle_id}/${route}`, {
-    method:'PATCH', body: JSON.stringify(body)
+// ── LOG 2: SUPPLIER → TSS ──
+async function doSupplierToTss() {
+  const date         = document.getElementById('st-date').value;
+  const vendor       = document.getElementById('st-vendor').value;
+  const opening_stock = parseInt(document.getElementById('st-opening').value) || 0;
+  const closing_stock = parseInt(document.getElementById('st-closing').value) || 0;
+  const qty_dispatched = parseInt(document.getElementById('st-dispatched').value) || 0;
+  const remarks      = document.getElementById('st-remarks').value;
+  if (!date)   { showToast('⚠ Date is required'); return; }
+  const data = await apiFetch('/api/logs/supplier-to-tss', {
+    method:'POST', body: JSON.stringify({ date, vendor, opening_stock, closing_stock, qty_dispatched, remarks })
   });
   if (!data) return;
   if (data.error) { showToast('⚠ ' + data.error); return; }
-
-  showToast(`✓ ${label} recorded for ${cycle_id}`);
-  // reset fields
-  if (step === 3) {
-    document.getElementById('s3-loaded').value = 0;
-    document.getElementById('s3-empty').value = 0;
-    document.getElementById('s3-total').value = 0;
-    document.getElementById('s3-emptied').value = 0;
-  } else {
-    document.getElementById(`${prefix}-qty`).value = '';
-    if (document.getElementById(`${prefix}-notes`)) document.getElementById(`${prefix}-notes`).value = '';
-  }
-  document.getElementById(`${prefix}-info`).style.display = 'none';
-  document.getElementById(`${prefix}-cycle`).value = '';
-  setToday(`${prefix}-date`);
-  loadDashboard(); loadCycles(); loadMovementDropdowns();
+  showToast('✓ Supplier → TSS entry saved');
+  ['st-opening','st-closing','st-dispatched'].forEach(id => document.getElementById(id).value = 0);
+  document.getElementById('st-remarks').value = '';
+  setToday('st-date');
+  loadDashboard(); loadSupplierToTssLog();
 }
 
-// ── TSS STOCK ──
-function calcTssClosing() {
-  const opening  = parseInt(document.getElementById('tss-opening-in').value)||0;
-  const emptied  = parseInt(document.getElementById('tss-emptied-in').value)||0;
-  const dispatched = parseInt(document.getElementById('tss-dispatched-in').value)||0;
-  document.getElementById('tss-closing-in').value = (opening + emptied) - dispatched;
+async function loadSupplierToTssLog() {
+  const data = await apiFetch('/api/logs/supplier-to-tss');
+  if (!data) return;
+  const tbody = document.getElementById('supplier-tss-tbody');
+  const empty = document.getElementById('supplier-tss-empty');
+  if (!data.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  const canDel = currentUser?.role === 'admin';
+  tbody.innerHTML = data.map(r => `<tr>
+    <td class="mono">${r.date ? r.date.split('T')[0] : '—'}</td>
+    <td>${r.vendor}</td>
+    <td>${r.opening_stock}</td>
+    <td>${r.closing_stock}</td>
+    <td style="font-weight:600;color:var(--green)">${r.qty_dispatched}</td>
+    <td>${r.logged_by_name||'—'}</td>
+    <td style="color:var(--muted)">${r.remarks||'—'}</td>
+    <td>${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('supplier-to-tss',${r.id})">Del</button>` : '—'}</td>
+  </tr>`).join('');
 }
 
-async function saveTssStock() {
-  const body = {
-    date:                   document.getElementById('tss-date').value,
-    opening_stock:          document.getElementById('tss-opening-in').value,
-    qty_emptied:            document.getElementById('tss-emptied-in').value,
-    qty_ready_for_dispatch: document.getElementById('tss-ready-in').value,
-    qty_dispatched:         document.getElementById('tss-dispatched-in').value,
-    notes:                  document.getElementById('tss-notes-in').value,
-  };
-  if (!body.date) { showToast('⚠ Date is required'); return; }
-  const data = await apiFetch('/api/tss', { method:'POST', body: JSON.stringify(body) });
+// ── LOG 3: TSS → SUPPLIER ──
+async function doTssToSupplier() {
+  const date         = document.getElementById('ts-date').value;
+  const vendor       = document.getElementById('ts-vendor').value;
+  const opening_stock = parseInt(document.getElementById('ts-opening').value) || 0;
+  const closing_stock = parseInt(document.getElementById('ts-closing').value) || 0;
+  const qty_dispatched = parseInt(document.getElementById('ts-dispatched').value) || 0;
+  const remarks      = document.getElementById('ts-remarks').value;
+  if (!date)   { showToast('⚠ Date is required'); return; }
+  const data = await apiFetch('/api/logs/tss-to-supplier', {
+    method:'POST', body: JSON.stringify({ date, vendor, opening_stock, closing_stock, qty_dispatched, remarks })
+  });
   if (!data) return;
   if (data.error) { showToast('⚠ ' + data.error); return; }
-  showToast(`✓ TSS stock saved — closing stock: ${data.closing_stock}`);
-  ['tss-opening-in','tss-emptied-in','tss-ready-in','tss-dispatched-in','tss-notes-in']
-    .forEach(id => document.getElementById(id).value = id.includes('notes') ? '' : 0);
-  calcTssClosing();
-  setToday('tss-date');
-  loadTssHistory();
-  loadDashboard();
+  showToast('✓ TSS → Supplier entry saved');
+  ['ts-opening','ts-closing','ts-dispatched'].forEach(id => document.getElementById(id).value = 0);
+  document.getElementById('ts-remarks').value = '';
+  setToday('ts-date');
+  loadDashboard(); loadTssToSupplierLog();
 }
 
-async function loadTssHistory() {
-  const data = await apiFetch('/api/tss');
+async function loadTssToSupplierLog() {
+  const data = await apiFetch('/api/logs/tss-to-supplier');
   if (!data) return;
-  const tbody = document.getElementById('tss-tbody');
-  const empty = document.getElementById('tss-empty');
-  if (data.length === 0) { tbody.innerHTML=''; empty.style.display='block'; return; }
-  empty.style.display = 'none';
-  const canDelete = currentUser?.role === 'admin';
-  tbody.innerHTML = data.map(t => `<tr>
-    <td class="mono">${t.date ? t.date.split('T')[0] : '—'}</td>
-    <td>${t.opening_stock}</td>
-    <td>${t.qty_emptied}</td>
-    <td>${t.qty_ready_for_dispatch}</td>
-    <td>${t.qty_dispatched}</td>
-    <td style="font-weight:600;color:var(--navy)">${t.closing_stock}</td>
-    <td>${t.logged_by_name || '—'}</td>
-    <td style="color:var(--muted);font-size:11px">${t.notes||'—'}</td>
-    <td>${canDelete ? `<button class="btn btn-danger btn-sm" onclick="deleteTssEntry(${t.id})">Del</button>` : '—'}</td>
+  const tbody = document.getElementById('tss-supplier-tbody');
+  const empty = document.getElementById('tss-supplier-empty');
+  if (!data.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  const canDel = currentUser?.role === 'admin';
+  tbody.innerHTML = data.map(r => `<tr>
+    <td class="mono">${r.date ? r.date.split('T')[0] : '—'}</td>
+    <td>${r.vendor}</td>
+    <td>${r.opening_stock}</td>
+    <td>${r.closing_stock}</td>
+    <td style="font-weight:600;color:var(--amber)">${r.qty_dispatched}</td>
+    <td>${r.logged_by_name||'—'}</td>
+    <td style="color:var(--muted)">${r.remarks||'—'}</td>
+    <td>${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('tss-to-supplier',${r.id})">Del</button>` : '—'}</td>
   </tr>`).join('');
 }
 
-async function deleteTssEntry(id) {
+// ── DELETE ANY LOG ──
+async function deleteLog(type, id) {
   if (!confirm('Delete this entry?')) return;
-  const data = await apiFetch(`/api/tss/${id}`, { method:'DELETE' });
-  if (data && !data.error) { showToast('✓ Entry deleted'); loadTssHistory(); loadDashboard(); }
-}
-
-// ── CYCLE LOG ──
-async function loadCycles() {
-  const tbody = document.getElementById('cycle-tbody');
-  const empty = document.getElementById('cycles-empty');
-  tbody.innerHTML = '<tr><td colspan="15" class="loading">Loading...</td></tr>';
-  const data = await apiFetch('/api/cycles');
-  if (!data) return;
-  allCycles = data;
-
-  const sf = document.getElementById('filter-status').value;
-  const vf = document.getElementById('filter-vendor').value;
-  let filtered = data;
-  if (sf) filtered = filtered.filter(c => c.status === sf);
-  if (vf) filtered = filtered.filter(c => c.vendor === vf);
-
-  if (filtered.length === 0) { tbody.innerHTML=''; empty.style.display='block'; return; }
-  empty.style.display = 'none';
-
-  const badgeMap = { pending:'badge-pending', in_progress:'badge-progress', completed:'badge-completed' };
-  const statusLabel = { pending:'Pending', in_progress:'In Progress', completed:'Completed' };
-  const canDelete = currentUser?.role === 'admin';
-
-  tbody.innerHTML = filtered.map(c => `<tr>
-    <td class="mono">${c.cycle_id}</td>
-    <td>${c.vendor}</td>
-    <td>${c.set_type}</td>
-    <td style="color:var(--muted);font-size:11px">${c.dispatch_date ? c.dispatch_date.split('T')[0] : '—'}</td>
-    <td>${c.qty_ymks_dispatched}</td>
-    <td>${c.qty_supplier_to_tss||0}</td>
-    <td>${c.qty_received_at_tss||0}</td>
-    <td style="color:var(--amber)">${c.qty_arrived_loaded||0}</td>
-    <td>${c.qty_arrived_empty||0}</td>
-    <td style="color:var(--green)">${c.qty_emptied_at_tss||0}</td>
-    <td>${c.qty_dispatched_from_tss||0}</td>
-    <td>${c.qty_received_at_supplier||0}</td>
-    <td>${c.qty_returned_to_ymks||0}</td>
-    <td><span class="badge ${badgeMap[c.status]}">${statusLabel[c.status]}</span></td>
-    <td style="display:flex;gap:5px">
-      <button class="btn btn-outline btn-sm" onclick="viewAudit('${c.cycle_id}')">Log</button>
-      ${canDelete ? `<button class="btn btn-danger btn-sm" onclick="deleteCycle('${c.cycle_id}')">Del</button>` : ''}
-    </td>
-  </tr>`).join('');
-}
-
-async function deleteCycle(id) {
-  if (!confirm(`Delete cycle ${id}? This cannot be undone.`)) return;
-  const data = await apiFetch(`/api/cycles/${id}`, { method:'DELETE' });
+  const data = await apiFetch(`/api/logs/${type}/${id}`, { method:'DELETE' });
   if (data && !data.error) {
-    allCycles = allCycles.filter(c => c.cycle_id !== id);
-    showToast(`✓ ${id} deleted`);
-    await loadCycles(); await loadDashboard();
+    showToast('✓ Entry deleted');
+    loadDashboard();
+    if (type === 'ymks-to-supplier') loadDispatchLog();
+    if (type === 'supplier-to-tss')  loadSupplierToTssLog();
+    if (type === 'tss-to-supplier')  loadTssToSupplierLog();
   }
-}
-
-// ── AUDIT ──
-async function viewAudit(cycle_id) {
-  document.getElementById('audit-cycle-id').textContent = cycle_id;
-  document.getElementById('audit-content').innerHTML = '<div class="loading">Loading...</div>';
-  openModal('audit-modal');
-  const data = await apiFetch(`/api/cycles/${cycle_id}/audit`);
-  if (!data || data.length === 0) {
-    document.getElementById('audit-content').innerHTML = '<div class="empty"><div style="font-size:13px;color:var(--muted)">No entries yet.</div></div>';
-    return;
-  }
-  const colors = {
-    'YMKS → SUPPLIER':'#1a3a5c','SUPPLIER → TSS':'#155e38',
-    'RECEIVED AT TSS':'#0e5a70','TSS → SUPPLIER':'#92400e',
-    'SUPPLIER RECEIVED BACK':'#6d28d9','SUPPLIER → YMKS':'#b91c1c'
-  };
-  document.getElementById('audit-content').innerHTML = data.map(e => `
-    <div class="audit-entry" style="border-color:${colors[e.action]||'var(--border)'}">
-      <div class="ae-action">${e.action}</div>
-      <div class="ae-meta">By ${e.performed_by_name||'Unknown'} · ${new Date(e.created_at).toLocaleString()}</div>
-      ${e.details ? `<div class="ae-detail">${e.details}</div>` : ''}
-    </div>`).join('');
 }
 
 // ── DASHBOARD ──
 async function loadDashboard() {
-  const data = await apiFetch('/api/cycles/stats');
-  if (!data) return;
-  const t = data.totals || {};
+  const [d1, d2, d3] = await Promise.all([
+    apiFetch('/api/logs/ymks-to-supplier'),
+    apiFetch('/api/logs/supplier-to-tss'),
+    apiFetch('/api/logs/tss-to-supplier'),
+  ]);
 
-  document.getElementById('st-s1').textContent = t.s1_ymks_to_supplier || 0;
-  document.getElementById('st-s2').textContent = t.s2_supplier_to_tss  || 0;
-  document.getElementById('st-s3').textContent = t.s3_received_at_tss  || 0;
-  document.getElementById('st-s6').textContent = t.s6_dispatched_from_tss || 0;
-  document.getElementById('st-s8').textContent = t.s8_received_at_supplier || 0;
-  document.getElementById('st-s9').textContent = t.s9_returned_to_ymks || 0;
-  document.getElementById('st-open').textContent   = t.open_cycles   || 0;
-  document.getElementById('st-closed').textContent = t.closed_cycles || 0;
-  document.getElementById('open-val').textContent   = t.open_cycles   || 0;
-  document.getElementById('closed-val').textContent = t.closed_cycles || 0;
+  const sum = (arr, key) => (arr||[]).reduce((a,r) => a + (parseInt(r[key])||0), 0);
 
-  // TSS latest
-  const lt = data.latestTss;
-  document.getElementById('tss-opening').textContent   = lt ? lt.opening_stock : '—';
-  document.getElementById('tss-emptied').textContent   = lt ? lt.qty_emptied : '—';
-  document.getElementById('tss-ready').textContent     = lt ? lt.qty_ready_for_dispatch : '—';
-  document.getElementById('tss-dispatched').textContent = lt ? lt.qty_dispatched : '—';
-  document.getElementById('tss-closing').textContent   = lt ? lt.closing_stock : '—';
+  const totalDispatched  = sum(d1, 'quantity');
+  const totalSupToTss    = sum(d2, 'qty_dispatched');
+  const totalTssToSup    = sum(d3, 'qty_dispatched');
 
-  renderStockChart(t);
-  renderGauges(parseInt(t.open_cycles)||0, parseInt(t.closed_cycles)||0);
+  document.getElementById('st-s1').textContent = totalDispatched;
+  document.getElementById('st-s2').textContent = totalSupToTss;
+  document.getElementById('st-s3').textContent = totalTssToSup;
+
+  renderChart(totalDispatched, totalSupToTss, totalTssToSup);
+
+  // Recent activity — last 5 entries across all logs combined
+  const recent = [
+    ...(d1||[]).map(r => ({ ...r, _type: 'YMKS → Supplier', _qty: r.quantity })),
+    ...(d2||[]).map(r => ({ ...r, _type: 'Supplier → TSS',  _qty: r.qty_dispatched })),
+    ...(d3||[]).map(r => ({ ...r, _type: 'TSS → Supplier',  _qty: r.qty_dispatched })),
+  ].sort((a,b) => new Date(b.created_at) - new Date(a.created_at)).slice(0,6);
+
+  const colors = {'YMKS → Supplier':'var(--blue)','Supplier → TSS':'var(--green)','TSS → Supplier':'var(--amber)'};
+  document.getElementById('recent-activity').innerHTML = recent.length ? recent.map(r => `
+    <div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <span style="font-weight:600;color:${colors[r._type]};font-size:11px">${r._type}</span>
+        <span style="margin-left:8px;color:var(--muted);font-size:11px">${r.vendor} · ${r.date ? r.date.split('T')[0] : '—'}</span>
+      </div>
+      <span style="font-family:'DM Mono',monospace;font-weight:600;font-size:13px">${r._qty}</span>
+    </div>`).join('') : '<div style="padding:20px;text-align:center;color:var(--muted)">No entries yet.</div>';
 }
 
-function renderStockChart(t) {
-  const labels = ['①YMKS→Sup','②Sup→TSS','③Rcvd TSS','⑥TSS→Sup','⑧Sup Rcvd','⑨→YMKS'];
-  const vals   = [
-    parseInt(t.s1_ymks_to_supplier)||0,
-    parseInt(t.s2_supplier_to_tss)||0,
-    parseInt(t.s3_received_at_tss)||0,
-    parseInt(t.s6_dispatched_from_tss)||0,
-    parseInt(t.s8_received_at_supplier)||0,
-    parseInt(t.s9_returned_to_ymks)||0,
-  ];
-  const colors = ['#1e4a72','#1a7a4a','#0e7490','#b45309','#6d28d9','#b91c1c'];
-
+function renderChart(s1, s2, s3) {
+  const labels = ['YMKS → Supplier', 'Supplier → TSS', 'TSS → Supplier'];
+  const vals   = [s1, s2, s3];
+  const colors = ['#1e4a72','#1a7a4a','#b45309'];
   if (stockChart) {
     stockChart.data.datasets[0].data = vals;
     stockChart.update(); return;
@@ -981,31 +692,17 @@ function renderStockChart(t) {
     type: 'bar',
     data: {
       labels,
-      datasets: [{ label:'Quantity', data:vals, backgroundColor:colors, borderRadius:5, barPercentage:0.6 }]
+      datasets: [{ label:'Total Qty', data:vals, backgroundColor:colors, borderRadius:5, barPercentage:0.5 }]
     },
     options: {
       responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{ display:false } },
       scales:{
-        x:{ grid:{display:false}, ticks:{font:{family:'DM Sans',size:10}} },
-        y:{ grid:{color:'rgba(0,0,0,0.05)'}, ticks:{font:{family:'DM Sans',size:10}}, beginAtZero:true }
+        x:{ grid:{display:false}, ticks:{font:{family:'DM Sans',size:11}} },
+        y:{ grid:{color:'rgba(0,0,0,0.05)'}, ticks:{font:{family:'DM Sans',size:11}}, beginAtZero:true }
       }
     }
   });
-}
-
-function renderGauges(open, closed) {
-  const total = (open+closed)||1;
-  function draw(id, val, color) {
-    const ctx = document.getElementById(id).getContext('2d');
-    ctx.clearRect(0,0,144,144);
-    ctx.beginPath(); ctx.arc(36,36,28,Math.PI,2*Math.PI);
-    ctx.strokeStyle='#e2e8f0'; ctx.lineWidth=6; ctx.stroke();
-    ctx.beginPath(); ctx.arc(36,36,28,Math.PI,Math.PI+(val/total)*Math.PI);
-    ctx.strokeStyle=color; ctx.lineWidth=6; ctx.lineCap='round'; ctx.stroke();
-  }
-  draw('g1', open,   '#2563a8');
-  draw('g2', closed, '#1a7a4a');
 }
 
 // ── USERS ──
