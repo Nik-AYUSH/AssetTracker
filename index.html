@@ -518,6 +518,7 @@ let token = localStorage.getItem('pt_token');
 let currentUser = JSON.parse(localStorage.getItem('pt_user') || 'null');
 let selectedType = 'FLC';
 let stockChart;
+const logCache = new Map();
 
 // ── INIT ──
 window.onload = () => {
@@ -660,6 +661,7 @@ async function loadDispatchLog() {
   if (!data.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display='none';
   const canDel = currentUser?.role === 'admin';
+  data.forEach(r => logCache.set('ymks-to-supplier:'+r.id, r));
   tbody.innerHTML = data.map(r => `<tr>
     <td class="mono">${r.date ? r.date.split('T')[0] : '—'}</td>
     <td>${r.vendor}</td>
@@ -669,7 +671,7 @@ async function loadDispatchLog() {
     <td>${r.logged_by_name||'—'}</td>
     <td style="color:var(--muted)">${r.remarks||'—'}</td>
     <td style="display:flex;gap:4px;flex-wrap:wrap">
-      <button class="btn btn-outline btn-sm" onclick='openEditModal("ymks-to-supplier",${JSON.stringify(r)})'>Edit</button>
+      <button class="btn btn-outline btn-sm" onclick="openEditModal('ymks-to-supplier',${r.id})">Edit</button>
       ${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('ymks-to-supplier',${r.id})">Del</button>` : ''}
     </td>
   </tr>`).join('');
@@ -710,6 +712,7 @@ async function loadSupplierToTssLog() {
   if (!data.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display='none';
   const canDel = currentUser?.role === 'admin';
+  data.forEach(r => logCache.set('supplier-to-tss:'+r.id, r));
   tbody.innerHTML = data.map(r => `<tr>
   <td style="color:var(--muted);font-size:11px">${r.date ? r.date.split('T')[0] : '—'}</td>
   <td>${r.vendor}</td>
@@ -722,7 +725,7 @@ async function loadSupplierToTssLog() {
   <td>${r.logged_by_name||'—'}</td>
   <td style="color:var(--muted)">${r.remarks||'—'}</td>
   <td style="display:flex;gap:4px;flex-wrap:wrap">
-    <button class="btn btn-outline btn-sm" onclick='openEditModal("supplier-to-tss",${JSON.stringify(r)})'>Edit</button>
+    <button class="btn btn-outline btn-sm" onclick="openEditModal('supplier-to-tss',${r.id})">Edit</button>
     ${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('supplier-to-tss',${r.id})">Del</button>` : ''}
   </td>
 </tr>`).join('');
@@ -763,6 +766,7 @@ async function loadTssToSupplierLog() {
   if (!data.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display='none';
   const canDel = currentUser?.role === 'admin';
+  data.forEach(r => logCache.set('tss-to-supplier:'+r.id, r));
   tbody.innerHTML = data.map(r => `<tr>
     <td class="mono">${r.date ? r.date.split('T')[0] : '—'}</td>
     <td>${r.vendor}</td>
@@ -775,7 +779,7 @@ async function loadTssToSupplierLog() {
     <td>${r.logged_by_name||'—'}</td>
     <td style="color:var(--muted)">${r.remarks||'—'}</td>
     <td style="display:flex;gap:4px;flex-wrap:wrap">
-      <button class="btn btn-outline btn-sm" onclick='openEditModal("tss-to-supplier",${JSON.stringify(r)})'>Edit</button>
+      <button class="btn btn-outline btn-sm" onclick="openEditModal('tss-to-supplier',${r.id})">Edit</button>
       ${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('tss-to-supplier',${r.id})">Del</button>` : ''}
     </td>
   </tr>`).join('');
@@ -957,7 +961,9 @@ async function doDispatch() {
 
 
 // ── EDIT LOG ──
-function openEditModal(type, r) {
+function openEditModal(type, id) {
+  const r = logCache.get(type + ':' + id);
+  if (!r) { showToast('⚠ Could not load entry data'); return; }
   document.getElementById('edit-id').value   = r.id;
   document.getElementById('edit-type').value = type;
 
