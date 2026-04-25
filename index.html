@@ -390,6 +390,99 @@ tbody td{padding:8px 10px;font-size:12px;color:var(--text);vertical-align:middle
   </main>
 </div>
 
+<!-- EDIT MODAL -->
+<div class="modal-bg" id="edit-modal">
+  <div class="modal">
+    <h3 id="edit-modal-title">Edit Entry</h3>
+    <input type="hidden" id="edit-id"/>
+    <input type="hidden" id="edit-type"/>
+
+    <!-- YMKS → Supplier fields -->
+    <div id="edit-fields-dispatch">
+      <div class="form-grid">
+        <div class="fg"><label>Date</label><input type="date" id="edit-d-date"/></div>
+        <div class="fg"><label>Vendor</label>
+          <select id="edit-d-vendor">
+            <option value="Mahasai">Mahasai Aluminium</option>
+            <option value="Sanvijay">Sanvijay</option>
+          </select></div>
+        <div class="fg"><label>Asset Type</label>
+          <select id="edit-d-settype">
+            <option value="FLC Set">FLC Set</option>
+            <option value="W/C Set">W/C Set</option>
+          </select></div>
+        <div class="fg"><label>Quantity</label><input type="number" id="edit-d-qty" min="1"/></div>
+        <div class="fg"><label>Vehicle</label>
+          <select id="edit-d-vehicle">
+            <option>32 ft Truck</option><option>20 ft Truck</option><option>Mini Truck</option>
+          </select></div>
+        <div class="fg"><label>Remarks</label><input type="text" id="edit-d-remarks" placeholder="Optional..."/></div>
+      </div>
+    </div>
+
+    <!-- Supplier → TSS fields -->
+    <div id="edit-fields-supplier-tss" style="display:none">
+      <div class="form-grid">
+        <div class="fg"><label>Date</label><input type="date" id="edit-st-date"/></div>
+        <div class="fg"><label>Vendor</label>
+          <select id="edit-st-vendor">
+            <option value="Mahasai">Mahasai Aluminium</option>
+            <option value="Sanvijay">Sanvijay</option>
+          </select></div>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Opening Stock</div>
+      <div class="form-grid">
+        <div class="fg"><label>FLC Sets</label><input type="number" id="edit-st-opening-flc" min="0"/></div>
+        <div class="fg"><label>W/C Sets</label><input type="number" id="edit-st-opening-wc" min="0"/></div>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Closing Stock</div>
+      <div class="form-grid">
+        <div class="fg"><label>FLC Sets</label><input type="number" id="edit-st-closing-flc" min="0"/></div>
+        <div class="fg"><label>W/C Sets</label><input type="number" id="edit-st-closing-wc" min="0"/></div>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Qty Dispatched to TSS</div>
+      <div class="form-grid">
+        <div class="fg"><label>FLC Sets</label><input type="number" id="edit-st-dispatched-flc" min="0"/></div>
+        <div class="fg"><label>W/C Sets</label><input type="number" id="edit-st-dispatched-wc" min="0"/></div>
+      </div>
+      <div class="fg"><label>Remarks</label><input type="text" id="edit-st-remarks" placeholder="Optional..."/></div>
+    </div>
+
+    <!-- TSS → Supplier fields -->
+    <div id="edit-fields-tss-supplier" style="display:none">
+      <div class="form-grid">
+        <div class="fg"><label>Date</label><input type="date" id="edit-ts-date"/></div>
+        <div class="fg"><label>Vendor</label>
+          <select id="edit-ts-vendor">
+            <option value="Mahasai">Mahasai Aluminium</option>
+            <option value="Sanvijay">Sanvijay</option>
+          </select></div>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Opening Stock</div>
+      <div class="form-grid">
+        <div class="fg"><label>FLC Sets</label><input type="number" id="edit-ts-opening-flc" min="0"/></div>
+        <div class="fg"><label>W/C Sets</label><input type="number" id="edit-ts-opening-wc" min="0"/></div>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Closing Stock</div>
+      <div class="form-grid">
+        <div class="fg"><label>FLC Sets</label><input type="number" id="edit-ts-closing-flc" min="0"/></div>
+        <div class="fg"><label>W/C Sets</label><input type="number" id="edit-ts-closing-wc" min="0"/></div>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Qty Dispatched to Supplier</div>
+      <div class="form-grid">
+        <div class="fg"><label>FLC Sets</label><input type="number" id="edit-ts-dispatched-flc" min="0"/></div>
+        <div class="fg"><label>W/C Sets</label><input type="number" id="edit-ts-dispatched-wc" min="0"/></div>
+      </div>
+      <div class="fg"><label>Remarks</label><input type="text" id="edit-ts-remarks" placeholder="Optional..."/></div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('edit-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEdit()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
 <!-- USER MODAL -->
 <div class="modal-bg" id="user-modal">
   <div class="modal">
@@ -575,7 +668,10 @@ async function loadDispatchLog() {
     <td>${r.vehicle||'—'}</td>
     <td>${r.logged_by_name||'—'}</td>
     <td style="color:var(--muted)">${r.remarks||'—'}</td>
-    <td>${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('ymks-to-supplier',${r.id})">Del</button>` : '—'}</td>
+    <td style="display:flex;gap:4px;flex-wrap:wrap">
+      <button class="btn btn-outline btn-sm" onclick='openEditModal("ymks-to-supplier",${JSON.stringify(r)})'>Edit</button>
+      ${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('ymks-to-supplier',${r.id})">Del</button>` : ''}
+    </td>
   </tr>`).join('');
 }
 
@@ -625,7 +721,10 @@ async function loadSupplierToTssLog() {
   <td style="font-weight:600;color:var(--green)">${r.dispatched_wc}</td>
   <td>${r.logged_by_name||'—'}</td>
   <td style="color:var(--muted)">${r.remarks||'—'}</td>
-  <td>${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('supplier-to-tss',${r.id})">Del</button>` : '—'}</td>
+  <td style="display:flex;gap:4px;flex-wrap:wrap">
+    <button class="btn btn-outline btn-sm" onclick='openEditModal("supplier-to-tss",${JSON.stringify(r)})'>Edit</button>
+    ${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('supplier-to-tss',${r.id})">Del</button>` : ''}
+  </td>
 </tr>`).join('');
 }
 
@@ -675,7 +774,10 @@ async function loadTssToSupplierLog() {
     <td style="font-weight:600;color:var(--amber)">${r.dispatched_wc}</td>
     <td>${r.logged_by_name||'—'}</td>
     <td style="color:var(--muted)">${r.remarks||'—'}</td>
-    <td>${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('tss-to-supplier',${r.id})">Del</button>` : '—'}</td>
+    <td style="display:flex;gap:4px;flex-wrap:wrap">
+      <button class="btn btn-outline btn-sm" onclick='openEditModal("tss-to-supplier",${JSON.stringify(r)})'>Edit</button>
+      ${canDel ? `<button class="btn btn-danger btn-sm" onclick="deleteLog('tss-to-supplier',${r.id})">Del</button>` : ''}
+    </td>
   </tr>`).join('');
 }
 
@@ -854,6 +956,106 @@ async function doDispatch() {
 }
 
 
-</script>
+// ── EDIT LOG ──
+function openEditModal(type, r) {
+  document.getElementById('edit-id').value   = r.id;
+  document.getElementById('edit-type').value = type;
+
+  // Hide all field sets, show the right one
+  ['edit-fields-dispatch','edit-fields-supplier-tss','edit-fields-tss-supplier']
+    .forEach(id => document.getElementById(id).style.display = 'none');
+
+  if (type === 'ymks-to-supplier') {
+    document.getElementById('edit-modal-title').textContent = 'Edit — YMKS → Supplier';
+    document.getElementById('edit-fields-dispatch').style.display = 'block';
+    document.getElementById('edit-d-date').value    = r.date ? r.date.split('T')[0] : '';
+    document.getElementById('edit-d-vendor').value  = r.vendor || 'Mahasai';
+    document.getElementById('edit-d-settype').value = r.set_type || 'FLC Set';
+    document.getElementById('edit-d-qty').value     = r.quantity || 0;
+    document.getElementById('edit-d-vehicle').value = r.vehicle  || '32 ft Truck';
+    document.getElementById('edit-d-remarks').value = r.remarks  || '';
+  } else if (type === 'supplier-to-tss') {
+    document.getElementById('edit-modal-title').textContent = 'Edit — Supplier → TSS';
+    document.getElementById('edit-fields-supplier-tss').style.display = 'block';
+    document.getElementById('edit-st-date').value          = r.date ? r.date.split('T')[0] : '';
+    document.getElementById('edit-st-vendor').value        = r.vendor || 'Mahasai';
+    document.getElementById('edit-st-opening-flc').value   = r.opening_flc   || 0;
+    document.getElementById('edit-st-opening-wc').value    = r.opening_wc    || 0;
+    document.getElementById('edit-st-closing-flc').value   = r.closing_flc   || 0;
+    document.getElementById('edit-st-closing-wc').value    = r.closing_wc    || 0;
+    document.getElementById('edit-st-dispatched-flc').value= r.dispatched_flc|| 0;
+    document.getElementById('edit-st-dispatched-wc').value = r.dispatched_wc || 0;
+    document.getElementById('edit-st-remarks').value       = r.remarks || '';
+  } else if (type === 'tss-to-supplier') {
+    document.getElementById('edit-modal-title').textContent = 'Edit — TSS → Supplier';
+    document.getElementById('edit-fields-tss-supplier').style.display = 'block';
+    document.getElementById('edit-ts-date').value          = r.date ? r.date.split('T')[0] : '';
+    document.getElementById('edit-ts-vendor').value        = r.vendor || 'Mahasai';
+    document.getElementById('edit-ts-opening-flc').value   = r.opening_flc   || 0;
+    document.getElementById('edit-ts-opening-wc').value    = r.opening_wc    || 0;
+    document.getElementById('edit-ts-closing-flc').value   = r.closing_flc   || 0;
+    document.getElementById('edit-ts-closing-wc').value    = r.closing_wc    || 0;
+    document.getElementById('edit-ts-dispatched-flc').value= r.dispatched_flc|| 0;
+    document.getElementById('edit-ts-dispatched-wc').value = r.dispatched_wc || 0;
+    document.getElementById('edit-ts-remarks').value       = r.remarks || '';
+  }
+  openModal('edit-modal');
+}
+
+async function saveEdit() {
+  const id   = document.getElementById('edit-id').value;
+  const type = document.getElementById('edit-type').value;
+  let body = {};
+
+  if (type === 'ymks-to-supplier') {
+    body = {
+      date:     document.getElementById('edit-d-date').value,
+      vendor:   document.getElementById('edit-d-vendor').value,
+      set_type: document.getElementById('edit-d-settype').value,
+      quantity: parseInt(document.getElementById('edit-d-qty').value) || 0,
+      vehicle:  document.getElementById('edit-d-vehicle').value,
+      remarks:  document.getElementById('edit-d-remarks').value,
+    };
+    if (!body.date) { showToast('⚠ Date is required'); return; }
+  } else if (type === 'supplier-to-tss') {
+    body = {
+      date:          document.getElementById('edit-st-date').value,
+      vendor:        document.getElementById('edit-st-vendor').value,
+      opening_flc:   parseInt(document.getElementById('edit-st-opening-flc').value)   || 0,
+      opening_wc:    parseInt(document.getElementById('edit-st-opening-wc').value)    || 0,
+      closing_flc:   parseInt(document.getElementById('edit-st-closing-flc').value)   || 0,
+      closing_wc:    parseInt(document.getElementById('edit-st-closing-wc').value)    || 0,
+      dispatched_flc:parseInt(document.getElementById('edit-st-dispatched-flc').value)|| 0,
+      dispatched_wc: parseInt(document.getElementById('edit-st-dispatched-wc').value) || 0,
+      remarks:       document.getElementById('edit-st-remarks').value,
+    };
+    if (!body.date) { showToast('⚠ Date is required'); return; }
+  } else if (type === 'tss-to-supplier') {
+    body = {
+      date:          document.getElementById('edit-ts-date').value,
+      vendor:        document.getElementById('edit-ts-vendor').value,
+      opening_flc:   parseInt(document.getElementById('edit-ts-opening-flc').value)   || 0,
+      opening_wc:    parseInt(document.getElementById('edit-ts-opening-wc').value)    || 0,
+      closing_flc:   parseInt(document.getElementById('edit-ts-closing-flc').value)   || 0,
+      closing_wc:    parseInt(document.getElementById('edit-ts-closing-wc').value)    || 0,
+      dispatched_flc:parseInt(document.getElementById('edit-ts-dispatched-flc').value)|| 0,
+      dispatched_wc: parseInt(document.getElementById('edit-ts-dispatched-wc').value) || 0,
+      remarks:       document.getElementById('edit-ts-remarks').value,
+    };
+    if (!body.date) { showToast('⚠ Date is required'); return; }
+  }
+
+  const data = await apiFetch(`/api/logs/${type}/${id}`, { method:'PATCH', body: JSON.stringify(body) });
+  if (!data) return;
+  if (data.error) { showToast('⚠ ' + data.error); return; }
+  showToast('✓ Entry updated');
+  closeModal('edit-modal');
+  loadDashboard();
+  if (type === 'ymks-to-supplier') loadDispatchLog();
+  if (type === 'supplier-to-tss')  loadSupplierToTssLog();
+  if (type === 'tss-to-supplier')  loadTssToSupplierLog();
+}
+
+
 </body>
 </html>
