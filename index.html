@@ -280,14 +280,14 @@ tbody td{padding:7px 10px;font-size:12px;color:var(--text);vertical-align:middle
           </div>
           <div class="loc-body">
             <div class="loc-row">
-              <span class="loc-row-label">At Mahasai (derived)</span>
+              <span class="loc-row-label">At Mahasai <span style="font-size:9px;opacity:0.6">(pool − TSS − transit→TSS)</span></span>
               <div class="loc-row-vals">
                 <span class="loc-chip chip-flc" id="m-sup-flc">—</span>
                 <span class="loc-chip chip-wc"  id="m-sup-wc">—</span>
               </div>
             </div>
             <div class="loc-row">
-              <span class="loc-row-label">At TSS (closing)</span>
+              <span class="loc-row-label">At TSS (closing stock)</span>
               <div class="loc-row-vals">
                 <span class="loc-chip chip-flc" id="m-tss-flc">—</span>
                 <span class="loc-chip chip-wc"  id="m-tss-wc">—</span>
@@ -301,7 +301,7 @@ tbody td{padding:7px 10px;font-size:12px;color:var(--text);vertical-align:middle
               </div>
             </div>
             <div class="loc-row">
-              <span class="loc-row-label">In-transit → Mahasai</span>
+              <span class="loc-row-label">In-transit → Mahasai <span style="font-size:9px;opacity:0.6">(info only)</span></span>
               <div class="loc-row-vals">
                 <span class="loc-chip chip-transit" id="m-it-sup-flc">—</span>
                 <span class="loc-chip chip-transit" id="m-it-sup-wc">—</span>
@@ -339,13 +339,13 @@ tbody td{padding:7px 10px;font-size:12px;color:var(--text);vertical-align:middle
           </div>
           <div class="loc-body">
             <div class="loc-row">
-              <span class="loc-row-label">At Sanvijay (derived)</span>
+              <span class="loc-row-label">At Sanvijay <span style="font-size:9px;opacity:0.6">(pool − TSS − transit→TSS)</span></span>
               <div class="loc-row-vals">
                 <span class="loc-chip chip-flc" id="s-sup-flc">—</span>
               </div>
             </div>
             <div class="loc-row">
-              <span class="loc-row-label">At TSS (closing)</span>
+              <span class="loc-row-label">At TSS (closing stock)</span>
               <div class="loc-row-vals">
                 <span class="loc-chip chip-flc" id="s-tss-flc">—</span>
               </div>
@@ -357,7 +357,7 @@ tbody td{padding:7px 10px;font-size:12px;color:var(--text);vertical-align:middle
               </div>
             </div>
             <div class="loc-row">
-              <span class="loc-row-label">In-transit → Sanvijay</span>
+              <span class="loc-row-label">In-transit → Sanvijay <span style="font-size:9px;opacity:0.6">(info only)</span></span>
               <div class="loc-row-vals">
                 <span class="loc-chip chip-transit" id="s-it-sup-flc">—</span>
               </div>
@@ -1044,10 +1044,12 @@ async function loadDashboard() {
 
     // Pool bars (Mahasai)
     if (m.tss.flc !== null) {
-      const flcPct = Math.round((m.tss.flc / m.pool.flc) * 100);
-      const wcPct  = m.tss.wc !== null ? Math.round((m.tss.wc / m.pool.wc) * 100) : 0;
-      document.getElementById('m-flc-pct').textContent = `${flcPct}% at TSS`;
-      document.getElementById('m-wc-pct').textContent  = `${wcPct}% at TSS`;
+      const flcAtTSSSide = m.tss.flc + m.inTransitToTSS.flc;
+      const wcAtTSSSide  = (m.tss.wc ?? 0) + m.inTransitToTSS.wc;
+      const flcPct = Math.round((flcAtTSSSide / m.pool.flc) * 100);
+      const wcPct  = Math.round((wcAtTSSSide  / m.pool.wc)  * 100);
+      document.getElementById('m-flc-pct').textContent = `${flcPct}% TSS side`;
+      document.getElementById('m-wc-pct').textContent  = `${wcPct}% TSS side`;
       document.getElementById('m-flc-bar').style.width = `${Math.min(flcPct,100)}%`;
       document.getElementById('m-wc-bar').style.width  = `${Math.min(wcPct,100)}%`;
     }
@@ -1061,8 +1063,9 @@ async function loadDashboard() {
     setText('s-dmg-flc', `${s.damaged.flc} FLC`);
 
     if (s.tss.flc !== null) {
-      const flcPct = Math.round((s.tss.flc / s.pool.flc) * 100);
-      document.getElementById('s-flc-pct').textContent = `${flcPct}% at TSS`;
+      const flcAtTSSSide = s.tss.flc + s.inTransitToTSS.flc;
+      const flcPct = Math.round((flcAtTSSSide / s.pool.flc) * 100);
+      document.getElementById('s-flc-pct').textContent = `${flcPct}% TSS side`;
       document.getElementById('s-flc-bar').style.width = `${Math.min(flcPct,100)}%`;
     }
     if (s.tss.asOf) document.getElementById('s-as-of').textContent = `Last logged: ${s.tss.asOf.split('T')[0]}`;
@@ -1077,10 +1080,11 @@ async function loadDashboard() {
     setText('t-total-flc', `${tMFlc + tSFlc} FLC`);
     setText('t-total-wc',  `${tMWc} W/C`);
 
-    // Pool accountability: sum of all parts should = pool
-    const mAccFLC = (m.tss.flc ?? 0) + (m.supplier.flc ?? 0) + m.damaged.flc;
-    const mAccWC  = (m.tss.wc  ?? 0) + (m.supplier.wc  ?? 0) + m.damaged.wc;
-    const sAccFLC = (s.tss.flc ?? 0) + (s.supplier.flc ?? 0) + s.damaged.flc;
+    // Pool accountability: TSS closing + InTransit→TSS + Supplier = pool
+    // (matches Sheet2 formula exactly)
+    const mAccFLC = (m.tss.flc ?? 0) + m.inTransitToTSS.flc + (m.supplier.flc ?? 0);
+    const mAccWC  = (m.tss.wc  ?? 0) + m.inTransitToTSS.wc  + (m.supplier.wc  ?? 0);
+    const sAccFLC = (s.tss.flc ?? 0) + s.inTransitToTSS.flc + (s.supplier.flc ?? 0);
     const mChk = document.getElementById('check-mahasai');
     const sChk = document.getElementById('check-sanvijay');
     if (mChk) {
