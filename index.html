@@ -527,7 +527,16 @@ tbody td{padding:7px 10px;font-size:12px;color:var(--text);vertical-align:middle
           </div>
         </div>
         <div class="sub-section">
-          <div class="sub-section-title">Opening Stock</div>
+          <div class="sub-section-title">In-Transit: Mahasai → TSS (Hyd→Pune)</div>
+          <div class="form-grid">
+            <div class="fg"><label>FLC Sets</label>
+              <input type="number" id="st-dispatched-flc" value="0" min="0"/></div>
+            <div class="fg"><label>W/C Sets</label>
+              <input type="number" id="st-dispatched-wc" value="0" min="0"/></div>
+          </div>
+        </div>
+        <div class="sub-section">
+          <div class="sub-section-title">TSS Opening Stock</div>
           <div class="form-grid">
             <div class="fg"><label>FLC Sets</label>
               <input type="number" id="st-opening-flc" value="0" min="0"/></div>
@@ -536,21 +545,12 @@ tbody td{padding:7px 10px;font-size:12px;color:var(--text);vertical-align:middle
           </div>
         </div>
         <div class="sub-section">
-          <div class="sub-section-title">Closing Stock</div>
+          <div class="sub-section-title">TSS Dispatched to YMKS (loaded pallets leaving TSS)</div>
           <div class="form-grid">
             <div class="fg"><label>FLC Sets</label>
               <input type="number" id="st-closing-flc" value="0" min="0"/></div>
             <div class="fg"><label>W/C Sets</label>
               <input type="number" id="st-closing-wc" value="0" min="0"/></div>
-          </div>
-        </div>
-        <div class="sub-section">
-          <div class="sub-section-title">Qty Dispatched to TSS</div>
-          <div class="form-grid">
-            <div class="fg"><label>FLC Sets</label>
-              <input type="number" id="st-dispatched-flc" value="0" min="0"/></div>
-            <div class="fg"><label>W/C Sets</label>
-              <input type="number" id="st-dispatched-wc" value="0" min="0"/></div>
           </div>
         </div>
         <div class="sub-section">
@@ -573,9 +573,9 @@ tbody td{padding:7px 10px;font-size:12px;color:var(--text);vertical-align:middle
           <table>
             <thead><tr>
               <th>Date</th><th>Vendor</th>
-              <th>Open FLC</th><th>Open W/C</th>
-              <th>Close FLC</th><th>Close W/C</th>
-              <th>Disp FLC</th><th>Disp W/C</th>
+              <th>InTransit→TSS FLC</th><th>InTransit→TSS W/C</th>
+              <th>TSS Open FLC</th><th>TSS Open W/C</th>
+              <th>Disp to YMKS FLC</th><th>Disp to YMKS W/C</th>
               <th>Dmg FLC</th><th>Dmg W/C</th>
               <th>Logged By</th><th>Remarks</th><th>Action</th>
             </tr></thead>
@@ -608,7 +608,16 @@ tbody td{padding:7px 10px;font-size:12px;color:var(--text);vertical-align:middle
           </div>
         </div>
         <div class="sub-section">
-          <div class="sub-section-title">Opening Stock</div>
+          <div class="sub-section-title">In-Transit: TSS → Mahasai (Pune→Hyd)</div>
+          <div class="form-grid">
+            <div class="fg"><label>FLC Sets</label>
+              <input type="number" id="ts-dispatched-flc" value="0" min="0"/></div>
+            <div class="fg"><label>W/C Sets</label>
+              <input type="number" id="ts-dispatched-wc" value="0" min="0"/></div>
+          </div>
+        </div>
+        <div class="sub-section" style="display:none">
+          <div class="sub-section-title">Opening Stock (unused)</div>
           <div class="form-grid">
             <div class="fg"><label>FLC Sets</label>
               <input type="number" id="ts-opening-flc" value="0" min="0"/></div>
@@ -616,22 +625,13 @@ tbody td{padding:7px 10px;font-size:12px;color:var(--text);vertical-align:middle
               <input type="number" id="ts-opening-wc" value="0" min="0"/></div>
           </div>
         </div>
-        <div class="sub-section">
-          <div class="sub-section-title">Closing Stock</div>
+        <div class="sub-section" style="display:none">
+          <div class="sub-section-title">Closing Stock (unused)</div>
           <div class="form-grid">
             <div class="fg"><label>FLC Sets</label>
               <input type="number" id="ts-closing-flc" value="0" min="0"/></div>
             <div class="fg"><label>W/C Sets</label>
               <input type="number" id="ts-closing-wc" value="0" min="0"/></div>
-          </div>
-        </div>
-        <div class="sub-section">
-          <div class="sub-section-title">Qty Dispatched to Supplier</div>
-          <div class="form-grid">
-            <div class="fg"><label>FLC Sets</label>
-              <input type="number" id="ts-dispatched-flc" value="0" min="0"/></div>
-            <div class="fg"><label>W/C Sets</label>
-              <input type="number" id="ts-dispatched-wc" value="0" min="0"/></div>
           </div>
         </div>
         <div class="sub-section">
@@ -654,9 +654,7 @@ tbody td{padding:7px 10px;font-size:12px;color:var(--text);vertical-align:middle
           <table>
             <thead><tr>
               <th>Date</th><th>Vendor</th>
-              <th>Open FLC</th><th>Open W/C</th>
-              <th>Close FLC</th><th>Close W/C</th>
-              <th>Disp FLC</th><th>Disp W/C</th>
+              <th>InTransit→Mahasai FLC</th><th>InTransit→Mahasai W/C</th>
               <th>Dmg FLC</th><th>Dmg W/C</th>
               <th>Logged By</th><th>Remarks</th><th>Action</th>
             </tr></thead>
@@ -982,10 +980,6 @@ async function loadTssToSupplierLog() {
   tbody.innerHTML = data.map(r => `<tr>
     <td class="mono" style="color:var(--muted)">${r.date ? r.date.split('T')[0] : '—'}</td>
     <td>${r.vendor}</td>
-    <td class="mono">${r.opening_flc}</td>
-    <td class="mono">${r.opening_wc}</td>
-    <td class="mono">${r.closing_flc}</td>
-    <td class="mono">${r.closing_wc}</td>
     <td class="mono" style="color:var(--amber);font-weight:600">${r.dispatched_flc}</td>
     <td class="mono" style="color:var(--amber);font-weight:600">${r.dispatched_wc}</td>
     <td class="mono" style="color:var(--red)">${r.damaged_flc||0}</td>
